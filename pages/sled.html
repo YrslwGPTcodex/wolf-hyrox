@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sled · wolf-hyrox</title><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"></head>
+<body><div class="wrap"><nav class="topnav">
+  <a href="../index.html">Home</a><a href="../PORTAL.html">Portal</a><a href="../pages/state.html">State</a><a href="../pages/master-plan.html">Master Plan</a><a href="../pages/current-week.html">Current Week</a><a href="../pages/trackers.html">Trackers</a><a href="../pages/data-index.html">Data Index</a>
+</nav><header class="hero"><div><div class="eyebrow">Strength stations</div><h1>SLED<br>TRACKERS</h1><div class="sub">Sled push and sled pull progression, locks, and race targets.</div></div><div class="badge"><div class="k">wolf-hyrox</div><div class="v">245</div></div></header><main class="content"><div class="block"><h1>Sled Push Tracker</h1>
+<p class="desc"><strong>Append-only log of all Sled Push performance data. STATE.md derives current working load from this file.</strong></p>
+<p><strong>Iron Viking Gym track: 18 m (working format)</strong></p>
+<p><strong>Race standard: 50 m at HYROX-spec weight (~152 kg male)</strong></p>
+<hr>
+<h2>Working Load Progression</h2>
+<table>
+<tr><th>Date</th><th>Week</th><th>Block</th><th>Load</th><th>Format</th><th>Times</th><th>Notes</th></tr>
+<tr><td>2026-03-02 onward</td><td>W10–W11</td><td>Brisbane</td><td>204 kg</td><td>40 m race-distance</td><td>1:31–1:35</td><td>Brisbane race-spec</td></tr>
+<tr><td>2026-03-12</td><td>W11 THU</td><td>Brisbane</td><td>204 kg</td><td>40 m</td><td>1:22 ↑</td><td>Best race-distance time</td></tr>
+<tr><td>2026-03-17</td><td>W12 TUE</td><td>Brisbane</td><td>220 kg</td><td>gym sets</td><td>—</td><td>Working at 220</td></tr>
+<tr><td>2026-03-24</td><td>W13 TUE</td><td>Brisbane</td><td><strong>225 kg PR</strong></td><td>2 sets gym</td><td>S1 51s / S2 49s</td><td>First major load jump; clean execution</td></tr>
+<tr><td>2026-03-31</td><td>W14 TUE</td><td>Sydney W1</td><td><strong>240 kg PR</strong></td><td>20 m fresh</td><td>44 sec</td><td>New fresh PR; &quot;race-fresh benchmark&quot;</td></tr>
+<tr><td>2026-04-14</td><td>W16 TUE</td><td>Sydney W3</td><td>240 kg</td><td>gym</td><td>&quot;better than expected&quot;</td><td>Repeatable working</td></tr>
+<tr><td>2026-04-21</td><td>W17 TUE</td><td>Sydney W4</td><td><strong>245 kg PR</strong></td><td>3×18 m fresh</td><td>50 / 51 / 53 sec</td><td>New working PR; first 245 confirmed</td></tr>
+<tr><td>2026-04-28</td><td>W18 TUE</td><td>Sydney W5</td><td>240 kg</td><td>3×18 m</td><td>50 / 49 / 42 sec</td><td>S3 best time; calf near-cramp signal after</td></tr>
+<tr><td>2026-05-12</td><td>W20 TUE</td><td>Sydney W7</td><td>240 kg</td><td>3×18 m Yellow</td><td>53 / 47 / 46 sec</td><td>Calf-protected day; clean despite Yellow</td></tr>
+</table>
+<hr>
+<h2>Thursday HYROX Rhythm — Race-Style Push at 204 kg</h2>
+<table>
+<tr><th>Date</th><th>Format</th><th>R1</th><th>R2</th><th>Notes</th></tr>
+<tr><td>2026-04-16 W16 THU</td><td>204→216 kg / 2 rounds</td><td>41s</td><td>43s</td><td>Slight load test</td></tr>
+<tr><td>2026-04-23 W17 THU</td><td>204 kg / 2 rounds</td><td>42s</td><td>43s</td><td>Stable race-style</td></tr>
+<tr><td>2026-04-30 W18 THU</td><td>204 kg / 2 rounds</td><td>37s</td><td>42s</td><td>R2 cost rising</td></tr>
+<tr><td>2026-05-14 W20 THU</td><td>204 kg / 2 rounds</td><td>—</td><td>—</td><td>Times not captured separately</td></tr>
+</table>
+<hr>
+<h2>Demonstrated Capacity (Locks)</h2>
+<ul>
+<li><strong>Working load (gym 18 m):</strong> <strong>245 kg</strong> (W17 TUE 2026-04-21)</li>
+<li><strong>Working load fresh 20 m:</strong> 240 kg (W14 TUE 2026-03-31 PR)</li>
+<li><strong>Race-distance 40 m:</strong> 204 kg / 1:22 (Brisbane W11 THU)</li>
+<li><strong>Progression rule:</strong> reduce rest before adding weight; next probe direction = rest tightening at 245 kg</li>
+</ul>
+<hr>
+<h2>Race Target</h2>
+<ul>
+<li>HYROX Pro Men 45–49 sled push: ~152 kg / 50 m</li>
+<li>Required time: 1:20–1:40</li>
+<li>Current working load 245 kg vastly exceeds race demand → station is a weapon</li>
+<li>Phase 3 focus: race-distance simulation at race-weight for transitions</li>
+</ul>
+<hr>
+<h2>Append Protocol</h2>
+<p>Every sled push session result added as new row.</p>
+<p><strong>Never edit existing rows.</strong> If correction needed, append new row with note.</p>
+<p>Source data: session reports in <code>state/current_week.md</code> or <code>archive/2026/week_NN_report.md</code>.</p></div><div class="block"><h1>Sled Pull Tracker</h1>
+<p class="desc"><strong>Append-only log. STATE.md derives current working load from this file.</strong></p>
+<p><strong>Iron Viking Gym track: 18 m (working format)</strong></p>
+<p><strong>Race standard: 50 m at HYROX-spec weight (~103 kg male)</strong></p>
+<hr>
+<h2>Working Load Progression</h2>
+<table>
+<tr><th>Date</th><th>Week</th><th>Block</th><th>Load</th><th>Format</th><th>Times</th><th>Notes</th></tr>
+<tr><td>2026-03-02 onward</td><td>W10–W11</td><td>Brisbane</td><td>184 kg</td><td>race-style</td><td>~3:00</td><td>Brisbane race-spec; consistent</td></tr>
+<tr><td>2026-03-19</td><td>W12 THU</td><td>Brisbane</td><td>184 kg</td><td>3 rounds sim</td><td>2:38–3:13</td><td>R2 had load error (corrected back to 184)</td></tr>
+<tr><td>2026-03-24</td><td>W13 TUE</td><td>Brisbane</td><td>—</td><td>—</td><td>—</td><td>Tuesday lower trimmed; pull skipped</td></tr>
+<tr><td>2026-03-26</td><td>W13 THU</td><td>Brisbane</td><td>184 kg</td><td>2 rounds</td><td>R1 2:38, R2 with error → 3:13</td><td>Error recovery clean</td></tr>
+<tr><td>2026-03-31</td><td>W14 TUE</td><td>Sydney W1</td><td><strong>205 kg</strong></td><td>gym fresh</td><td>manageable</td><td>Athlete dashboard logged 205</td></tr>
+<tr><td>2026-04-14</td><td>W16 TUE</td><td>Sydney W3</td><td><strong>204 kg</strong></td><td>gym</td><td>&quot;highly repeatable&quot;</td><td>Lock established</td></tr>
+<tr><td>2026-04-21</td><td>W17 TUE</td><td>Sydney W4</td><td>204 kg</td><td>3×18 m</td><td>1:35 / 1:33 / 1:32</td><td>Near-identical sets</td></tr>
+<tr><td>2026-04-28</td><td>W18 TUE</td><td>Sydney W5</td><td>204 kg</td><td>3×18 m</td><td>1:50 / 1:35 / 1:30</td><td>Progressive faster sets</td></tr>
+<tr><td>2026-05-12</td><td>W20 TUE</td><td>Sydney W7</td><td>204 kg</td><td>3×18 m Yellow</td><td>1:33 / 1:17 / 1:11</td><td>S2–S3 went faster than planned</td></tr>
+</table>
+<hr>
+<h2>Thursday HYROX Rhythm — Race-Style Pull at 184 kg (W14 onward)</h2>
+<table>
+<tr><th>Date</th><th>Format</th><th>R1</th><th>R2</th><th>Notes</th></tr>
+<tr><td>2026-04-16 W16 THU</td><td>181 kg / 2 rounds</td><td>clean</td><td>~1:30</td><td>Slightly lighter test</td></tr>
+<tr><td>2026-04-23 W17 THU</td><td>184 kg / 2 rounds</td><td>1:23</td><td>1:24</td><td>Near-identical</td></tr>
+<tr><td>2026-04-30 W18 THU</td><td>164 kg (wrong load) / 2 rounds</td><td>1:04</td><td>0:58</td><td>Wrong load used; cleanly executed</td></tr>
+<tr><td>2026-05-14 W20 THU</td><td>184 kg / 2 rounds</td><td>1:30</td><td>1:30</td><td>Race-fragment rhythm</td></tr>
+</table>
+<hr>
+<h2>Demonstrated Capacity (Locks)</h2>
+<ul>
+<li><strong>Working load (gym 18 m):</strong> 204 kg</li>
+<li><strong>Best 3-set arc:</strong> 1:33 / 1:17 / 1:11 (W20 TUE 2026-05-12) — efficiency rising sharply</li>
+<li><strong>Race-style 184 kg:</strong> 1:23–1:24 (W17 THU)</li>
+<li><strong>Race-distance reference:</strong> 184 kg / 40 m / 3:00 (Brisbane)</li>
+</ul>
+<p><strong>Status:</strong> sled pull is becoming a weapon (W20 TUE shows fastest efficiency to date)</p>
+<hr>
+<h2>Race Target</h2>
+<ul>
+<li>HYROX Pro Men 45–49 sled pull: ~103 kg / 50 m</li>
+<li>Required time: 2:30–3:30</li>
+<li>Current working capacity exceeds race demand</li>
+<li>Phase 3 focus: race-distance simulation, transition timing</li>
+</ul>
+<hr>
+<h2>Append Protocol</h2>
+<p>Every sled pull session result added as new row.</p>
+<p><strong>Never edit existing rows.</strong> If correction needed, append new row with note.</p>
+<p>Source data: session reports in <code>state/current_week.md</code> or <code>archive/2026/week_NN_report.md</code>.</p></div><section class="section-title">Source files</section><div class="source-list"><a href="../trackers/sled_push_tracker.md">trackers/sled_push_tracker.md</a><a href="../trackers/sled_pull_tracker.md">trackers/sled_pull_tracker.md</a></div></main><footer>GitHub Pages · wolf-hyrox · source-backed content only</footer></div></body></html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Workflows · wolf-hyrox</title><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/style.css"></head>
+<body><div class="wrap"><nav class="topnav">
+  <a href="../index.html">Home</a><a href="../PORTAL.html">Portal</a><a href="../pages/state.html">State</a><a href="../pages/master-plan.html">Master Plan</a><a href="../pages/current-week.html">Current Week</a><a href="../pages/trackers.html">Trackers</a><a href="../pages/data-index.html">Data Index</a>
+</nav><header class="hero"><div><div class="eyebrow">Operating contract</div><h1>WORK<br>FLOWS</h1><div class="sub">Formal command workflows for the coaching loop.</div></div><div class="badge"><div class="k">wolf-hyrox</div><div class="v">OPS</div></div></header><main class="content"><div class="block"><h1>wolf-hyrox Operational Workflows</h1>
+<p class="desc">Formal smoke-test contract for the coaching loop. Documentation language: English only.</p>
+<hr>
+<h2>1. <code>/morning</code> — Morning Readiness Calibration</h2>
+<h3>Trigger Phrase</h3>
+<p>Yaro types <code>/morning</code> and pastes morning readiness data.</p>
+<h3>Input Expected</h3>
+<ul>
+<li>Date or clear &quot;today&quot; context</li>
+<li>Sleep duration</li>
+<li>Restful sleep percentage or restful duration</li>
+<li>HRV in ms and baseline comparison if available</li>
+<li>Calf rating left/right, 0-10</li>
+<li>Body feel, 1-10</li>
+<li>Overnight cramp signal: yes/no</li>
+<li>Under-knee pulling: yes/no</li>
+<li>Cardiac sensation: yes/no</li>
+</ul>
+<h3>Files Read</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week_plan.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/limiters_now.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/coaching_values.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/decision_rules.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/time_protocol.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/medical.md</code> when calves, B12, sleep, or cardiac signals are present</li>
+</ul>
+<h3>Files Written / Modified</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code> — append</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/readiness_trend.md</code> — append</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code> — overwrite only if time anchor or active state has drifted</li>
+</ul>
+<h3>Git Operations</h3>
+<ul>
+<li><code>git add -A</code></li>
+<li><code>git commit -m &quot;YYYY-MM-DD readiness: &lt;day&gt; morning readiness + calibrated plan&quot;</code></li>
+<li><code>git push origin main</code> after remote is configured</li>
+</ul>
+<h3>Output To Yaro</h3>
+<ul>
+<li>TIME ANCHOR block</li>
+<li>Green / Yellow / Red classification</li>
+<li>Reason for classification</li>
+<li>Calibrated session plan with numbers</li>
+<li>Hard rules and cut rules</li>
+<li>One &quot;Today&#x27;s principle&quot; line</li>
+</ul>
+<h3>Failure Modes</h3>
+<ul>
+<li>Missing readiness data blocks classification</li>
+<li>Date drift greater than 24 hours requires state refresh</li>
+<li>Cardiac signal forces Red and blocks quality</li>
+<li>Calf rating 4/10+ blocks high-impact training</li>
+<li>Git unavailable blocks commit/push only, not coaching response</li>
+</ul>
+<hr>
+<h2>2. <code>/session</code> — Post-Session Report And Tracker Sync</h2>
+<h3>Trigger Phrase</h3>
+<p>Yaro types <code>/session</code> and pastes completed session data.</p>
+<h3>Input Expected</h3>
+<ul>
+<li>Session date</li>
+<li>Planned session reference if available</li>
+<li>Completed work with loads, reps, distances, times</li>
+<li>HR data and zones where available</li>
+<li>Subjective feedback</li>
+<li>Calf status pre/during/post</li>
+<li>Stop reason for probes or cut sessions</li>
+<li>Any PR, lock change, or failed target</li>
+</ul>
+<h3>Files Read</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week_plan.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/limiters_now.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/coaching_values.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/decision_rules.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/probe_rules.md</code> for probe sessions</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/medical.md</code> when risk signals appear</li>
+<li>Relevant tracker files under <code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/</code></li>
+</ul>
+<h3>Files Written / Modified</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code> — append raw data and structured report</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/probe_log.md</code> — append when probe occurs</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/wb_tracker.md</code> — append when WB data changes</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/run_tracker.md</code> — append when running data changes</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/bbj_tracker.md</code> — append when BBJ data changes</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/sled_push_tracker.md</code> — append when sled push data changes</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/sled_pull_tracker.md</code> — append when sled pull data changes</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/lunge_tracker.md</code> — append when lunge data changes</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/readiness_trend.md</code> — append if readiness row was missing</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/limiters_now.md</code> — overwrite when limiter changes</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code> — overwrite when locks, limiter, or time anchor change</li>
+</ul>
+<h3>Git Operations</h3>
+<ul>
+<li><code>git add -A</code></li>
+<li><code>git commit -m &quot;YYYY-MM-DD session: &lt;session type&gt; report&quot;</code></li>
+<li><code>git push origin main</code> after remote is configured</li>
+</ul>
+<h3>Output To Yaro</h3>
+<ul>
+<li>TIME ANCHOR block</li>
+<li>Execution summary</li>
+<li>Key data interpreted</li>
+<li>Comparison to plan</li>
+<li>Lock and tracker updates</li>
+<li>Limiter status</li>
+<li>Risk notes</li>
+<li>One &quot;Today&#x27;s principle&quot; line</li>
+</ul>
+<h3>Failure Modes</h3>
+<ul>
+<li>Missing session numbers force &quot;Data not provided&quot;</li>
+<li>Probe without stop reason can still log result with stop reason marked &quot;Data not provided&quot;</li>
+<li>Tracker append blocked by file permission failure</li>
+<li>Conflicting source values require explicit correction before lock update</li>
+<li>Git unavailable blocks commit/push only</li>
+</ul>
+<hr>
+<h2>3. <code>/update-portal</code> — Wolf Portal HTML Generation</h2>
+<h3>Trigger Phrase</h3>
+<p>Yaro types <code>/update-portal</code>.</p>
+<h3>Input Expected</h3>
+<ul>
+<li>Target week number</li>
+<li>Whether generating a plan page, completed page, or both</li>
+<li>Source Markdown file exists for each generated page</li>
+</ul>
+<h3>Files Read</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/limiters_now.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week_plan.md</code> for current plan pages</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/archive/2026/week_NN_report.md</code> for completed pages</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/*</code></li>
+<li>Existing templates under <code>/home/citadel/Documents/wolf-hyrox_Gpt/plans/</code> and <code>/home/citadel/Documents/wolf-hyrox_Gpt/completed/</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/PORTAL.html</code></li>
+</ul>
+<h3>Files Written / Modified</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/completed/wolf_wNN_completed.html</code> — new or overwrite generated HTML</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/plans/wolf_wNN_plan.html</code> — new or overwrite generated HTML</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/PORTAL.html</code> — overwrite targeted card section</li>
+</ul>
+<h3>Git Operations</h3>
+<ul>
+<li><code>git add -A</code></li>
+<li><code>git commit -m &quot;YYYY-MM-DD portal: update Wolf Portal WNN&quot;</code></li>
+<li><code>git push origin main</code></li>
+</ul>
+<h3>Output To Yaro</h3>
+<ul>
+<li>TIME ANCHOR block</li>
+<li>Files generated</li>
+<li>Source files used</li>
+<li>Portal cards updated</li>
+<li>Git commit hash and push result</li>
+<li>GitHub Pages URL if available</li>
+</ul>
+<h3>Failure Modes</h3>
+<ul>
+<li>Source Markdown missing</li>
+<li>Template HTML missing</li>
+<li>PORTAL card anchor cannot be found</li>
+<li>GitHub remote unavailable</li>
+<li>GitHub Pages disabled or not yet deployed</li>
+</ul>
+<hr>
+<h2>4. <code>/close-week</code> — Sunday Close-Out</h2>
+<h3>Trigger Phrase</h3>
+<p>Yaro types <code>/close-week</code> or &quot;Sunday close-out&quot;.</p>
+<h3>Input Expected</h3>
+<ul>
+<li>Sunday readiness data</li>
+<li>Sunday recovery/session data if any</li>
+<li>Confirmation that week logging is complete</li>
+</ul>
+<h3>Files Read</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week_plan.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/limiters_now.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/master_plan.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/decision_rules.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/probe_rules.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/reference/medical.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/archive/2026/week_NN_report.md</code> for recent history when present</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/*</code></li>
+</ul>
+<h3>Files Written / Modified</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code> — append weekly summary, then move to archive</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/archive/2026/week_NN_report.md</code> — new immutable archive file</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code> — new live weekly file</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/archive/2026/week_NN_plan.md</code> — new plan file</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week_plan.md</code> — overwrite with new active week plan when adopted</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code> — overwrite with refreshed week boundary state</li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/readiness_trend.md</code> — append Sunday row and weekly summary block</li>
+<li>Portal HTML files — optional generated output</li>
+</ul>
+<h3>Git Operations</h3>
+<ul>
+<li><code>git add -A</code></li>
+<li><code>git commit -m &quot;WNN close-out + WNN+1 plan — &lt;phase context&gt;&quot;</code></li>
+<li><code>git push origin main</code></li>
+</ul>
+<h3>Output To Yaro</h3>
+<ul>
+<li>TIME ANCHOR block</li>
+<li>Weekly summary</li>
+<li>Files archived and created</li>
+<li>New week phase position</li>
+<li>Next probe target</li>
+<li>Commit hash and push result</li>
+</ul>
+<h3>Failure Modes</h3>
+<ul>
+<li>Sunday readiness missing</li>
+<li>Current week already archived</li>
+<li>Archive target already exists</li>
+<li>Week number conflicts with time anchor</li>
+<li>Required tracker data missing for lock sync</li>
+<li>Git remote unavailable</li>
+</ul>
+<hr>
+<h2>5. <code>/status</code> — Read-Only State Check</h2>
+<h3>Trigger Phrase</h3>
+<p>Yaro types <code>/status</code>.</p>
+<h3>Input Expected</h3>
+<ul>
+<li>No training data required</li>
+</ul>
+<h3>Files Read</h3>
+<ul>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/STATE.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/current_week_plan.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/state/limiters_now.md</code></li>
+<li><code>/home/citadel/Documents/wolf-hyrox_Gpt/trackers/probe_log.md</code></li>
+<li>Relevant tracker files when status asks about a station</li>
+</ul>
+<h3>Files Written / Modified</h3>
+<ul>
+<li>None</li>
+</ul>
+<h3>Git Operations</h3>
+<ul>
+<li>None</li>
+</ul>
+<h3>Output To Yaro</h3>
+<ul>
+<li>TIME ANCHOR block</li>
+<li>Current phase and days to race</li>
+<li>Current locks</li>
+<li>Active limiter</li>
+<li>Current week completion state</li>
+<li>Next planned session or next probe</li>
+<li>Data freshness warnings</li>
+</ul>
+<h3>Failure Modes</h3>
+<ul>
+<li>STATE.md missing</li>
+<li>Time anchor conflicts with state by more than 24 hours</li>
+<li>Referenced current week file missing</li>
+<li>Tracker and STATE lock values conflict</li>
+</ul></div><section class="section-title">Source file</section><div class="source-list"><a href="../WORKFLOWS.md">WORKFLOWS.md</a></div></main><footer>GitHub Pages · wolf-hyrox · source-backed content only</footer></div></body></html>
