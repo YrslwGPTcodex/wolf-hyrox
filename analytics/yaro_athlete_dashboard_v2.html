@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YARO · PROGRESSION W09–W17 // SYDNEY BUILD</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10; --surface: #0E1419; --surface2: #141B22;
+    --border: #1E2D3D; --accent: #00E5FF; --red: #FF4757;
+    --gold: #FFD700; --green: #00FF87; --text: #E8EDF2;
+    --muted: #5A6A7A; --label: #8A9BAB; --orange: #FF8C42;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,229,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.018) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 36px 24px; position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  .hdr { margin-bottom: 32px; animation: fadeUp .5s ease both; }
+  .hdr-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+  .hdr-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 88px); line-height: .88; letter-spacing: 4px; }
+  .hdr-sub   { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-top: 8px; }
+  .hdr-meta  { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .hdr-meta-item { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .hdr-meta-item span { color: var(--accent); }
+
+  /* ── SECTION LABEL ── */
+  .section-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── SUMMARY DELTAS ── */
+  .delta-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 28px; animation: fadeUp .5s .06s ease both; }
+  .delta { background: var(--surface); padding: 18px 16px; text-align: center; position: relative; overflow: hidden; transition: background .2s; }
+  .delta:hover { background: var(--surface2); }
+  .delta::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; }
+  .delta:nth-child(1)::before { background: var(--accent); }
+  .delta:nth-child(2)::before { background: var(--red); }
+  .delta:nth-child(3)::before { background: var(--gold); }
+  .delta:nth-child(4)::before { background: var(--green); }
+  .delta:nth-child(5)::before { background: var(--orange); }
+  .delta:nth-child(6)::before { background: var(--accent); }
+  .delta-label { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .delta-old  { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+  .delta-arrow { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--border); margin: 4px 0; }
+  .delta-new  { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; line-height: 1; }
+  .delta:nth-child(1) .delta-new { color: var(--accent); }
+  .delta:nth-child(2) .delta-new { color: var(--red); }
+  .delta:nth-child(3) .delta-new { color: var(--gold); }
+  .delta:nth-child(4) .delta-new { color: var(--green); }
+  .delta:nth-child(5) .delta-new { color: var(--orange); }
+  .delta:nth-child(6) .delta-new { color: var(--green); }
+  .delta-unit { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--accent); margin-left: 2px; }
+  .delta-gain { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--green); margin-top: 5px; letter-spacing: 1px; }
+
+  /* ── TIMELINE CHART ── */
+  .timeline-section { margin-bottom: 28px; animation: fadeUp .5s .10s ease both; }
+
+  .chart-wrap { background: var(--surface); border: 1px solid var(--border); padding: 24px; position: relative; overflow-x: auto; }
+
+  .chart-title { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+
+  /* Generic bar chart */
+  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 160px; border-bottom: 1px solid var(--border); padding-bottom: 0; margin-bottom: 10px; }
+  .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .bar { width: 100%; border-radius: 2px 2px 0 0; transition: all 1s cubic-bezier(.4,0,.2,1); position: relative; cursor: default; }
+  .bar:hover { filter: brightness(1.3); }
+  .bar-tooltip { position: absolute; top: -28px; left: 50%; transform: translateX(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 1px; white-space: nowrap; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .bar:hover .bar-tooltip { opacity: 1; }
+  .bar-label-w { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); margin-top: 6px; letter-spacing: 1px; }
+  .bar-label-v { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--label); margin-top: 2px; }
+
+  /* Line chart (SVG) */
+  .line-chart-wrap { position: relative; }
+
+  /* ── METRIC CARDS GRID ── */
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; animation: fadeUp .5s .14s ease both; }
+
+  .metric-card { background: var(--surface); border: 1px solid var(--border); padding: 22px; }
+  .metric-card:hover { border-color: rgba(0,229,255,.12); }
+  .mc-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .mct-dot { width: 6px; height: 6px; flex-shrink: 0; border-radius: 1px; }
+
+  .mc-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .mc-row:last-child { border-bottom: none; }
+  .mc-week  { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); width: 28px; flex-shrink: 0; }
+  .mc-bar-bg { flex: 1; height: 6px; background: var(--border); border-radius: 3px; }
+  .mc-bar-fill { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+  .mc-val    { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; width: 64px; text-align: right; flex-shrink: 0; line-height: 1; }
+  .mc-val .u { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--accent); margin-left: 1px; }
+  .mc-note   { font-family: 'DM Mono', monospace; font-size: 7px; color: var(--muted); width: 36px; text-align: right; flex-shrink: 0; }
+
+  /* PR badge */
+  .pr-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 7px; padding: 1px 4px; background: rgba(255,215,0,.1); color: var(--gold); border: 1px solid rgba(255,215,0,.2); letter-spacing: 1px; vertical-align: middle; margin-left: 3px; }
+
+  /* ── PHASE TIMELINE ── */
+  .phase-timeline { background: var(--surface); border: 1px solid var(--border); padding: 22px 24px; margin-bottom: 28px; animation: fadeUp .5s .18s ease both; }
+
+  .pt-header { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
+
+  .pt-weeks { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; }
+
+  .pt-week { background: var(--surface2); border: 1px solid var(--border); padding: 12px 8px; text-align: center; position: relative; transition: transform .2s; cursor: default; }
+  .pt-week:hover { transform: translateY(-2px); }
+
+  .pt-week::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; }
+  .pt-week.phase1::before { background: var(--accent); }
+  .pt-week.phase2::before { background: var(--green); }
+
+  .pt-wk-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; line-height: 1; margin-bottom: 4px; }
+  .phase1 .pt-wk-num { color: var(--accent); }
+  .phase2 .pt-wk-num { color: var(--green); }
+
+  .pt-wk-label { font-family: 'DM Mono', monospace; font-size: 7px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .pt-phase-tag { font-family: 'DM Mono', monospace; font-size: 6.5px; padding: 1px 4px; letter-spacing: 1px; text-transform: uppercase; }
+  .phase1 .pt-phase-tag { background: rgba(0,229,255,.08); color: var(--accent); }
+  .phase2 .pt-phase-tag { background: rgba(0,255,135,.08); color: var(--green); }
+
+  .pt-highlights { margin-top: 8px; }
+  .pt-hl { font-family: 'DM Mono', monospace; font-size: 7px; color: var(--label); line-height: 1.6; text-align: left; padding: 0 2px; }
+  .pt-hl .g { color: var(--green); }
+  .pt-hl .r { color: var(--red); }
+  .pt-hl .y { color: var(--gold); }
+
+  /* ── KEY MILESTONES ── */
+  .milestones { display: flex; flex-direction: column; gap: 0; background: var(--surface); border: 1px solid var(--border); margin-bottom: 28px; animation: fadeUp .5s .22s ease both; overflow: hidden; }
+
+  .milestone { display: grid; grid-template-columns: 80px 80px 1fr auto; gap: 16px; align-items: center; padding: 14px 22px; border-bottom: 1px solid var(--border); transition: background .2s; }
+  .milestone:last-child { border-bottom: none; }
+  .milestone:hover { background: var(--surface2); }
+
+  .ms-week { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--muted); }
+  .ms-date { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 1px; line-height: 1.6; }
+  .ms-text  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.6; }
+  .ms-text .hi { color: var(--text); }
+  .ms-text .gr { color: var(--green); }
+  .ms-text .gd { color: var(--gold); }
+  .ms-text .rd { color: var(--red); }
+  .ms-val   { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; text-align: right; line-height: 1; }
+  .ms-val .mu { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); margin-left: 2px; }
+
+  /* ── COACHING SUMMARY ── */
+  .coaching { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 24px 28px; margin-bottom: 14px; animation: fadeUp .5s .26s ease both; position: relative; overflow: hidden; }
+  .coaching::after { content: '🐺'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 80px; opacity: .04; pointer-events: none; }
+  .coaching-title { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .coaching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .coaching-col-title { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .coaching-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(30,45,61,.5); font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.5; }
+  .coaching-item:last-child { border-bottom: none; }
+  .coaching-item::before { content: '↑'; color: var(--green); flex-shrink: 0; font-size: 11px; }
+  .coaching-item.warn::before { content: '△'; color: var(--gold); }
+  .coaching-item.next::before { content: '→'; color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); padding: 3px 8px; border: 1px solid var(--border); letter-spacing: 1px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 1100px) { .delta-grid { grid-template-columns: repeat(3,1fr); } .metrics-grid { grid-template-columns: 1fr 1fr; } .pt-weeks { grid-template-columns: repeat(5,1fr); } .milestone { grid-template-columns: 60px 1fr auto; } .ms-date { display: none; } .coaching-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) { .delta-grid { grid-template-columns: repeat(2,1fr); } .metrics-grid { grid-template-columns: 1fr; } .pt-weeks { grid-template-columns: repeat(3,1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-eyebrow">🐺 Progress Report · W09 → W17 · 2026</div>
+    <div class="hdr-title">ATHLETE<br>PROGRESSION</div>
+    <div class="hdr-sub">Yaro · HYROX Sydney · Pro Men 45–49 · 9 Weeks</div>
+    <div class="hdr-meta">
+      <div class="hdr-meta-item">Period <span>W09 (2026·03·02) → W17 (2026·04·26)</span></div>
+      <div class="hdr-meta-item">Phase <span>Brisbane Build → Sydney P1 Stabilize → P2 Build</span></div>
+      <div class="hdr-meta-item">Race <span>Sydney 03·07·2026</span></div>
+      <div class="hdr-meta-item">Target <span>1:15:00</span></div>
+      <div class="hdr-meta-item">Version <span>2.1 · 2026-04-27</span></div>
+    </div>
+  </div>
+
+  <!-- DELTA SUMMARY -->
+  <div class="section-lbl">📈 Key Metrics — W09 → W17 Delta</div>
+  <div class="delta-grid">
+    <div class="delta">
+      <div class="delta-label">VO2max</div>
+      <div class="delta-old">53 ml/kg/min</div>
+      <div class="delta-arrow">↓</div>
+      <div class="delta-new">56<span class="delta-unit">ml/kg</span></div>
+      <div class="delta-gain">+3 · Personal Best</div>
+    </div>
+    <div class="delta">
+      <div class="delta-label">Sled Push</div>
+      <div class="delta-old">~195 kg</div>
+      <div class="delta-arrow">↓</div>
+      <div class="delta-new">245<span class="delta-unit">kg</span></div>
+      <div class="delta-gain">+50 kg · W17 PR</div>
+    </div>
+    <div class="delta">
+      <div class="delta-label">WB Unbroken</div>
+      <div class="delta-old">40 reps</div>
+      <div class="delta-arrow">↓</div>
+      <div class="delta-new">60<span class="delta-unit">reps</span></div>
+      <div class="delta-gain">+20 · 9kg stable</div>
+    </div>
+    <div class="delta">
+      <div class="delta-label">Best Interval</div>
+      <div class="delta-old">~4:30/km</div>
+      <div class="delta-arrow">↓</div>
+      <div class="delta-new">4:16<span class="delta-unit">/km</span></div>
+      <div class="delta-gain">W17 R4 = 3:25</div>
+    </div>
+    <div class="delta">
+      <div class="delta-label">Cadence</div>
+      <div class="delta-old">~157 spm</div>
+      <div class="delta-arrow">↓</div>
+      <div class="delta-new">178<span class="delta-unit">spm</span></div>
+      <div class="delta-gain">+21 · mechanical ↑</div>
+    </div>
+    <div class="delta">
+      <div class="delta-label">Sleep Score</div>
+      <div class="delta-old">75 (W12 MON)</div>
+      <div class="delta-arrow">↓</div>
+      <div class="delta-new">97<span class="delta-unit">★</span></div>
+      <div class="delta-gain">W17 TUE best</div>
+    </div>
+  </div>
+
+  <!-- SLED PUSH PROGRESSION -->
+  <div class="section-lbl">🛷 Sled Push Progression</div>
+  <div class="chart-wrap" style="margin-bottom:12px;animation:fadeUp .5s .12s ease both;">
+    <div class="chart-title">Sled Push — Working Load per Week (kg)</div>
+    <div class="bar-chart" id="sled-chart">
+      <!-- bars injected by JS -->
+    </div>
+    <div style="display:flex;gap:8px;" id="sled-labels"></div>
+  </div>
+
+  <!-- METRIC CARDS -->
+  <div class="section-lbl">📊 Metric Progression by Week</div>
+  <div class="metrics-grid">
+
+    <!-- VO2max -->
+    <div class="metric-card">
+      <div class="mc-title"><span class="mct-dot" style="background:var(--accent);"></span>VO2max Trend</div>
+      <div class="mc-row">
+        <div class="mc-week">W09</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:72%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">53<span class="u">ml</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W12</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:72%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">53<span class="u">ml</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W13</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:78%;background:var(--gold);"></div></div>
+        <div class="mc-val" style="color:var(--gold);">54<span class="u">ml</span></div>
+        <div class="mc-note"><span class="pr-badge">↑PR</span></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W17</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="mc-val" style="color:var(--green);">56<span class="u">ml</span></div>
+        <div class="mc-note"><span class="pr-badge">↑PR</span></div>
+      </div>
+      <div style="margin-top:12px;padding:9px 11px;border:1px solid rgba(0,255,135,.1);background:rgba(0,255,135,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--green);letter-spacing:2px;margin-bottom:3px;">Top 5% · Men 46y</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">+3 за 9 тижнів. Прогрес підтверджено двічі під час реального тренування.</div>
+      </div>
+    </div>
+
+    <!-- Sled Pull -->
+    <div class="metric-card">
+      <div class="mc-title"><span class="mct-dot" style="background:var(--gold);"></span>Sled Pull Progression</div>
+      <div class="mc-row">
+        <div class="mc-week">W09</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:45%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">~180<span class="u">kg</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W12</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:60%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">184<span class="u">kg</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W13</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:68%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">184<span class="u">kg</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W14</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:78%;background:var(--accent);"></div></div>
+        <div class="mc-val" style="color:var(--accent);">205<span class="u">kg</span></div>
+        <div class="mc-note"><span class="pr-badge">↑</span></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W17</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="mc-val" style="color:var(--green);">204<span class="u">kg</span></div>
+        <div class="mc-note">1:32</div>
+      </div>
+      <div style="margin-top:12px;padding:9px 11px;border:1px solid rgba(255,215,0,.1);background:rgba(255,215,0,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:2px;margin-bottom:3px;">W17: 1:35→1:33→1:32</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Repeatability сильна. Покращується між сетами.</div>
+      </div>
+    </div>
+
+    <!-- WB -->
+    <div class="metric-card">
+      <div class="mc-title"><span class="mct-dot" style="background:var(--red);"></span>Wall Ball Progression</div>
+      <div class="mc-row">
+        <div class="mc-week">W09</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:40%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">40<span class="u">UB</span></div>
+        <div class="mc-note">W9 PR</div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W10</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:50%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">50<span class="u">UB</span></div>
+        <div class="mc-note"><span class="pr-badge">↑</span></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W12</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:60%;background:var(--gold);"></div></div>
+        <div class="mc-val" style="color:var(--gold);">60<span class="u">UB</span></div>
+        <div class="mc-note"><span class="pr-badge">↑</span></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W14</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:70%;background:var(--orange);"></div></div>
+        <div class="mc-val" style="color:var(--orange);">140<span class="u">tot</span></div>
+        <div class="mc-note">SAT</div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W17</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="mc-val" style="color:var(--green);">9<span class="u">kg★</span></div>
+        <div class="mc-note">race wt</div>
+      </div>
+      <div style="margin-top:12px;padding:9px 11px;border:1px solid rgba(255,71,87,.1);background:rgba(255,71,87,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--red);letter-spacing:2px;margin-bottom:3px;">W17: 58/59/61/59s · 9kg</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Race weight confirmed. Stable під реальною втомою.</div>
+      </div>
+    </div>
+
+    <!-- Interval Pace -->
+    <div class="metric-card">
+      <div class="mc-title"><span class="mct-dot" style="background:var(--green);"></span>Interval Pace Best</div>
+      <div class="mc-row">
+        <div class="mc-week">W09</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:35%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">4:30<span class="u">/km</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W11</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:65%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">4:09<span class="u">/km</span></div>
+        <div class="mc-note"><span class="pr-badge">↑</span></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W12</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:70%;background:var(--gold);"></div></div>
+        <div class="mc-val" style="color:var(--gold);">4:11<span class="u">/km</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W17</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="mc-val" style="color:var(--green);">4:16<span class="u">/km</span></div>
+        <div class="mc-note">6×800m</div>
+      </div>
+      <div style="margin-top:12px;padding:9px 11px;border:1px solid rgba(0,255,135,.1);background:rgba(0,255,135,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--green);letter-spacing:2px;margin-bottom:3px;">W17: HR 141–143 при 4:16</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Race pace коридор досягнуто. Cadence 167→178 spm.</div>
+      </div>
+    </div>
+
+    <!-- Cadence -->
+    <div class="metric-card">
+      <div class="mc-title"><span class="mct-dot" style="background:var(--orange);"></span>Running Cadence</div>
+      <div class="mc-row">
+        <div class="mc-week">W10</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:40%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">157<span class="u">spm</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W12</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:72%;background:var(--gold);"></div></div>
+        <div class="mc-val" style="color:var(--gold);">169<span class="u">spm</span></div>
+        <div class="mc-note">stable</div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W13</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:74%;background:var(--gold);"></div></div>
+        <div class="mc-val" style="color:var(--gold);">171<span class="u">spm</span></div>
+        <div class="mc-note"></div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W17</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="mc-val" style="color:var(--green);">178<span class="u">spm</span></div>
+        <div class="mc-note">R6 best</div>
+      </div>
+      <div style="margin-top:12px;padding:9px 11px;border:1px solid rgba(255,140,66,.1);background:rgba(255,140,66,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--orange);letter-spacing:2px;margin-bottom:3px;">+21 spm за 9 тижнів</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Mechanical efficiency закрита. Реальна слабка точка, зараз сила.</div>
+      </div>
+    </div>
+
+    <!-- Lunges -->
+    <div class="metric-card">
+      <div class="mc-title"><span class="mct-dot" style="background:var(--accent);"></span>Lunges + Farmer Carry</div>
+      <div class="mc-row">
+        <div class="mc-week">W09</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:55%;background:var(--muted);"></div></div>
+        <div class="mc-val" style="color:var(--muted);">~60<span class="u">kg</span></div>
+        <div class="mc-note">TUE</div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W12</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:70%;background:var(--gold);"></div></div>
+        <div class="mc-val" style="color:var(--gold);">70<span class="u">kg</span></div>
+        <div class="mc-note">timed</div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">W17</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="mc-val" style="color:var(--green);">64<span class="u">kg</span></div>
+        <div class="mc-note">3×24</div>
+      </div>
+      <div class="mc-row">
+        <div class="mc-week">Carry</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" style="width:90%;background:var(--accent);"></div></div>
+        <div class="mc-val" style="color:var(--accent);">300<span class="u">m+</span></div>
+        <div class="mc-note">UB</div>
+      </div>
+      <div style="margin-top:12px;padding:9px 11px;border:1px solid rgba(0,229,255,.1);background:rgba(0,229,255,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:2px;margin-bottom:3px;">Weapon Status</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Lunges = зброя. Farmer carry = grip strong. Unbroken 300m+.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHASE TIMELINE -->
+  <div class="section-lbl">📅 9-Week Phase Timeline</div>
+  <div class="phase-timeline">
+    <div class="pt-header">W09 → W17 · Brisbane Build → Sydney P1 Stabilize → P2 Build</div>
+    <div class="pt-weeks">
+
+      <div class="pt-week phase1">
+        <div class="pt-wk-num">W09</div>
+        <div class="pt-wk-label">Bris Build</div>
+        <div class="pt-phase-tag">Phase 0</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">WB 40 UB ↑PR</span></div>
+          <div class="pt-hl">Sled ~195kg</div>
+          <div class="pt-hl">VO2max 53</div>
+        </div>
+      </div>
+
+      <div class="pt-week phase1">
+        <div class="pt-wk-num">W10</div>
+        <div class="pt-wk-label">Bris Build</div>
+        <div class="pt-phase-tag">Phase 0</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">WB 50 UB ↑PR</span></div>
+          <div class="pt-hl"><span class="y">Sleep debt 14.7%</span></div>
+          <div class="pt-hl">Cad 157 spm</div>
+        </div>
+      </div>
+
+      <div class="pt-week phase1">
+        <div class="pt-wk-num">W11</div>
+        <div class="pt-wk-label">Bris Build</div>
+        <div class="pt-phase-tag">Phase 0</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">4:09/km ↑ best</span></div>
+          <div class="pt-hl">WB 50≈UB</div>
+          <div class="pt-hl">80 tot SAT</div>
+        </div>
+      </div>
+
+      <div class="pt-week phase1">
+        <div class="pt-wk-num">W12</div>
+        <div class="pt-wk-label">Overload</div>
+        <div class="pt-phase-tag">Phase 0</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">Sled 220kg ↑PR</span></div>
+          <div class="pt-hl"><span class="g">WB 60 UB ↑PR</span></div>
+          <div class="pt-hl">Cad 169–171</div>
+        </div>
+      </div>
+
+      <div class="pt-week phase1">
+        <div class="pt-wk-num">W13</div>
+        <div class="pt-wk-label">Consolidate</div>
+        <div class="pt-phase-tag">Phase 0</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">VO2max 54 ↑PR</span></div>
+          <div class="pt-hl">Sled 225kg</div>
+          <div class="pt-hl">10km clean ♥</div>
+        </div>
+      </div>
+
+      <div class="pt-week phase2">
+        <div class="pt-wk-num">W14</div>
+        <div class="pt-wk-label">Syd Build W1</div>
+        <div class="pt-phase-tag">P1 Stab</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">Sled 240kg ↑PR</span></div>
+          <div class="pt-hl"><span class="g">Sleep 94★</span></div>
+          <div class="pt-hl">140 WB SAT</div>
+        </div>
+      </div>
+
+      <div class="pt-week phase2">
+        <div class="pt-wk-num">W15</div>
+        <div class="pt-wk-label">Syd Build W2</div>
+        <div class="pt-phase-tag">P1 Stab</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">WB 0:53/set ↑</span></div>
+          <div class="pt-hl">HRV 80ms SAT</div>
+          <div class="pt-hl">140 WB</div>
+        </div>
+      </div>
+
+      <div class="pt-week phase2">
+        <div class="pt-wk-num">W16</div>
+        <div class="pt-wk-label">P1 Final</div>
+        <div class="pt-phase-tag">P1 Final</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="y">SAT cancelled</span></div>
+          <div class="pt-hl">HRV 27ms</div>
+          <div class="pt-hl"><span class="g">Phase 1 ✓</span></div>
+        </div>
+      </div>
+
+      <div class="pt-week phase2" style="border-color:rgba(0,255,135,.3);background:rgba(0,255,135,.04);">
+        <div class="pt-wk-num">W17</div>
+        <div class="pt-wk-label">P2 Build W1</div>
+        <div class="pt-phase-tag">P2 Build</div>
+        <div class="pt-highlights">
+          <div class="pt-hl"><span class="g">VO2max 56 ↑PR</span></div>
+          <div class="pt-hl"><span class="g">Sled 245kg ↑PR</span></div>
+          <div class="pt-hl"><span class="g">4:16/km</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KEY MILESTONES -->
+  <div class="section-lbl">🏆 Key PRs + Milestones Chronology</div>
+  <div class="milestones">
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--muted);">W09</div>
+      <div class="ms-date">2026·03·02</div>
+      <div class="ms-text">WB <span class="gr">40 unbroken</span> — перший baseline тесту</div>
+      <div class="ms-val" style="color:var(--muted);">40<span class="mu">UB</span></div>
+    </div>
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--muted);">W10</div>
+      <div class="ms-date">2026·03·09</div>
+      <div class="ms-text">WB <span class="gr">50 unbroken ↑PR</span> + sleep debt 14.7% ⚠</div>
+      <div class="ms-val" style="color:var(--gold);">50<span class="mu">UB</span></div>
+    </div>
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--muted);">W11</div>
+      <div class="ms-date">2026·03·09</div>
+      <div class="ms-text">Best interval <span class="gr">4:09/km</span> — перший прорив швидкості</div>
+      <div class="ms-val" style="color:var(--green);">4:09<span class="mu">/km</span></div>
+    </div>
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--gold);">W12</div>
+      <div class="ms-date">2026·03·16</div>
+      <div class="ms-text">Sled Push <span class="gr">220kg ↑PR</span> · WB <span class="gr">60 UB ↑PR</span> · Cadence <span class="gr">169–171 spm ↑</span></div>
+      <div class="ms-val" style="color:var(--gold);">220<span class="mu">kg</span></div>
+    </div>
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--green);">W13</div>
+      <div class="ms-date">2026·03·23</div>
+      <div class="ms-text">VO2max <span class="gr">54 ↑PR</span> · Sled 225kg · 10km з чистим серцем</div>
+      <div class="ms-val" style="color:var(--green);">54<span class="mu">VO2</span></div>
+    </div>
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--green);">W14</div>
+      <div class="ms-date">2026·03·30</div>
+      <div class="ms-text">Sled Push <span class="gr">240kg ↑PR</span> · Sleep score <span class="gr">94★</span> · 140 WB SAT · 7/7</div>
+      <div class="ms-val" style="color:var(--green);">240<span class="mu">kg</span></div>
+    </div>
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--accent);">W15</div>
+      <div class="ms-date">2026·04·06</div>
+      <div class="ms-text">WB 4×25 sets: <span class="gr">0:58→0:55→0:53→0:53</span> · HRV 80ms SAT</div>
+      <div class="ms-val" style="color:var(--accent);">0:53<span class="mu">/25</span></div>
+    </div>
+    <div class="milestone">
+      <div class="ms-week" style="color:var(--muted);">W16</div>
+      <div class="ms-date">2026·04·13</div>
+      <div class="ms-text">Phase 1 закрито ✓ · SAT скасовано при HRV 27ms — <span class="gr">правильне рішення</span></div>
+      <div class="ms-val" style="color:var(--muted);">P1<span class="mu">✓</span></div>
+    </div>
+    <div class="milestone" style="background:rgba(0,255,135,.03);border-color:rgba(0,255,135,.15);">
+      <div class="ms-week" style="color:var(--green);">W17</div>
+      <div class="ms-date">2026·04·20</div>
+      <div class="ms-text">VO2max <span class="gr">56 ↑PR</span> · Sled Push <span class="gr">245kg ↑PR</span> · 6×800m <span class="gr">4:16/km</span> · WB 9kg <span class="gr">58–61s stable</span></div>
+      <div class="ms-val" style="color:var(--green);">56<span class="mu">VO2</span></div>
+    </div>
+  </div>
+
+  <!-- COACHING SUMMARY -->
+  <div class="coaching">
+    <div class="coaching-title">🔬 Coaching Assessment · W17 → Sydney</div>
+    <div class="coaching-grid">
+      <div>
+        <div class="coaching-col-title">Що зросло за 9 тижнів</div>
+        <div class="coaching-item">VO2max <span style="color:var(--text);margin-left:4px;">53 → 56</span> — +3, двічі підтверджено</div>
+        <div class="coaching-item">Sled Push <span style="color:var(--text);margin-left:4px;">~195 → 245kg</span> — +50kg, weapon status</div>
+        <div class="coaching-item">WB repeatability <span style="color:var(--text);margin-left:4px;">40 UB → 9kg stable</span> race weight confirmed</div>
+        <div class="coaching-item">Cadence <span style="color:var(--text);margin-left:4px;">157 → 178 spm</span> — mechanical efficiency закрита</div>
+        <div class="coaching-item">Interval pace <span style="color:var(--text);margin-left:4px;">~4:30 → 4:16/km</span> при controlled HR</div>
+        <div class="coaching-item">Sleep management <span style="color:var(--text);margin-left:4px;">25.6% debt peak → 97★</span> best score</div>
+        <div class="coaching-item">Sled Pull <span style="color:var(--text);margin-left:4px;">~180 → 204kg</span> repeatability 1:32–1:35</div>
+      </div>
+      <div>
+        <div class="coaching-col-title">На чому фокус до Sydney</div>
+        <div class="coaching-item next">WB → 100 unbroken — <span style="color:var(--text);">головний лімітер</span>, позитивний тренд</div>
+        <div class="coaching-item warn">Run 2 discipline — <span style="color:var(--text);">R2 too hot два тижні</span>, W18 hard cap 158bpm</div>
+        <div class="coaching-item next">Ski + BBJ reintegration — <span style="color:var(--text);">maintenance без пріоритету</span></div>
+        <div class="coaching-item warn">Sleep stability — <span style="color:var(--text);">ще непостійна</span>, HRV CV elevated</div>
+        <div class="coaching-item next">Sled density → weight — <span style="color:var(--text);">245kg working load, не PR chase</span></div>
+        <div class="coaching-item next">Phase 2 Build W18–W21 — <span style="color:var(--text);">race-specific durability</span></div>
+        <div class="coaching-item next">Race: <span style="color:var(--text);">67 days · engine є · execution = ключ</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-l">YARO · PROGRESSION REPORT · W09–W17 · 2026·03·02 → 2026·04·26 &nbsp;//&nbsp; HYROX SYDNEY · PRO MEN 45–49</div>
+    <div class="tags">
+      <div class="tag">#Progression</div>
+      <div class="tag">#Sydney</div>
+      <div class="tag">#VO2max56</div>
+      <div class="tag">#Sled245</div>
+      <div class="tag">#WBRaceWeight</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Sled push progression bars
+  const sledData = [
+    { w: 'W09', kg: 195, max: 245 },
+    { w: 'W10', kg: 195, max: 245 },
+    { w: 'W11', kg: 204, max: 245 },
+    { w: 'W12', kg: 220, max: 245 },
+    { w: 'W13', kg: 225, max: 245 },
+    { w: 'W14', kg: 240, max: 245 },
+    { w: 'W15', kg: 240, max: 245 },
+    { w: 'W16', kg: 240, max: 245 },
+    { w: 'W17', kg: 245, max: 245 },
+  ];
+
+  const chartEl = document.getElementById('sled-chart');
+  const labelsEl = document.getElementById('sled-labels');
+  const maxH = 140;
+  const maxKg = 245;
+  const minKg = 185;
+
+  sledData.forEach((d, i) => {
+    const ratio = (d.kg - minKg) / (maxKg - minKg);
+    const h = Math.round(ratio * maxH) + 20;
+    const isPR = d.kg === maxKg;
+    const color = isPR ? 'var(--green)' : (d.kg >= 240 ? 'var(--red)' : d.kg >= 220 ? 'var(--gold)' : 'var(--muted)');
+
+    const group = document.createElement('div');
+    group.className = 'bar-group';
+
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.cssText = `height:0;background:${color};position:relative;`;
+    bar.innerHTML = `<div class="bar-tooltip" style="color:${color};">${d.kg}kg${isPR ? ' ↑PR' : ''}</div>`;
+
+    const labelW = document.createElement('div');
+    labelW.className = 'bar-label-w';
+    labelW.textContent = d.w;
+
+    const labelV = document.createElement('div');
+    labelV.className = 'bar-label-v';
+    labelV.textContent = d.kg + 'kg';
+    if (isPR) labelV.style.color = 'var(--green)';
+
+    group.appendChild(bar);
+    group.appendChild(labelW);
+    group.appendChild(labelV);
+    chartEl.appendChild(group);
+
+    setTimeout(() => { bar.style.height = h + 'px'; }, 200 + i * 60);
+  });
+
+  // Animate metric bars
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.mc-bar-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0';
+      setTimeout(() => { el.style.width = w; }, 300);
+    });
+  });
+</script>
+
+</body>
+</html>

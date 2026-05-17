@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOLF BLOCK W11 · 2026 // YARO</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10;
+    --surface: #0E1419;
+    --surface2: #141B22;
+    --border: #1E2D3D;
+    --accent: #00E5FF;
+    --red: #FF4757;
+    --gold: #FFD700;
+    --green: #00FF87;
+    --text: #E8EDF2;
+    --muted: #5A6A7A;
+    --label: #8A9BAB;
+    --orange: #FF8C42;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 36px 24px;
+    position: relative; z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp .5s ease both;
+  }
+
+  .hdr-left .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .hdr-left .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 88px);
+    line-height: .88;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+
+  .hdr-left .subtitle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(16px, 2.2vw, 24px);
+    letter-spacing: 5px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .hdr-left .block-info {
+    margin-top: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--label);
+    letter-spacing: 1px;
+  }
+
+  .hdr-left .block-info span { color: var(--accent); }
+
+  .hdr-right { text-align: right; }
+
+  .week-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .week-range {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    letter-spacing: 2px;
+    margin-top: 2px;
+  }
+
+  .week-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid rgba(0,229,255,.2);
+    background: rgba(0,229,255,.04);
+  }
+
+  .ld { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+
+  /* ── PHASE ESCALATION BANNER ── */
+  .phase-banner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    animation: fadeUp .5s .04s ease both;
+  }
+
+  .ph-seg {
+    flex: 1;
+    padding: 12px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    transition: background .2s;
+  }
+
+  .ph-seg::after {
+    content: '→';
+    position: absolute;
+    right: -7px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--border);
+    font-size: 11px;
+    z-index: 1;
+  }
+
+  .ph-seg:last-child::after { display: none; }
+
+  .ph-seg.done { background: rgba(0,255,135,.05); color: var(--green); border-right: 1px solid var(--border); }
+  .ph-seg.now  { background: rgba(0,229,255,.08); color: var(--accent); border-right: 1px solid var(--border); font-weight: 600; }
+  .ph-seg.next { background: transparent; color: var(--muted); border-right: 1px solid var(--border); }
+  .ph-seg.far  { background: transparent; color: var(--border); }
+
+  .ph-seg .ph-wk { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; display: block; line-height: 1; margin-bottom: 3px; }
+  .ph-seg.done .ph-wk { color: var(--green); }
+  .ph-seg.now  .ph-wk { color: var(--accent); }
+  .ph-seg.next .ph-wk { color: var(--muted); }
+  .ph-seg.far  .ph-wk { color: var(--border); }
+
+  /* ── OBJECTIVES ── */
+  .obj-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    animation: fadeUp .5s .06s ease both;
+  }
+
+  .obj {
+    background: var(--surface);
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: background .2s;
+  }
+
+  .obj:hover { background: var(--surface2); }
+
+  .obj::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+
+  .obj:nth-child(1)::before { background: var(--green); }
+  .obj:nth-child(2)::before { background: var(--red); }
+  .obj:nth-child(3)::before { background: var(--gold); }
+  .obj:nth-child(4)::before { background: var(--accent); }
+
+  .obj-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .obj-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--label);
+    line-height: 1.5;
+  }
+
+  .obj-text .hi { color: var(--text); }
+
+  /* ── MINDSET BANNER ── */
+  .mindset {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 16px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    animation: fadeUp .5s .1s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mindset::after {
+    content: '🐺';
+    position: absolute;
+    right: 16px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    opacity: .06;
+    pointer-events: none;
+  }
+
+  .mindset-word {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    transition: color .2s;
+  }
+
+  .mindset-word:hover { color: var(--text); }
+  .mindset-word.hi { color: var(--accent); }
+  .mindset-sep { color: var(--border); font-family: 'DM Mono', monospace; font-size: 14px; }
+
+  /* ── SECTION LABEL ── */
+  .section-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeUp .5s .12s ease both;
+  }
+
+  .section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── WEEK GRID ── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  /* ── DAY CARD ── */
+  .dc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid transparent;
+    transition: transform .2s, border-color .2s;
+    animation: fadeUp .5s ease both;
+    overflow: hidden;
+  }
+
+  .dc:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.06); }
+
+  .dc.mon { border-top-color: var(--green); }
+  .dc.tue { border-top-color: var(--gold); }
+  .dc.wed { border-top-color: var(--green); }
+  .dc.thu { border-top-color: var(--red); }
+  .dc.fri { border-top-color: var(--green); }
+  .dc.sat { border-top-color: var(--red); }
+  .dc.sun { border-top-color: var(--muted); }
+
+  .dc:nth-child(1){animation-delay:.14s}
+  .dc:nth-child(2){animation-delay:.19s}
+  .dc:nth-child(3){animation-delay:.24s}
+  .dc:nth-child(4){animation-delay:.29s}
+  .dc:nth-child(5){animation-delay:.34s}
+  .dc:nth-child(6){animation-delay:.39s}
+  .dc:nth-child(7){animation-delay:.44s}
+
+  .dc-head {
+    padding: 12px 13px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dc-iso {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .dc-iso .yr { color: var(--muted); }
+  .dc-iso .dot { color: var(--border); margin: 0 2px; }
+  .dc-iso .mo { color: var(--label); }
+  .dc-iso .dd { color: var(--text); font-weight: 500; }
+
+  .dc-abbr {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .dc.mon .dc-abbr { color: var(--green); }
+  .dc.tue .dc-abbr { color: var(--gold); }
+  .dc.wed .dc-abbr { color: var(--green); }
+  .dc.thu .dc-abbr { color: var(--red); }
+  .dc.fri .dc-abbr { color: var(--green); }
+  .dc.sat .dc-abbr { color: var(--red); }
+  .dc.sun .dc-abbr { color: var(--muted); }
+
+  .dc-tag {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    padding: 2px 7px;
+    text-transform: uppercase;
+  }
+
+  .dc.mon .dc-tag { background: rgba(0,255,135,.07); color: var(--green); }
+  .dc.tue .dc-tag { background: rgba(255,215,0,.07); color: var(--gold); }
+  .dc.wed .dc-tag { background: rgba(0,255,135,.07); color: var(--green); }
+  .dc.thu .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .dc.fri .dc-tag { background: rgba(0,255,135,.07); color: var(--green); }
+  .dc.sat .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .dc.sun .dc-tag { background: rgba(90,106,122,.08); color: var(--muted); }
+
+  .dc-body { padding: 10px 13px 13px; }
+
+  .di {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    color: var(--label);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(30,45,61,.5);
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .di:last-child { border-bottom: none; }
+  .di .ic { flex-shrink: 0; color: var(--muted); }
+
+  .hi  { color: var(--text); }
+  .gr  { color: var(--green); }
+  .ac  { color: var(--accent); }
+  .rd  { color: var(--red); }
+  .gd  { color: var(--gold); }
+  .mu  { color: var(--muted); }
+  .or  { color: var(--orange); }
+
+  .nobadge {
+    display: inline-block;
+    margin-top: 9px;
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    padding: 3px 8px;
+    border: 1px solid rgba(255,71,87,.2);
+    color: var(--red);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .upbadge {
+    display: inline-block;
+    margin-top: 9px;
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    padding: 3px 8px;
+    border: 1px solid rgba(255,215,0,.25);
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(255,215,0,.04);
+  }
+
+  .di-section {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 0 2px;
+    border-bottom: 1px solid rgba(30,45,61,.5);
+    display: block;
+  }
+
+  /* ── DELTA BADGE (vs W10) ── */
+  .delta {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    vertical-align: middle;
+    margin-left: 3px;
+  }
+
+  .delta.up   { background: rgba(0,255,135,.1); color: var(--green); }
+  .delta.same { background: rgba(90,106,122,.1); color: var(--muted); }
+
+  /* ── BOTTOM CARDS ── */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+    animation: fadeUp .5s ease both;
+    transition: border-color .2s, transform .2s;
+  }
+
+  .card:hover {
+    border-color: rgba(0,229,255,.12);
+    transform: translateY(-2px);
+  }
+
+  .card-ttl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ct-dot { width: 6px; height: 6px; flex-shrink: 0; }
+
+  /* WB card */
+  .wb-display {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .wb-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--red);
+    letter-spacing: 3px;
+  }
+
+  .wb-sub .wb-range {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  .wb-sub .wb-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .prog-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .prog-track {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .ps { flex: 1; text-align: center; }
+  .pn { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; }
+  .pl { font-family: 'DM Mono', monospace; font-size: 7px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .ps.done .pn { color: var(--green); } .ps.done .pl { color: var(--green); }
+  .ps.cur  .pn { color: var(--gold); }  .ps.cur  .pl { color: var(--gold); }
+  .ps.fut  .pn { color: var(--muted); } .ps.fut  .pl { color: var(--muted); }
+  .ps.gate .pn { color: var(--red); }   .ps.gate .pl { color: var(--red); }
+  .pa { color: var(--border); font-size: 12px; flex-shrink: 0; font-family: 'DM Mono', monospace; }
+
+  /* WB week box */
+  .wb-week-box {
+    padding: 12px 14px;
+    border: 1px solid rgba(255,215,0,.15);
+    background: rgba(255,215,0,.04);
+    margin-bottom: 14px;
+  }
+
+  .wwb-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .wwb-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .wwb-item { text-align: center; }
+
+  .wwb-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .wwb-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 3px;
+  }
+
+  /* Carry-forward */
+  .cf-box {
+    padding: 10px 12px;
+    background: rgba(0,255,135,.03);
+    border: 1px solid rgba(0,255,135,.12);
+    margin-bottom: 12px;
+  }
+
+  .cf-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--green);
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+  }
+
+  .cf-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--label);
+    line-height: 1.6;
+  }
+
+  .cf-text span { color: var(--text); }
+
+  /* Metrics */
+  .mrow { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .mrow:last-child { border-bottom: none; }
+  .mk { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); }
+  .mv { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--text); }
+  .mu2 { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); margin-left: 2px; }
+
+  /* HR rules */
+  .hr-rule { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .hr-rule:last-child { border-bottom: none; }
+  .hr-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .hr-label { flex: 1; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); }
+  .hr-val { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; }
+  .hr-sub { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); }
+
+  /* Track items */
+  .track-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .track-item:last-child { border-bottom: none; }
+  .track-icon { width: 28px; height: 28px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .track-text { flex: 1; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.4; }
+  .track-text span { color: var(--text); }
+  .track-blank { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--border); letter-spacing: 1px; }
+
+  /* Gate */
+  .gate-box { padding: 10px 14px; border: 1px solid rgba(255,71,87,.15); background: rgba(255,71,87,.03); margin-top: 14px; }
+  .gate-lbl { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--red); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+  .gate-txt { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: var(--muted); letter-spacing: 3px; line-height: 1.9; }
+
+  /* ── SLEEP ALERT ── */
+  .sleep-alert {
+    background: var(--surface);
+    border: 1px solid rgba(255,71,87,.2);
+    border-left: 3px solid var(--red);
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    animation: fadeUp .5s .09s ease both;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .sa-icon { font-size: 22px; flex-shrink: 0; }
+  .sa-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; }
+  .sa-text { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.5; }
+  .sa-text span { color: var(--text); }
+  .sa-target { margin-left: auto; text-align: right; }
+  .sa-target .sa-val { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--green); letter-spacing: 2px; line-height: 1; }
+  .sa-target .sa-unit { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ── IDENTITY ── */
+  .identity {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 22px 28px;
+    margin-bottom: 14px;
+    animation: fadeUp .5s .5s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .identity::after { content: '🐺'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 72px; opacity: .05; pointer-events: none; }
+  .id-lbl { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .id-lines { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 5px; }
+  .id-line { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 3px; color: var(--muted); transition: color .2s; }
+  .id-line:hover { color: var(--text); }
+  .id-line.hl { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); padding: 3px 8px; border: 1px solid var(--border); letter-spacing: 1px; transition: all .2s; cursor: default; }
+  .tag:hover { color: var(--accent); border-color: rgba(0,229,255,.25); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+  @media (max-width: 1100px) {
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .bottom-grid { grid-template-columns: 1fr 1fr; }
+    .obj-strip { grid-template-columns: repeat(2, 1fr); }
+    .phase-banner { flex-wrap: wrap; }
+    .ph-seg { flex: 1 1 30%; }
+  }
+
+  @media (max-width: 750px) {
+    .week-grid { grid-template-columns: repeat(2, 1fr); }
+    .bottom-grid { grid-template-columns: 1fr; }
+    .hdr { flex-direction: column; gap: 16px; }
+    .mindset { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="eyebrow">🐺 Wolf Block · Brisbane Build</div>
+      <div class="title">WEEK<br>ELEVEN</div>
+      <div class="subtitle">Intensity Rise</div>
+      <div class="block-info">Week <span>2 of 5</span> · 39-Day Block · Goal <span>1:15:00</span> · Phase <span>Controlled Escalation</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="week-badge">W11</div>
+      <div class="week-range">2026·03·09 → 2026·03·15</div>
+      <div class="week-year">Year 2026 · Week 11</div>
+      <div class="live"><span class="ld"></span>Active Block</div>
+    </div>
+  </div>
+
+  <!-- PHASE ESCALATION BAR -->
+  <div class="phase-banner">
+    <div class="ph-seg done">
+      <span class="ph-wk">W10</span>
+      Controlled Build ✓
+    </div>
+    <div class="ph-seg now">
+      <span class="ph-wk">W11</span>
+      Intensity Rise ◀
+    </div>
+    <div class="ph-seg next">
+      <span class="ph-wk">W12</span>
+      Overload Phase
+    </div>
+    <div class="ph-seg next">
+      <span class="ph-wk">W13</span>
+      Consolidation
+    </div>
+    <div class="ph-seg far">
+      <span class="ph-wk">W14</span>
+      Peak Week
+    </div>
+    <div class="ph-seg far">
+      <span class="ph-wk">RACE</span>
+      Brisbane 🏁
+    </div>
+  </div>
+
+  <!-- SLEEP ALERT -->
+  <div class="sleep-alert">
+    <div class="sa-icon">😴</div>
+    <div>
+      <div class="sa-label">⚠ Carry-Forward Alert — Sleep Debt</div>
+      <div class="sa-text">W10 closed with debt at <span>14.7%</span>. Saturday sleep was <span>5h53 / score 69</span>. This week's primary off-field priority: recover the debt before Thursday.</div>
+    </div>
+    <div class="sa-target">
+      <div class="sa-val">8h</div>
+      <div class="sa-unit">Nightly Target</div>
+    </div>
+  </div>
+
+  <!-- OBJECTIVES -->
+  <div class="obj-strip">
+    <div class="obj">
+      <div class="obj-num">OBJ 01</div>
+      <div class="obj-text">Run pace <span class="hi">4:20–4:25</span>/km · 6×1km <span class="delta up">+1 rep vs W10</span></div>
+    </div>
+    <div class="obj">
+      <div class="obj-num">OBJ 02</div>
+      <div class="obj-text">WB total <span class="hi">90–110</span> · SAT <span class="hi">50 unbroken</span> confirmed</div>
+    </div>
+    <div class="obj">
+      <div class="obj-num">OBJ 03</div>
+      <div class="obj-text">Heavy lower <span class="hi">+5%</span> load vs W10 · same structure, no ego</div>
+    </div>
+    <div class="obj">
+      <div class="obj-num">OBJ 04</div>
+      <div class="obj-text">Sleep <span class="hi">8h target</span> nightly · HRV stable or rising</div>
+    </div>
+  </div>
+
+  <!-- MINDSET -->
+  <div class="mindset">
+    <div class="mindset-word hi">Intensity rise.</div>
+    <div class="mindset-sep">·</div>
+    <div class="mindset-word">Not overload.</div>
+    <div class="mindset-sep">·</div>
+    <div class="mindset-word">Not peak.</div>
+    <div class="mindset-sep">·</div>
+    <div class="mindset-word hi">Precision over aggression.</div>
+  </div>
+
+  <!-- WEEK GRID -->
+  <div class="section-lbl">📆 Week Structure — W11 · 2026</div>
+
+  <div class="week-grid">
+
+    <!-- MON 09 -->
+    <div class="dc mon">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">09</span></div>
+        <div class="dc-abbr">MON</div>
+        <div class="dc-tag">Speed Economy</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">Warm-Up</span>
+        <div class="di"><span class="ic">—</span><span>Easy jog <span class="hi">10 min</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Strides <span class="gr">3 × 100 m</span></span></div>
+        <span class="di-section">Main Set</span>
+        <div class="di"><span class="ic">—</span><span><span class="gr">6 × 1 km</span> <span class="delta up">+1 rep</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Pace <span class="gr">4:20–4:25</span>/km <span class="delta up">↑5s faster</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Rest <span class="ac">90 sec</span> walk/jog</span></div>
+        <div class="di"><span class="ic">—</span><span>HR cap <span class="or">170</span> bpm</span></div>
+        <div class="di"><span class="ic">—</span><span class="mu">Smooth R1 · no redline before R5</span></div>
+        <span class="di-section">Cooldown</span>
+        <div class="di"><span class="ic">—</span><span>Easy jog <span class="hi">8–10 min</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Calf + hip mobility</span></div>
+        <div class="nobadge">NO WALL BALLS</div>
+      </div>
+    </div>
+
+    <!-- TUE 10 -->
+    <div class="dc tue">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">10</span></div>
+        <div class="dc-abbr">TUE</div>
+        <div class="dc-tag">Heavy Lower + Core</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">Legs</span>
+        <div class="di"><span class="ic">1</span><span>Incline Squat <span class="gd">4×6</span> <span class="delta up">+5%</span></span></div>
+        <div class="di"><span class="ic">2</span><span>RDL <span class="gd">3×8</span></span></div>
+        <div class="di"><span class="ic">3</span><span>Bulgarian SS <span class="gd">3×10</span> ea</span></div>
+        <div class="di"><span class="ic">4</span><span>Lunges <span class="gd">3×20</span> steps <span class="delta up">+5%</span></span></div>
+        <span class="di-section">Core</span>
+        <div class="di"><span class="ic">—</span><span>Anti-rotation <span class="hi">3×30 sec</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Hanging knee raises <span class="hi">3×12</span></span></div>
+        <div class="di"><span class="ic">→</span><span class="mu">No failure. Protect back + pelvis.</span></div>
+        <div class="nobadge" style="border-color:rgba(255,215,0,.2);color:var(--gold);">NO RUN // NO WB</div>
+      </div>
+    </div>
+
+    <!-- WED 11 -->
+    <div class="dc wed">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">11</span></div>
+        <div class="dc-abbr">WED</div>
+        <div class="dc-tag">Upper + Aerobic</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">Strength</span>
+        <div class="di"><span class="ic">1</span><span>Bench Press <span class="gr">4×5</span></span></div>
+        <div class="di"><span class="ic">2</span><span>Weighted Pull-ups <span class="gr">4×5–6</span></span></div>
+        <div class="di"><span class="ic">3</span><span>Dips <span class="gr">3×6–8</span> — stay technical</span></div>
+        <div class="di"><span class="ic">4</span><span>DB Row <span class="gr">3×10</span></span></div>
+        <div class="di"><span class="ic">5</span><span>Farmer Carry <span class="hi">2×200 m</span></span></div>
+        <span class="di-section">Run</span>
+        <div class="di"><span class="ic">🏃</span><span>Z2 <span class="gr">20–25 min</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Nasal first <span class="ac">10 min</span> · no drift</span></div>
+      </div>
+    </div>
+
+    <!-- THU 12 -->
+    <div class="dc thu">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">12</span></div>
+        <div class="dc-abbr">THU</div>
+        <div class="dc-tag">Compromised + WB</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">3 Rounds</span>
+        <div class="di"><span class="ic">·</span><span>1 km @ <span class="hi">4:35</span>/km</span></div>
+        <div class="di"><span class="ic">·</span><span>Sled Push <span class="rd">40m</span></span></div>
+        <div class="di"><span class="ic">·</span><span>Sled Pull <span class="rd">40m</span> — form priority</span></div>
+        <div class="di"><span class="ic">🏀</span><span><span class="rd">25–30 WB</span> <span class="delta up">+5 vs W10</span> after each</span></div>
+        <div class="di"><span class="ic">—</span><span>HR ≥ <span class="rd">160</span> before WB</span></div>
+        <span class="di-section">Optional Finish</span>
+        <div class="di"><span class="ic">—</span><span><span class="rd">20 WB</span> · rest · <span class="rd">20 WB</span></span></div>
+        <div class="di"><span class="ic">—</span><span class="mu">Only if quality remains</span></div>
+      </div>
+    </div>
+
+    <!-- FRI 13 -->
+    <div class="dc fri">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">13</span></div>
+        <div class="dc-abbr">FRI</div>
+        <div class="dc-tag">Aerobic Reset</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span>Z2 run or row <span class="gr">45–60 min</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Mobility <span class="hi">15 min</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Hips · calves · T-spine</span></div>
+        <div class="di"><span class="ic">⚠</span><span class="rd">Cut early if calf warning</span></div>
+        <div class="di" style="padding:12px 0 4px;font-size:9px;justify-content:center;border:none;">
+          <span class="mu">Freshness for Saturday</span>
+        </div>
+        <div class="di" style="padding:4px 0;font-size:20px;justify-content:center;border:none;opacity:.4;">🫁</div>
+      </div>
+    </div>
+
+    <!-- SAT 14 -->
+    <div class="dc sat">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">14</span></div>
+        <div class="dc-abbr">SAT</div>
+        <div class="dc-tag">Baby Hyrox 🔥</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">Sequence</span>
+        <div class="di"><span class="ic">·</span><span>900 m run</span></div>
+        <div class="di"><span class="ic">·</span><span>Sled Push <span class="rd">40m</span></span></div>
+        <div class="di"><span class="ic">·</span><span>Burpees <span class="hi">10</span></span></div>
+        <div class="di"><span class="ic">·</span><span>300 m run</span></div>
+        <div class="di"><span class="ic">·</span><span>Sled Pull <span class="rd">40m</span></span></div>
+        <div class="di"><span class="ic">·</span><span>Burpees <span class="hi">10</span></span></div>
+        <div class="di"><span class="ic">·</span><span>600 m run</span></div>
+        <div class="di"><span class="ic">·</span><span>Lunges <span class="hi">24 × 56 kg</span></span></div>
+        <span class="di-section">Wall Balls</span>
+        <div class="di"><span class="ic">🏀</span><span>Target <span class="gd">50 unbroken</span> — confirm W10 PR</span></div>
+        <div class="di"><span class="ic">—</span><span>+10–15 · Total: <span class="gd">60–65</span></span></div>
+        <div class="di"><span class="ic">—</span><span class="mu">Smooth R1 · no collapse pacing</span></div>
+      </div>
+    </div>
+
+    <!-- SUN 15 -->
+    <div class="dc sun">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">15</span></div>
+        <div class="dc-abbr">SUN</div>
+        <div class="dc-tag">Off / Light Hike</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span>Easy walk / hike</span></div>
+        <div class="di"><span class="ic">—</span><span>Stretch</span></div>
+        <div class="di"><span class="ic">—</span><span>Breath work</span></div>
+        <div class="di"><span class="ic">—</span><span class="mu">Absorb the week. No hidden session.</span></div>
+        <div class="di" style="padding:14px 0 0;font-size:22px;justify-content:center;border:none;opacity:.3;">🌙</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM CARDS -->
+  <div class="bottom-grid">
+
+    <!-- WB Plan -->
+    <div class="card" style="animation-delay:.46s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>Wall Ball Plan — W11</div>
+
+      <div class="cf-box">
+        <div class="cf-label">✅ W10 Carry-Forward</div>
+        <div class="cf-text"><span>50 unbroken</span> PR achieved · 70 total SAT · 205 total week<br>Next gate: <span>hold 50 under cleaner fatigue</span> — this Saturday</div>
+      </div>
+
+      <div class="wb-week-box">
+        <div class="wwb-title">W11 WEEK TARGETS</div>
+        <div class="wwb-row">
+          <div class="wwb-item">
+            <div class="wwb-val">25–30</div>
+            <div class="wwb-lbl">Per THU round</div>
+          </div>
+          <div class="wwb-item">
+            <div class="wwb-val">50</div>
+            <div class="wwb-lbl">SAT unbroken</div>
+          </div>
+          <div class="wwb-item">
+            <div class="wwb-val">90–110</div>
+            <div class="wwb-lbl">Weekly total</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prog-lbl">Progression Path</div>
+      <div class="prog-track">
+        <div class="ps done"><div class="pn">40</div><div class="pl">✓ W09</div></div>
+        <div class="pa">→</div>
+        <div class="ps done"><div class="pn">50</div><div class="pl">✓ W10</div></div>
+        <div class="pa">→</div>
+        <div class="ps cur"><div class="pn">50</div><div class="pl">W11 ▶</div></div>
+        <div class="pa">→</div>
+        <div class="ps fut"><div class="pn">55</div><div class="pl">W12</div></div>
+        <div class="pa">→</div>
+        <div class="ps gate"><div class="pn">100</div><div class="pl">Gate</div></div>
+      </div>
+
+      <div class="gate-box">
+        <div class="gate-lbl">Until Gate Achieved</div>
+        <div class="gate-txt">NO FLIGHTS · NO EGO · NO DRAMA</div>
+      </div>
+    </div>
+
+    <!-- HR Rules -->
+    <div class="card" style="animation-delay:.5s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>Heart Rate Rules — W11</div>
+
+      <div class="hr-rule">
+        <div class="hr-dot" style="background:var(--green);box-shadow:0 0 6px var(--green);"></div>
+        <div class="hr-label">Speed intervals — cap</div>
+        <div style="text-align:right;">
+          <div class="hr-val" style="color:var(--orange);">170</div>
+          <div class="hr-sub">bpm max Mon</div>
+        </div>
+      </div>
+      <div class="hr-rule">
+        <div class="hr-dot" style="background:var(--accent);box-shadow:0 0 6px var(--accent);"></div>
+        <div class="hr-label">Z2 aerobic — Wed + Fri</div>
+        <div style="text-align:right;">
+          <div class="hr-val" style="color:var(--accent);">135–150</div>
+          <div class="hr-sub">bpm zone</div>
+        </div>
+      </div>
+      <div class="hr-rule">
+        <div class="hr-dot" style="background:var(--gold);box-shadow:0 0 6px var(--gold);"></div>
+        <div class="hr-label">WB work zone</div>
+        <div style="text-align:right;">
+          <div class="hr-val" style="color:var(--gold);">160–170</div>
+          <div class="hr-sub">bpm during WB</div>
+        </div>
+      </div>
+      <div class="hr-rule">
+        <div class="hr-dot" style="background:var(--red);box-shadow:0 0 6px var(--red);"></div>
+        <div class="hr-label">WB blocks start at</div>
+        <div style="text-align:right;">
+          <div class="hr-val" style="color:var(--red);">≥ 160</div>
+          <div class="hr-sub">bpm before WB</div>
+        </div>
+      </div>
+      <div class="hr-rule">
+        <div class="hr-dot" style="background:var(--muted);"></div>
+        <div class="hr-label">Saturday — control, not chaos</div>
+        <div style="text-align:right;">
+          <div class="hr-val" style="color:var(--muted);">RACE</div>
+          <div class="hr-sub">rhythm</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;padding:10px 12px;background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:2px;margin-bottom:4px;">PACE TARGET — ESCALATE</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent);letter-spacing:3px;">4:20–4:25 <span style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted);">/km</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-top:2px;">6 × 1 km Monday · smooth R1 · no wall until R5</div>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="card" style="animation-delay:.54s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--accent);"></span>Metrics to Track</div>
+
+      <div class="track-item">
+        <div class="track-icon">🏃</div>
+        <div class="track-text">Best <span>1 km split</span> — Mon intervals</div>
+        <div class="track-blank">___</div>
+      </div>
+      <div class="track-item">
+        <div class="track-icon">🏀</div>
+        <div class="track-text">Total <span>WB volume</span> — week total</div>
+        <div class="track-blank">___</div>
+      </div>
+      <div class="track-item">
+        <div class="track-icon">💪</div>
+        <div class="track-text">Max <span>unbroken WB</span> — SAT attempt</div>
+        <div class="track-blank">___</div>
+      </div>
+      <div class="track-item">
+        <div class="track-icon">😴</div>
+        <div class="track-text">Avg <span>sleep hours</span> — target 8h ↑</div>
+        <div class="track-blank">___</div>
+      </div>
+      <div class="track-item">
+        <div class="track-icon">📈</div>
+        <div class="track-text"><span>HRV trend</span> — morning reading</div>
+        <div class="track-blank">___</div>
+      </div>
+      <div class="track-item">
+        <div class="track-icon">🛷</div>
+        <div class="track-text">Sled pull <span>quality</span> — Thu + Sat</div>
+        <div class="track-blank">___</div>
+      </div>
+
+      <div style="margin-top:12px;padding:10px 14px;border:1px solid rgba(255,215,0,.1);background:rgba(255,215,0,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:2px;margin-bottom:5px;">W10 → W11 DELTAS</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);line-height:1.8;">
+          Intervals <span style="color:var(--green);">5×1km → 6×1km</span><br>
+          Pace <span style="color:var(--green);">4:25 → 4:20</span>/km<br>
+          THU WB <span style="color:var(--green);">20–25 → 25–30</span>/round<br>
+          Lower load <span style="color:var(--green);">+5%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- IDENTITY -->
+  <div class="identity">
+    <div class="id-lbl">🐺 Wolf Identity</div>
+    <div class="id-lines">
+      <div class="id-line">We do not chase races.</div>
+      <div class="id-line">We build capacity.</div>
+      <div class="id-line hl">We hunt numbers.</div>
+      <div class="id-line hl">We earn the flight.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-l">W11 · 2026·03·09 → 2026·03·15 &nbsp;//&nbsp; YARO &nbsp;//&nbsp; HYROX BRISBANE BUILD · WEEK 2 OF 5 · 39-DAY BLOCK</div>
+    <div class="tags">
+      <div class="tag">#Hyrox</div>
+      <div class="tag">#IntensityRise</div>
+      <div class="tag">#WallBalls</div>
+      <div class="tag">#Engine</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYDNEY BUILD W19 · 2026 // YARO</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10; --surface: #0E1419; --surface2: #141B22;
+    --border: #1E2D3D; --accent: #00E5FF; --red: #FF4757;
+    --gold: #FFD700; --green: #00FF87; --text: #E8EDF2;
+    --muted: #5A6A7A; --label: #8A9BAB; --orange: #FF8C42;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,229,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.022) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 36px 24px; position: relative; z-index: 1; }
+
+  /* HEADER */
+  .hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); animation: fadeUp .5s ease both; }
+  .eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+  .title    { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 88px); line-height: .88; letter-spacing: 4px; }
+  .subtitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(16px, 2.2vw, 24px); letter-spacing: 5px; color: var(--muted); margin-top: 4px; }
+  .block-info { margin-top: 10px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); letter-spacing: 1px; }
+  .block-info span { color: var(--accent); }
+  .hdr-right { text-align: right; }
+  .week-badge { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--accent); letter-spacing: 3px; line-height: 1; }
+  .week-range { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); letter-spacing: 2px; margin-top: 2px; }
+  .week-year  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 10px; }
+  .live-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border: 1px solid rgba(0,229,255,.2); background: rgba(0,229,255,.04); }
+  .ld { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+
+  /* PHASE BAR */
+  .phase-banner { display: flex; align-items: center; margin-bottom: 20px; border: 1px solid var(--border); overflow: hidden; animation: fadeUp .5s .04s ease both; }
+  .ph-seg { flex: 1; padding: 11px 8px; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; text-align: center; position: relative; border-right: 1px solid var(--border); transition: background .2s; }
+  .ph-seg:last-child { border-right: none; }
+  .ph-seg::after { content: '→'; position: absolute; right: -7px; top: 50%; transform: translateY(-50%); color: var(--border); font-size: 11px; z-index: 1; }
+  .ph-seg:last-child::after { display: none; }
+  .ph-seg .ph-wk { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 2px; display: block; line-height: 1; margin-bottom: 3px; }
+  .ph-seg.done  { background: rgba(0,255,135,.05); color: var(--green); }
+  .ph-seg.done  .ph-wk { color: var(--green); }
+  .ph-seg.now   { background: rgba(0,229,255,.08); color: var(--accent); }
+  .ph-seg.now   .ph-wk { color: var(--accent); }
+  .ph-seg.next  { color: var(--muted); }
+  .ph-seg.next  .ph-wk { color: var(--muted); }
+  .ph-seg.far   { color: var(--border); }
+  .ph-seg.far   .ph-wk { color: var(--border); }
+
+  /* INTENT BANNER */
+  .intent-banner { background: var(--surface); border: 1px solid rgba(0,229,255,.15); border-left: 3px solid var(--accent); padding: 14px 22px; margin-bottom: 14px; animation: fadeUp .5s .06s ease both; }
+  .ib-title { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .ib-grid  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .ib-item  { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--label); line-height: 1.5; display: flex; align-items: flex-start; gap: 6px; }
+  .ib-item::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* CALF BANNER */
+  .calf-banner { background: var(--surface); border: 1px solid rgba(255,215,0,.15); border-left: 3px solid var(--gold); padding: 12px 22px; margin-bottom: 14px; animation: fadeUp .5s .08s ease both; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .cb-icon  { font-size: 20px; flex-shrink: 0; }
+  .cb-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 3px; }
+  .cb-text  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.5; }
+  .cb-text span { color: var(--text); }
+
+  /* HRV STRIP */
+  .hrv-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 20px; animation: fadeUp .5s .10s ease both; }
+  .hs { background: var(--surface); padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px; transition: background .2s; }
+  .hs:hover { background: var(--surface2); }
+  .hs-pill { font-family: 'DM Mono', monospace; font-size: 8px; padding: 3px 8px; letter-spacing: 2px; flex-shrink: 0; }
+  .pill-green { background: rgba(0,255,135,.08); color: var(--green); border: 1px solid rgba(0,255,135,.2); }
+  .pill-gold  { background: rgba(255,215,0,.08); color: var(--gold);  border: 1px solid rgba(255,215,0,.2); }
+  .pill-red   { background: rgba(255,71,87,.08);  color: var(--red);   border: 1px solid rgba(255,71,87,.2); }
+  .hs-action { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text); margin-bottom: 3px; }
+  .hs-desc   { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); line-height: 1.5; }
+
+  /* OBJECTIVES */
+  .obj-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 20px; animation: fadeUp .5s .12s ease both; }
+  .obj { background: var(--surface); padding: 13px 14px; position: relative; overflow: hidden; transition: background .2s; }
+  .obj:hover { background: var(--surface2); }
+  .obj::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
+  .obj:nth-child(1)::before { background: var(--gold); }
+  .obj:nth-child(2)::before { background: var(--green); }
+  .obj:nth-child(3)::before { background: var(--red); }
+  .obj:nth-child(4)::before { background: var(--accent); }
+  .obj:nth-child(5)::before { background: var(--muted); }
+  .obj-num  { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; margin-bottom: 4px; }
+  .obj-text { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--label); line-height: 1.5; }
+  .obj-text .hi { color: var(--text); }
+
+  /* MINDSET */
+  .mindset { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 13px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; animation: fadeUp .5s .14s ease both; position: relative; overflow: hidden; }
+  .mindset::after { content: '🐺'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 44px; opacity: .06; pointer-events: none; }
+  .mw { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 4px; color: var(--muted); transition: color .2s; }
+  .mw:hover { color: var(--text); }
+  .mw.hi { color: var(--gold); }
+  .msep { color: var(--border); font-size: 13px; }
+
+  /* SECTION LABEL */
+  .section-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* WEEK GRID */
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 24px; }
+  .dc { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid transparent; transition: transform .2s; animation: fadeUp .5s ease both; overflow: hidden; }
+  .dc:hover { transform: translateY(-3px); }
+  .dc.mon { border-top-color: var(--green); }
+  .dc.tue { border-top-color: var(--gold); }
+  .dc.wed { border-top-color: var(--accent); }
+  .dc.thu { border-top-color: var(--red); }
+  .dc.fri { border-top-color: var(--accent); }
+  .dc.sat { border-top-color: var(--red); }
+  .dc.sun { border-top-color: var(--muted); }
+  .dc:nth-child(1){animation-delay:.14s} .dc:nth-child(2){animation-delay:.18s}
+  .dc:nth-child(3){animation-delay:.22s} .dc:nth-child(4){animation-delay:.26s}
+  .dc:nth-child(5){animation-delay:.30s} .dc:nth-child(6){animation-delay:.34s}
+  .dc:nth-child(7){animation-delay:.38s}
+
+  .dc-head { padding: 12px 13px 10px; border-bottom: 1px solid var(--border); }
+  .dc-iso { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 1px; margin-bottom: 4px; }
+  .dc-iso .yr { color: var(--muted); } .dc-iso .dot { color: var(--border); margin: 0 2px; }
+  .dc-iso .mo { color: var(--label); } .dc-iso .dd { color: var(--text); font-weight: 500; }
+  .dc-abbr { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; line-height: 1; }
+  .mon .dc-abbr { color: var(--green); } .tue .dc-abbr { color: var(--gold); }
+  .wed .dc-abbr { color: var(--accent); } .thu .dc-abbr { color: var(--red); }
+  .fri .dc-abbr { color: var(--accent); } .sat .dc-abbr { color: var(--red); }
+  .sun .dc-abbr { color: var(--muted); }
+
+  .dc-tag { display: inline-block; margin-top: 6px; font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 1.5px; padding: 2px 7px; text-transform: uppercase; }
+  .mon .dc-tag { background: rgba(0,255,135,.07); color: var(--green); }
+  .tue .dc-tag { background: rgba(255,215,0,.07); color: var(--gold); }
+  .wed .dc-tag { background: rgba(0,229,255,.07); color: var(--accent); }
+  .thu .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .fri .dc-tag { background: rgba(0,229,255,.07); color: var(--accent); }
+  .sat .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .sun .dc-tag { background: rgba(90,106,122,.08); color: var(--muted); }
+
+  .dc-body { padding: 10px 13px 13px; }
+  .di { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--label); padding: 4px 0; border-bottom: 1px solid rgba(30,45,61,.5); line-height: 1.4; display: flex; align-items: flex-start; gap: 5px; }
+  .di:last-child { border-bottom: none; }
+  .di .ic { flex-shrink: 0; color: var(--muted); }
+  .hi { color: var(--text); } .gr { color: var(--green); } .ac { color: var(--accent); }
+  .rd { color: var(--red); }  .gd { color: var(--gold); }  .mu { color: var(--muted); }
+  .or { color: var(--orange); }
+  .di-section { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding: 6px 0 2px; border-bottom: 1px solid rgba(30,45,61,.5); display: block; }
+
+  .calf-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 7px; padding: 1px 5px; background: rgba(255,215,0,.1); color: var(--gold); border: 1px solid rgba(255,215,0,.2); letter-spacing: 1px; vertical-align: middle; margin-left: 3px; }
+  .fix-tag  { display: inline-block; font-family: 'DM Mono', monospace; font-size: 7px; padding: 1px 5px; background: rgba(255,71,87,.1); color: var(--red); border: 1px solid rgba(255,71,87,.2); letter-spacing: 1px; vertical-align: middle; margin-left: 3px; }
+
+  .opt-box { margin-top: 7px; padding: 6px 9px; font-family: 'DM Mono', monospace; font-size: 8px; line-height: 1.6; border: 1px solid; }
+  .opt-green { color: var(--green); border-color: rgba(0,255,135,.2); background: rgba(0,255,135,.03); }
+  .opt-gold  { color: var(--gold);  border-color: rgba(255,215,0,.2);  background: rgba(255,215,0,.03); }
+  .opt-red   { color: var(--red);   border-color: rgba(255,71,87,.15);  background: rgba(255,71,87,.03); }
+  .opt-label { letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; font-size: 7px; display: block; }
+
+  /* BOTTOM CARDS */
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); padding: 22px; animation: fadeUp .5s ease both; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: rgba(0,229,255,.1); transform: translateY(-2px); }
+  .card-ttl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .ct-dot { width: 6px; height: 6px; flex-shrink: 0; }
+
+  .ex-row { padding: 8px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
+  .ex-row:last-child { border-bottom: none; }
+  .er-name   { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.3; }
+  .er-weight { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--text); letter-spacing: 1px; text-align: right; }
+  .er-weight .wu { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--accent); }
+  .er-scheme { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-align: right; }
+
+  /* interval bars */
+  .int-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .int-row:last-child { border-bottom: none; }
+  .ir-num  { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); width: 22px; flex-shrink: 0; }
+  .ir-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 2px; }
+  .ir-bar-fill { height: 100%; border-radius: 2px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+  .ir-pace { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; width: 50px; text-align: right; flex-shrink: 0; }
+  .ir-note { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); width: 48px; text-align: right; flex-shrink: 0; }
+
+  /* WB probe rows */
+  .wb-round { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .wb-round:last-child { border-bottom: none; }
+  .wbr-n { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); width: 22px; flex-shrink: 0; margin-top: 2px; }
+  .wbr-body { flex: 1; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--label); line-height: 1.5; }
+  .wbr-tgt  { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); }
+
+  .success-item { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.4; }
+  .success-item:last-child { border-bottom: none; }
+  .success-item::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* identity */
+  .identity { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 14px; animation: fadeUp .5s .5s ease both; position: relative; overflow: hidden; }
+  .identity::after { content: '🐺'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 72px; opacity: .05; pointer-events: none; }
+  .id-lbl { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .id-lines { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 5px; }
+  .id-line  { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 3px; color: var(--muted); transition: color .2s; }
+  .id-line:hover { color: var(--text); }
+  .id-line.hl { color: var(--gold); }
+
+  .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); padding: 3px 8px; border: 1px solid var(--border); letter-spacing: 1px; cursor: default; transition: all .2s; }
+  .tag:hover { color: var(--gold); border-color: rgba(255,215,0,.3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+  @media (max-width: 1100px) { .week-grid { grid-template-columns: repeat(4,1fr); } .bottom-grid { grid-template-columns: 1fr 1fr; } .obj-strip { grid-template-columns: repeat(3,1fr); } .ib-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 750px)  { .week-grid { grid-template-columns: repeat(2,1fr); } .bottom-grid { grid-template-columns: 1fr; } .hdr { flex-direction: column; gap: 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div>
+      <div class="eyebrow">🐺 Sydney Build W6 · Phase 2: Build · Week 3 of 5</div>
+      <div class="title">WEEK<br>NINETEEN</div>
+      <div class="subtitle">Phase 2: Build · Week 3 of 5</div>
+      <div class="block-info">Sydney Build <span>W6</span> · Phase 2: Build · <span>Week 3 of 5</span> · Goal <span>1:15:00 · 03·07·2026 · 60 days</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="week-badge">W19</div>
+      <div class="week-range">2026·05·04 → 2026·05·10</div>
+      <div class="week-year">60 days to Sydney · Iron Viking Gym</div>
+      <div class="live-badge"><span class="ld"></span>Sydney Build W6 · Active</div>
+    </div>
+  </div>
+
+  <!-- PHASE BAR -->
+  <div class="phase-banner">
+    <div class="ph-seg done"><span class="ph-wk">P1</span>Stabilize W14–16 ✓</div>
+    <div class="ph-seg done"><span class="ph-wk">W17</span>Build W1 ✓ · W4</div>
+    <div class="ph-seg done"><span class="ph-wk">W18</span>Build W2 ✓ · W5</div>
+    <div class="ph-seg now"><span class="ph-wk">W19</span>Build W3 ◀ · W6</div>
+    <div class="ph-seg next"><span class="ph-wk">W20–21</span>Build W4–W5</div>
+    <div class="ph-seg next"><span class="ph-wk">P3</span>Peak W22–W24</div>
+    <div class="ph-seg far"><span class="ph-wk">RACE</span>Sydney 07·03</div>
+  </div>
+
+  <!-- WEEK INTENT -->
+  <div class="intent-banner">
+    <div class="ib-title">Week 19 Intent — 6 Priorities</div>
+    <div class="ib-grid">
+      <div class="ib-item">Absorb strong W18 block without chasing a new Monday PR</div>
+      <div class="ib-item">Protect calves — no escalation from W18 near-cramp signal</div>
+      <div class="ib-item">Correct THU sled-pull to <span style="color:var(--text);">184 kg</span> — confirm load before Round 1</div>
+      <div class="ib-item">Progress WB clean-rep capacity from 30 toward <span style="color:var(--text);">35 clean</span></div>
+      <div class="ib-item">Keep running economy sharp without chasing another breakthrough</div>
+      <div class="ib-item">Preserve recovery so Phase 2 continues building through W20–W21</div>
+    </div>
+  </div>
+
+  <!-- CALF BANNER -->
+  <div class="calf-banner">
+    <div class="cb-icon">⚠️</div>
+    <div>
+      <div class="cb-label">Calf Management — Carry-Over from W18</div>
+      <div class="cb-text">W18 TUE near-cramp signal still relevant. <span>No RDL. No extra lunge set. No calf-loaded finishers.</span> If calf tight-line appears during lunges — stop at 2 sets. BBJ removed from WED. No jumping volume before Thursday.</div>
+    </div>
+    <div style="margin-left:auto;text-align:right;flex-shrink:0;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--gold);letter-spacing:2px;line-height:1;">PROTECT</div>
+      <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;">calves first</div>
+    </div>
+  </div>
+
+  <!-- HRV RULES -->
+  <div class="hrv-strip">
+    <div class="hs">
+      <div class="hs-pill pill-green">GREEN</div>
+      <div><div class="hs-action">Execute full session as planned</div><div class="hs-desc">HRV stable/rising · sleep ok · 0 cardiac symptoms</div></div>
+    </div>
+    <div class="hs">
+      <div class="hs-pill pill-gold">YELLOW</div>
+      <div><div class="hs-action">Volume -15–25% · keep intent · no bonus</div><div class="hs-desc">MON: reduce to 4 reps · THU: keep 2 rounds · SAT: remove probe</div></div>
+    </div>
+    <div class="hs">
+      <div class="hs-pill pill-red">RED</div>
+      <div><div class="hs-action">30–40 min Z2 / walk only</div><div class="hs-desc">HRV crash · cardiac symptoms · bad sleep · calves loaded</div></div>
+    </div>
+  </div>
+
+  <!-- OBJECTIVES -->
+  <div class="obj-strip">
+    <div class="obj"><div class="obj-num">OBJ 01</div><div class="obj-text"><span class="hi">MON: HR cap 155</span> · 5×1km controlled · no 4:10 chase</div></div>
+    <div class="obj"><div class="obj-num">OBJ 02</div><div class="obj-text">Calves <span class="hi">zero escalation</span> · TUE max 2 lunge sets if signal</div></div>
+    <div class="obj"><div class="obj-num">OBJ 03</div><div class="obj-text">THU: <span class="hi">sled pull 184 kg</span> — check before Round 1 starts</div></div>
+    <div class="obj"><div class="obj-num">OBJ 04</div><div class="obj-text">SAT WB probe: <span class="hi">35 clean</span> or quality stop</div></div>
+    <div class="obj"><div class="obj-num">OBJ 05</div><div class="obj-text">Bodyweight <span class="hi">84–85 kg</span> · protect running economy</div></div>
+  </div>
+
+  <!-- MINDSET -->
+  <div class="mindset">
+    <div class="mw hi">Build the engine.</div>
+    <div class="msep">·</div>
+    <div class="mw hi">Protect the calves.</div>
+    <div class="msep">·</div>
+    <div class="mw">Make wall balls repeatable.</div>
+  </div>
+
+  <!-- WEEK GRID -->
+  <div class="section-lbl">📆 Week Structure — W19 · Sydney Build W6</div>
+  <div class="week-grid">
+
+    <!-- MON 04 -->
+    <div class="dc mon">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">05</span><span class="dot">·</span><span class="dd">04</span></div>
+        <div class="dc-abbr">MON</div>
+        <div class="dc-tag">Speed Economy</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">WU</span>
+        <div class="di"><span class="ic">—</span><span>Easy jog <span class="hi">12 min</span> · ankle rocks · calf raises 15</span></div>
+        <div class="di"><span class="ic">—</span><span>2×80m relaxed strides · walk back</span></div>
+        <div class="di"><span class="ic">🏃</span><span><span class="gr">5×1km</span> @ <span class="gr">4:18–4:24</span> · HR soft cap <span class="rd">152</span> · hard <span class="rd">155</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Rest: <span class="hi">2:00</span> easy walk/jog</span></div>
+        <div class="opt-box opt-gold" style="margin-top:6px;">
+          <span class="opt-label">Yellow</span>
+          Reduce to 4 reps · same pace target
+        </div>
+        <div class="opt-box opt-red" style="margin-top:4px;">
+          <span class="opt-label">Red</span>
+          30–40 min Z2 only
+        </div>
+        <div class="di" style="margin-top:6px;"><span class="ic">✗</span><span class="mu">No 6th rep · no 4:00 test · no sprint finish</span></div>
+        <div class="di"><span class="ic">⚠</span><span class="or">If calves tighten → stop at 4 reps</span></div>
+      </div>
+    </div>
+
+    <!-- TUE 05 -->
+    <div class="dc tue">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">05</span><span class="dot">·</span><span class="dd">05</span></div>
+        <div class="dc-abbr">TUE</div>
+        <div class="dc-tag">Lower + Sled <span class="calf-tag">calf protect</span></div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">Strength</span>
+        <div class="di"><span class="ic">1</span><span>Leg Ext <span class="gd">60kg · 3×12</span> · 60s</span></div>
+        <div class="di"><span class="ic">2</span><span>Leg Press <span class="gd">90kg · 3×10</span> ea · 90s</span></div>
+        <div class="di"><span class="ic">3</span><span>Bulgarian SS <span class="gd">50kg · 3×8</span> ea · 90s · no bounce</span></div>
+        <div class="di"><span class="ic">4</span><span>Lunges <span class="gd">64kg · 2–3×24</span> · 2:15–2:30</span></div>
+        <div class="di"><span class="ic">⚠</span><span class="or">Stop lunges at 2 sets if calf tight-line appears</span></div>
+        <span class="di-section">Sled</span>
+        <div class="di"><span class="ic">🛷</span><span>Push <span class="rd">240kg · 3×18–20m</span> · 45–55s · 1:45</span></div>
+        <div class="di"><span class="ic">🛷</span><span>Pull <span class="rd">204kg · 3×18–20m</span> · 1:25–1:40 · 2:00</span></div>
+        <div class="di"><span class="ic">✗</span><span class="mu">No RDL · no extra sled · no weight increase</span></div>
+      </div>
+    </div>
+
+    <!-- WED 06 -->
+    <div class="dc wed">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">05</span><span class="dot">·</span><span class="dd">06</span></div>
+        <div class="dc-abbr">WED</div>
+        <div class="dc-tag">Upper + Aerobic</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">Strength</span>
+        <div class="di"><span class="ic">1</span><span>Bench <span class="gr">75→80kg · 4 sets</span> · 2:00</span></div>
+        <div class="di"><span class="ic">2</span><span>Pull-ups <span class="gr">+20kg · 3×5</span> · 2:00</span></div>
+        <div class="di"><span class="ic">3</span><span>Dips <span class="gr">+20kg · 3×8</span> · if shoulder clean</span></div>
+        <div class="di"><span class="ic">4</span><span>DB Row <span class="hi">35kg · 3×10</span> · 75s</span></div>
+        <div class="di"><span class="ic">5</span><span>Farmer <span class="hi">64kg · 2×150–200m</span> · 2:00</span></div>
+        <span class="di-section">Easy Aerobic — pick one</span>
+        <div class="di"><span class="ic">—</span><span>Bike <span class="gr">20–25 min</span> OR Row <span class="gr">15–20 min</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Easy jog <span class="mu">20 min only if calves perfect</span></span></div>
+        <div class="di"><span class="ic">—</span><span>HR cap <span class="ac">120–130 · hard 135</span></span></div>
+        <div class="di"><span class="ic">✗</span><span class="mu">No BBJ · no jumping · no fast treadmill</span></div>
+      </div>
+    </div>
+
+    <!-- THU 07 -->
+    <div class="dc thu">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">05</span><span class="dot">·</span><span class="dd">07</span></div>
+        <div class="dc-abbr">THU</div>
+        <div class="dc-tag">HYROX Rhythm 🔥 <span class="fix-tag">184kg fix</span></div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">2 Rounds — Run Serves Stations</span>
+        <div class="di"><span class="ic">🏃</span><span>1km R1 <span class="rd">4:32–4:38</span> · R2 <span class="rd">not hotter</span></span></div>
+        <div class="di"><span class="ic">🛷</span><span>Push <span class="rd">204kg</span> · 37–45s R1 / 39–46s R2</span></div>
+        <div class="di"><span class="ic">🛷</span><span>Pull <span class="rd">184kg</span> · 1:10–1:25 R1 / 1:12–1:28 R2</span></div>
+        <div class="di"><span class="ic">🤸</span><span>BBJ 40m · <span class="hi">2:00–2:15</span> R1 / 2:05–2:25 R2</span></div>
+        <div class="di"><span class="ic">🏀</span><span>25 WB 9kg · <span class="hi">58–64s R1</span> / 58–68s R2</span></div>
+        <div class="di"><span class="ic">—</span><span>Rest: <span class="ac">2:30–3:00</span> between rounds</span></div>
+        <div class="di"><span class="ic">+</span><span>Opt: <span class="rd">10–15 WB</span> only if shoulder clean + HR &lt;155</span></div>
+        <div class="opt-box opt-red" style="margin-top:6px;">
+          <span class="opt-label">Hard Rule</span>
+          Check sled pull load BEFORE Round 1 starts · 184 kg confirmed
+        </div>
+      </div>
+    </div>
+
+    <!-- FRI 08 -->
+    <div class="dc fri">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">05</span><span class="dot">·</span><span class="dd">08</span></div>
+        <div class="dc-abbr">FRI</div>
+        <div class="dc-tag">Aerobic Reset 🫁</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span>Easy run <span class="ac">40–45 min</span></span></div>
+        <div class="di"><span class="ic">—</span><span>HR target <span class="ac">120–132</span> · soft cap 135 · hard 138</span></div>
+        <div class="di"><span class="ic">—</span><span>Expected pace <span class="hi">5:45–6:05</span>/km</span></div>
+        <div class="di"><span class="ic">—</span><span>Calf stretch <span class="hi">2×45s</span> ea · hip flexors · T-spine</span></div>
+        <div class="di"><span class="ic">—</span><span>Finish <span class="gr">fresher than start</span></span></div>
+        <div class="di"><span class="ic">✗</span><span class="mu">No strides · no threshold · no WB · no second session</span></div>
+      </div>
+    </div>
+
+    <!-- SAT 09 -->
+    <div class="dc sat">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">05</span><span class="dot">·</span><span class="dd">09</span></div>
+        <div class="dc-abbr">SAT</div>
+        <div class="dc-tag">WB Probe · 35 Clean 🏀</div>
+      </div>
+      <div class="dc-body">
+        <span class="di-section">4 Rounds</span>
+        <div class="di"><span class="ic">🏃</span><span>400m @ <span class="hi">4:45–5:00</span>/km · no sprint</span></div>
+        <div class="di"><span class="ic">—</span><span>Lunges <span class="hi">20m @ 56kg</span></span></div>
+        <div class="di"><span class="ic">🤸</span><span>BBJ 10 reps / 20m · controlled</span></div>
+        <div class="di"><span class="ic">🏀</span><span><span class="rd">25 WB 9kg</span> · 58–65s · rest 90s–2:00</span></div>
+        <span class="di-section">Probe — after 4 clean rounds</span>
+        <div class="opt-box opt-green" style="margin-top:4px;">
+          <span class="opt-label">Probe Set</span>
+          1× max clean WB 9kg · target 35 clean · stop at first quality drop · not a death set
+        </div>
+        <div class="di" style="margin-top:6px;"><span class="ic">⚠</span><span class="or">Remove BBJ if calves loaded after warm-up</span></div>
+        <div class="di"><span class="ic">✗</span><span class="mu">No sleds · no second max set · no run test</span></div>
+      </div>
+    </div>
+
+    <!-- SUN 10 -->
+    <div class="dc sun">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">05</span><span class="dot">·</span><span class="dd">10</span></div>
+        <div class="dc-abbr">SUN</div>
+        <div class="dc-tag">HRV-Based Recovery</div>
+      </div>
+      <div class="dc-body">
+        <div class="opt-box opt-green">
+          <span class="opt-label">Green / Default</span>
+          Brisk walk 40–60 min + mobility 10–12 min
+        </div>
+        <div class="opt-box opt-gold" style="margin-top:5px;">
+          <span class="opt-label">Green Excellent</span>
+          Easy jog 25–35 min · HR 120–130 · hard cap 135
+        </div>
+        <div class="opt-box opt-red" style="margin-top:5px;">
+          <span class="opt-label">Yellow / Red</span>
+          Walk 30–45 min · food + hydration + early sleep
+        </div>
+        <div class="di" style="margin-top:7px;"><span class="ic">✗</span><span class="mu">No quality · no WB · no sleds · no lunges · no BBJ</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM CARDS -->
+  <div class="bottom-grid">
+
+    <!-- MON + TUE detail -->
+    <div class="card" style="animation-delay:.40s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--green);"></span>Mon 5×1km + Tue Lower Load</div>
+
+      <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--green);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase;">Mon — Target Pace Arc</div>
+      <div class="int-row">
+        <div class="ir-num">R1–2</div>
+        <div class="ir-bar-bg"><div class="ir-bar-fill" style="width:68%;background:var(--muted);"></div></div>
+        <div class="ir-pace" style="color:var(--muted);">4:24</div>
+        <div class="ir-note">controlled</div>
+      </div>
+      <div class="int-row">
+        <div class="ir-num">R3–4</div>
+        <div class="ir-bar-bg"><div class="ir-bar-fill" style="width:82%;background:var(--accent);"></div></div>
+        <div class="ir-pace" style="color:var(--accent);">4:21</div>
+        <div class="ir-note">build</div>
+      </div>
+      <div class="int-row">
+        <div class="ir-num">R5</div>
+        <div class="ir-bar-bg"><div class="ir-bar-fill" style="width:90%;background:var(--green);"></div></div>
+        <div class="ir-pace" style="color:var(--green);">4:18</div>
+        <div class="ir-note">target</div>
+      </div>
+
+      <div style="margin:14px 0 10px;font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Tue — Lower Compound</div>
+      <div class="ex-row">
+        <div class="er-name">Leg Extension</div>
+        <div class="er-weight">60<span class="wu">kg</span></div>
+        <div class="er-scheme">3×12 · 60s</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Single-Leg Press</div>
+        <div class="er-weight">90<span class="wu">kg</span></div>
+        <div class="er-scheme">3×10 ea · 90s</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Bulgarian SS</div>
+        <div class="er-weight">50<span class="wu">kg</span></div>
+        <div class="er-scheme">3×8 ea · 90s</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Lunges <span style="color:var(--gold);font-size:8px;">⚠ 2–3 sets</span></div>
+        <div class="er-weight">64<span class="wu">kg</span></div>
+        <div class="er-scheme">×24 · 2:15</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Sled Push</div>
+        <div class="er-weight" style="color:var(--red);">240<span class="wu">kg</span></div>
+        <div class="er-scheme">3×18m · 1:45</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Sled Pull</div>
+        <div class="er-weight" style="color:var(--gold);">204<span class="wu">kg</span></div>
+        <div class="er-scheme">3×18m · 2:00</div>
+      </div>
+    </div>
+
+    <!-- THU Circuit -->
+    <div class="card" style="animation-delay:.44s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>Thu — HYROX Circuit Targets</div>
+
+      <div style="padding:8px 12px;border:1px solid rgba(255,71,87,.15);background:rgba(255,71,87,.04);margin-bottom:14px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--red);letter-spacing:2px;margin-bottom:2px;">SLED PULL CORRECTION</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">W18 used <span style="color:var(--red);">164 kg</span> instead of 184 kg. W19: <span style="color:var(--text);">confirm 184 kg before Round 1.</span></div>
+      </div>
+
+      <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase;">Station Targets · R1 / R2</div>
+
+      <div class="ex-row">
+        <div class="er-name">Run 1km</div>
+        <div class="er-weight" style="font-size:13px;color:var(--red);">4:32–4:38<span class="wu">/km</span></div>
+        <div class="er-scheme">obedient</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Sled Push 204kg</div>
+        <div class="er-weight" style="font-size:14px;color:var(--red);">37–45<span class="wu">s</span></div>
+        <div class="er-scheme">R1 · 20m</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Sled Pull <span style="color:var(--red);">184kg ✓</span></div>
+        <div class="er-weight" style="font-size:14px;color:var(--green);">1:10–1:25</div>
+        <div class="er-scheme">R1 · 20m</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">BBJ 40m</div>
+        <div class="er-weight" style="font-size:14px;">2:00–2:15</div>
+        <div class="er-scheme">rhythm</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Wall Balls 25 R1</div>
+        <div class="er-weight" style="font-size:14px;color:var(--green);">58–64<span class="wu">s</span></div>
+        <div class="er-scheme">9kg</div>
+      </div>
+      <div class="ex-row">
+        <div class="er-name">Wall Balls 25 R2</div>
+        <div class="er-weight" style="font-size:14px;color:var(--gold);">58–68<span class="wu">s</span></div>
+        <div class="er-scheme">9kg</div>
+      </div>
+
+      <div style="margin-top:12px;padding:9px 11px;border:1px solid rgba(0,229,255,.1);background:rgba(0,229,255,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:2px;margin-bottom:2px;">Run Rule</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">R2 pace <span style="color:var(--text);">must not be hotter than R1.</span> Runs serve stations — not ego.</div>
+      </div>
+    </div>
+
+    <!-- SAT WB Probe + Success -->
+    <div class="card" style="animation-delay:.48s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>SAT WB Probe + Week Success</div>
+
+      <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--red);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase;">🏀 SAT — 4-Round Structure</div>
+
+      <div class="wb-round">
+        <div class="wbr-n">R1</div>
+        <div class="wbr-body">400m + Lunges 56kg + BBJ 10 + 25 WB</div>
+        <div class="wbr-tgt">58–65s · rest 90s</div>
+      </div>
+      <div class="wb-round">
+        <div class="wbr-n">R2</div>
+        <div class="wbr-body">same structure</div>
+        <div class="wbr-tgt">58–65s · rest 90s</div>
+      </div>
+      <div class="wb-round">
+        <div class="wbr-n">R3</div>
+        <div class="wbr-body">same structure</div>
+        <div class="wbr-tgt">60–67s · rest 90s</div>
+      </div>
+      <div class="wb-round">
+        <div class="wbr-n">R4</div>
+        <div class="wbr-body">same structure</div>
+        <div class="wbr-tgt">60–68s · rest 2:00</div>
+      </div>
+      <div class="wb-round" style="background:rgba(255,71,87,.03);border:1px solid rgba(255,71,87,.15);padding:8px;margin-top:4px;border-bottom:1px solid rgba(255,71,87,.15);">
+        <div class="wbr-n" style="color:var(--green);">★</div>
+        <div class="wbr-body"><span style="color:var(--text);">Probe — if all 4 rounds clean</span></div>
+        <div class="wbr-tgt" style="color:var(--green);">target 35 clean · quality stop</div>
+      </div>
+
+      <div style="margin-top:14px;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">W19 Success Criteria</div>
+
+      <div class="success-item">MON: <span style="color:var(--text);">5 reps under HR 155</span> · pace 4:18–4:24</div>
+      <div class="success-item">TUE: calves <span style="color:var(--text);">no escalation</span> · sled push 240kg stable</div>
+      <div class="success-item">THU: sled pull <span style="color:var(--text);">confirmed 184 kg</span> before Round 1</div>
+      <div class="success-item">SAT: WB probe <span style="color:var(--text);">35 clean</span> or quality stop · no collapse</div>
+      <div class="success-item">SUN: <span style="color:var(--text);">protects W20 entry</span></div>
+    </div>
+
+  </div>
+
+  <!-- IDENTITY -->
+  <div class="identity">
+    <div class="id-lbl">🐺 Wolf Identity</div>
+    <div class="id-lines">
+      <div class="id-line">We do not chase races.</div>
+      <div class="id-line">We build capacity.</div>
+      <div class="id-line hl">We hunt numbers.</div>
+      <div class="id-line hl">We earn the flight.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-l">W19 · 2026·05·04 → 2026·05·10 · 60 DAYS TO SYDNEY // YARO // SYDNEY BUILD W6 · PHASE 2: BUILD · WEEK 3 OF 5</div>
+    <div class="tags">
+      <div class="tag">#Sydney</div>
+      <div class="tag">#Phase2Build</div>
+      <div class="tag">#SydneyW6</div>
+      <div class="tag">#CalfProtect</div>
+      <div class="tag">#WBProbe35</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.ir-bar-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0';
+      setTimeout(() => { el.style.width = w; }, 200);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOLF PORTAL · SYDNEY // YARO 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10;
+    --surface: #0E1419;
+    --surface2: #141B22;
+    --border: #1E2D3D;
+    --accent: #00E5FF;
+    --red: #FF4757;
+    --gold: #FFD700;
+    --green: #00FF87;
+    --text: #E8EDF2;
+    --muted: #5A6A7A;
+    --label: #8A9BAB;
+    --orange: #FF8C42;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* radial glow center */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(0,229,255,.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 36px;
+    position: relative; z-index: 1;
+    flex: 1;
+  }
+
+  /* ── HEADER ── */
+  .hdr {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeUp .6s ease both;
+  }
+
+  .hdr-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .ld { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+
+  .hdr-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 12vw, 130px);
+    line-height: .85;
+    letter-spacing: 8px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .hdr-title .dim { color: var(--muted); }
+
+  .hdr-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hdr-meta {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .hdr-meta-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hdr-meta-item::before { content: '·'; color: var(--border); }
+  .hdr-meta-item:first-child::before { display: none; }
+  .hdr-meta-item span { color: var(--label); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    animation: fadeUp .5s ease both;
+  }
+
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+
+  .divider-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* ── CARD GRID ── */
+  .grid-master {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .grid-weeks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .grid-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  /* ── NAV CARD ── */
+  .nc {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    text-decoration: none;
+    color: var(--text);
+    transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+    animation: fadeUp .5s ease both;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .nc::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,.02) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .nc:hover {
+    transform: translateX(4px);
+    background: var(--surface2);
+    box-shadow: 0 4px 32px rgba(0,0,0,.3);
+  }
+
+  .nc:hover::before { opacity: 1; }
+
+  /* Color themes */
+  .nc.red    { border-left-color: var(--red); }
+  .nc.gold   { border-left-color: var(--gold); }
+  .nc.green  { border-left-color: var(--green); }
+  .nc.blue   { border-left-color: var(--accent); }
+  .nc.orange { border-left-color: var(--orange); }
+  .nc.muted  { border-left-color: var(--muted); opacity: .6; cursor: default; }
+
+  .nc.red:hover    { border-color: rgba(255,71,87,.3); }
+  .nc.gold:hover   { border-color: rgba(255,215,0,.3); }
+  .nc.green:hover  { border-color: rgba(0,255,135,.3); }
+  .nc.blue:hover   { border-color: rgba(0,229,255,.3); }
+  .nc.orange:hover { border-color: rgba(255,140,66,.3); }
+  .nc.muted:hover  { transform: none; background: var(--surface); }
+
+  /* Icon */
+  .nc-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    transition: border-color .2s;
+  }
+
+  .nc.red    .nc-icon { background: rgba(255,71,87,.06);  border-color: rgba(255,71,87,.2); }
+  .nc.gold   .nc-icon { background: rgba(255,215,0,.06);  border-color: rgba(255,215,0,.2); }
+  .nc.green  .nc-icon { background: rgba(0,255,135,.06);  border-color: rgba(0,255,135,.2); }
+  .nc.blue   .nc-icon { background: rgba(0,229,255,.06);  border-color: rgba(0,229,255,.2); }
+  .nc.orange .nc-icon { background: rgba(255,140,66,.06); border-color: rgba(255,140,66,.2); }
+  .nc.muted  .nc-icon { background: rgba(90,106,122,.06); }
+
+  /* Text */
+  .nc-body { flex: 1; }
+
+  .nc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .nc.red    .nc-label { color: var(--red); }
+  .nc.gold   .nc-label { color: var(--gold); }
+  .nc.green  .nc-label { color: var(--green); }
+  .nc.blue   .nc-label { color: var(--accent); }
+  .nc.orange .nc-label { color: var(--orange); }
+  .nc.muted  .nc-label { color: var(--muted); }
+
+  .nc-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 5px;
+    transition: color .2s;
+  }
+
+  .nc.muted .nc-title { color: var(--muted); }
+
+  .nc-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    line-height: 1.5;
+  }
+
+  /* Tags on cards */
+  .nc-tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
+
+  .nc-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .nc-tag.done  { border-color: rgba(0,255,135,.2); color: var(--green); background: rgba(0,255,135,.04); }
+  .nc-tag.live  { border-color: rgba(0,229,255,.2); color: var(--accent); background: rgba(0,229,255,.04); animation: pulse-border 2s ease-in-out infinite; }
+  .nc-tag.next  { border-color: rgba(255,215,0,.2); color: var(--gold); background: rgba(255,215,0,.04); }
+  .nc-tag.soon  { border-color: var(--border); color: var(--muted); }
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: rgba(0,229,255,.2); }
+    50% { border-color: rgba(0,229,255,.5); }
+  }
+
+  /* Arrow */
+  .nc-arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    color: var(--border);
+    flex-shrink: 0;
+    transition: color .2s, transform .2s;
+  }
+
+  .nc:hover .nc-arrow { color: var(--label); transform: translateX(3px); }
+  .nc.muted .nc-arrow { display: none; }
+
+  /* Vertical week pair */
+  .week-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .week-pair .nc {
+    flex: 1;
+  }
+
+  /* ── WEEK BADGE inside card (large) ── */
+  .nc-wk-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 2px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+  }
+
+  .nc.red    .nc-wk-badge { color: var(--red); }
+  .nc.gold   .nc-wk-badge { color: var(--gold); }
+  .nc.green  .nc-wk-badge { color: var(--green); }
+  .nc.blue   .nc-wk-badge { color: var(--accent); }
+  .nc.orange .nc-wk-badge { color: var(--orange); }
+  .nc.muted  .nc-wk-badge { color: var(--muted); }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 14px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    animation: fadeUp .5s .08s ease both;
+  }
+
+  .sb-item { text-align: center; }
+  .sb-val { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; line-height: 1; }
+  .sb-lbl { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+  .sb-div { width: 1px; height: 36px; background: var(--border); }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; z-index: 1;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 2px; }
+  .footer-r { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 1px; }
+  .footer-r span { color: var(--accent); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+  .nc:nth-child(1){animation-delay:.1s}
+  .nc:nth-child(2){animation-delay:.15s}
+  .nc:nth-child(3){animation-delay:.2s}
+
+  @media (max-width: 900px) {
+    .grid-weeks { grid-template-columns: 1fr 1fr; }
+    .grid-bottom { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .grid-weeks { grid-template-columns: 1fr; }
+    .hdr-title { font-size: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-eyebrow"><span class="ld"></span>HYROX Sydney Build · 2026</div>
+    <div class="hdr-title">WOLF<br><span class="dim">PORTAL</span></div>
+    <div class="hdr-sub">Yaro · Pro Men 45–49 · Target 1:15:00</div>
+    <div class="hdr-meta">
+      <div class="hdr-meta-item">94-Day Block <span>W14 → Race</span></div>
+      <div class="hdr-meta-item">Current Week <span>W20 Complete</span></div>
+      <div class="hdr-meta-item">Race <span>Sydney 03·07·2026</span></div>
+      <div class="hdr-meta-item">28 Documents</div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="sb-item">
+      <div class="sb-val" style="color:var(--accent);">W19</div>
+      <div class="sb-lbl">Active Week</div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-item">
+      <div class="sb-val" style="color:var(--green);">W14 Done</div>
+      <div class="sb-lbl">Weeks Done</div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-item">
+      <div class="sb-val" style="color:var(--gold);">60</div>
+      <div class="sb-lbl">Max WB (W12 SUN)</div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-item">
+      <div class="sb-val" style="color:var(--red);">1:15:00</div>
+      <div class="sb-lbl">Target Time</div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-item">
+      <div class="sb-val" style="color:var(--orange);">4:11</div>
+      <div class="sb-lbl">Pace Goal /km</div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-item">
+      <div class="sb-val" style="color:var(--muted);">100</div>
+      <div class="sb-lbl">WB Gate</div>
+    </div>
+    <div class="sb-div"></div>
+    <div class="sb-item">
+      <div class="sb-val" id="cd-days-sb" style="color:var(--red);letter-spacing:2px;">—</div>
+      <div class="sb-lbl">Days to Sydney 🏁</div>
+    </div>
+  </div>
+
+  <!-- COUNTDOWN BANNER -->
+  <div id="countdown-banner" style="background:var(--surface);border:1px solid rgba(255,71,87,.18);border-left:3px solid var(--red);padding:14px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;animation:fadeUp .5s .04s ease both;">
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;">🏁 Sydney HYROX · Pro Men 45–49 · 3 July 2026</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Race Day <span style="color:var(--text);">Friday 03·07·2026 · 08:00 AEST</span> · Target <span style="color:var(--text);">1:15:00</span></div>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:14px;">
+      <div style="text-align:center;">
+        <div id="cd-days" style="font-family:'Bebas Neue',sans-serif;font-size:60px;color:var(--red);letter-spacing:4px;line-height:1;">—</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:2px;">Days</div>
+      </div>
+      <div style="padding-bottom:14px;color:var(--border);font-family:'Bebas Neue',sans-serif;font-size:28px;">:</div>
+      <div style="text-align:center;">
+        <div id="cd-hours" style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--muted);letter-spacing:3px;line-height:1;">—</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:2px;">Hrs</div>
+      </div>
+      <div style="padding-bottom:10px;color:var(--border);font-family:'Bebas Neue',sans-serif;font-size:28px;">:</div>
+      <div style="text-align:center;">
+        <div id="cd-mins" style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--muted);letter-spacing:3px;line-height:1;">—</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:2px;">Min</div>
+      </div>
+      <div style="padding-bottom:10px;color:var(--border);font-family:'Bebas Neue',sans-serif;font-size:28px;">:</div>
+      <div style="text-align:center;">
+        <div id="cd-secs" style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--muted);letter-spacing:3px;line-height:1;">—</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:2px;">Sec</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: MASTER PLAN -->
+  <div class="divider" style="animation-delay:.12s;">
+    <div class="divider-line"></div>
+    <div class="divider-label">Strategy</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="grid-master" style="margin-bottom:28px;">
+    <a class="nc red" href="https://YrslwGPTcodex.github.io/wolf-hyrox/master/hyrox_sydney_master_plan.html" target="_blank" style="animation-delay:.14s;">
+      <div class="nc-icon">🏁</div>
+      <div class="nc-body">
+        <div class="nc-label">Master Plan · Active</div>
+        <div class="nc-title">Sydney Master Plan</div>
+        <div class="nc-desc">94-day block · 4 phases + race week · WB rebuild 55→100 · HRV system · 3-layer WB strategy</div>
+        <div class="nc-tags">
+          <div class="nc-tag">2026·03·30 → 2026·07·03</div>
+          <div class="nc-tag">4 Phases + Race Week</div>
+          <div class="nc-tag">KPIs · HRV Gates · WB Arc</div>
+        </div>
+      </div>
+      <div class="nc-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- ARCHIVE: Brisbane -->
+  <div class="divider" style="animation-delay:.15s;">
+    <div class="divider-line"></div>
+    <div class="divider-label">Archive · Brisbane Block</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="grid-master" style="margin-bottom:28px;opacity:.5;">
+    <a class="nc muted" href="https://YrslwGPTcodex.github.io/wolf-hyrox/master/hyrox_brisbane_master_plan.html" target="_blank" style="animation-delay:.16s;">
+      <div class="nc-icon">📁</div>
+      <div class="nc-body">
+        <div class="nc-label">Archive · Cancelled</div>
+        <div class="nc-title">Brisbane Master Plan</div>
+        <div class="nc-desc">Original 39-day block W10–W13 · rolled into Sydney build</div>
+        <div class="nc-tags">
+          <div class="nc-tag">2026·03·02 → 2026·04·09</div>
+          <div class="nc-tag">Archived</div>
+        </div>
+      </div>
+      <div class="nc-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- SECTION: WEEKS -->
+  <div class="divider" style="animation-delay:.18s;">
+    <div class="divider-line"></div>
+    <div class="divider-label">Weekly Plans + Reports</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="grid-weeks">
+
+    <!-- W09 pair -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/master/Week_09_wolf_training_block.html" target="_blank" style="animation-delay:.2s;">
+        <div class="nc-wk-badge">W09</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 09 Plan</div>
+          <div class="nc-desc">Wolf Block · 2026·02·23–03·01</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">Intervals · Sled · WB</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w09_completed.html" target="_blank" style="animation-delay:.24s;">
+        <div class="nc-wk-badge">W09</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 09 Report</div>
+          <div class="nc-desc">40 unbroken WB · PR achieved · session data</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">40 WB PR</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W10 pair -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w10_plan.html" target="_blank" style="animation-delay:.26s;">
+        <div class="nc-wk-badge">W10</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 10 Plan</div>
+          <div class="nc-desc">Brisbane Build · 2026·03·02–03·08</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">W1/5 · Controlled Build</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w10_completed.html" target="_blank" style="animation-delay:.30s;">
+        <div class="nc-wk-badge">W10</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 10 Report</div>
+          <div class="nc-desc">50 unbroken WB · 205 total · sleep debt alert</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">50 WB PR</div>
+            <div class="nc-tag" style="border-color:rgba(255,71,87,.2);color:var(--red);">⚠ Sleep</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W11 pair -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w11_plan.html" target="_blank" style="animation-delay:.33s;">
+        <div class="nc-wk-badge">W11</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 11 Plan</div>
+          <div class="nc-desc">Intensity Rise · 2026·03·09–03·15</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">W2/5 · 6×1km · 50 WB</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w11_completed.html" target="_blank" style="animation-delay:.36s;">
+        <div class="nc-wk-badge">W11</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 11 Report</div>
+          <div class="nc-desc">50 WB near-UB · 80 total SAT · 4:09 best interval</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">50 WB ≈UB</div>
+            <div class="nc-tag" style="border-color:rgba(255,71,87,.2);color:var(--red);">⚠ Sleep</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W12 pair -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w12_plan.html" target="_blank" style="animation-delay:.39s;">
+        <div class="nc-wk-badge">W12</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 12 Plan</div>
+          <div class="nc-desc">Overload Phase · 2026·03·16–03·22</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">W3/5 · 4:15/km · 220kg sled PR</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w12_completed.html" target="_blank" style="animation-delay:.42s;">
+        <div class="nc-wk-badge">W12</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 12 Report</div>
+          <div class="nc-desc">220kg sled PR · limiter identified · SAT smart call</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">80 WB SUN</div>
+            <div class="nc-tag" style="border-color:rgba(0,229,255,.2);color:var(--accent);">↑ Overload done</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W13 pair -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w13_plan.html" target="_blank" style="animation-delay:.45s;">
+        <div class="nc-wk-badge">W13</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 13 Plan</div>
+          <div class="nc-desc">Consolidation · 2026·03·23–03·29</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">W4/5 · VO2max 54↑</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w13_completed.html" target="_blank" style="animation-delay:.48s;">
+        <div class="nc-wk-badge">W13</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 13 Report</div>
+          <div class="nc-desc">VO2max 54 PR · 225kg sled · 10km run clean heart</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">VO2max 57 ↑PR</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W14 pair — Sydney Build W1 -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w14_plan.html" target="_blank" style="animation-delay:.51s;">
+        <div class="nc-wk-badge">W14</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 14 Plan</div>
+          <div class="nc-desc">Sydney Build W1 · Stabilize · 2026·03·30–04·05</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">Sled 240kg PR</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w14_completed.html" target="_blank" style="animation-delay:.54s;">
+        <div class="nc-wk-badge">W14</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 14 Report</div>
+          <div class="nc-desc">240kg sled PR · sleep 94 · 140 WB SAT · 7/7</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">240kg ↑PR</div>
+            <div class="nc-tag" style="border-color:rgba(0,255,135,.2);color:var(--green);">Sleep 94</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W15 pair — Sydney Build W2 -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w15_plan.html" target="_blank" style="animation-delay:.57s;">
+        <div class="nc-wk-badge">W15</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 15 Plan</div>
+          <div class="nc-desc">Sydney Build W2 · Stabilize · 2026·04·06–04·12</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">WB 0:53 best set</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w15_completed.html" target="_blank" style="animation-delay:.60s;">
+        <div class="nc-wk-badge">W15</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 15 Report</div>
+          <div class="nc-desc">140 WB · 4×25 progressive · 0:58→0:53 · 7/7</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">WB ↑ progressive</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W16 pair — Sydney Build W3 · Phase 1 Final -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w16_plan.html" target="_blank" style="animation-delay:.63s;">
+        <div class="nc-wk-badge">W16</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 16 Plan</div>
+          <div class="nc-desc">Sydney Build W3 · Phase 1 Final · 2026·04·13–04·19</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">P1 Closed · Sled 240kg</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w16_completed.html" target="_blank" style="animation-delay:.66s;">
+        <div class="nc-wk-badge">W16</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 16 Report</div>
+          <div class="nc-desc">Phase 1 Final · SAT cancelled (HRV 27ms) · Sled pull 204kg repeatable</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">Phase 1 ✓</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W17 pair — Sydney Build W4 -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w17_plan.html" target="_blank" style="animation-delay:.69s;">
+        <div class="nc-wk-badge">W17</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 17 Plan</div>
+          <div class="nc-desc">Sydney Build W4 · Phase 2 W1 · 2026·04·20–04·26</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">245kg PR · 4:16/km</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w17_completed.html" target="_blank" style="animation-delay:.72s;">
+        <div class="nc-wk-badge">W17</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 17 Report</div>
+          <div class="nc-desc">Sled 245kg PR · WB 9kg 58–61s stable · 7/7</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">Sydney Build W4 ✓</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W18 pair — Sydney Build W5 -->
+    <div class="week-pair">
+      <a class="nc gold" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w18_plan.html" target="_blank" style="animation-delay:.75s;">
+        <div class="nc-wk-badge">W18</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 18 Plan</div>
+          <div class="nc-desc">Sydney Build W5 · Phase 2: Build · Week 2 of 5 · 2026·04·27–05·03</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Done</div>
+            <div class="nc-tag">VO2max 57 ↑PR</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w18_completed.html" target="_blank" style="animation-delay:.78s;">
+        <div class="nc-wk-badge">W18</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 18 Report</div>
+          <div class="nc-desc">Sydney Build W5 · Phase 2: Build · Week 2 of 5 · VO2max 57 ↑PR · WB 30 clean probe · 7/7</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">2026·04·27–05·03</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- W19 pair — Sydney Build W6 -->
+    <div class="week-pair">
+      <a class="nc blue" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w19_plan.html" target="_blank" style="animation-delay:.81s;">
+        <div class="nc-wk-badge">W19</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 19 Plan</div>
+          <div class="nc-desc">Sydney Build W6 · Phase 2: Build · Week 3 of 5 · 2026·05·04–05·10</div>
+          <div class="nc-tags">
+            <div class="nc-tag live">◉ Active</div>
+            <div class="nc-tag">60 days · Calf Protect</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <a class="nc green" href="https://YrslwGPTcodex.github.io/wolf-hyrox/completed/wolf_w19_completed.html" target="_blank" style="animation-delay:.84s;">
+        <div class="nc-wk-badge">W19</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 19 Report</div>
+          <div class="nc-desc">Sydney Build W6 · Phase 2: Build · Week 3 of 5 · completed</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">2026·05·04–05·10</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+    </div>
+
+
+    <!-- W20 pair — Sydney Build W7 -->
+    <div class="week-pair">
+      <a class="nc blue" href="https://YrslwGPTcodex.github.io/wolf-hyrox/plans/wolf_w20_plan.html" target="_blank" style="animation-delay:.87s;">
+        <div class="nc-wk-badge">W20</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Plan</div>
+          <div class="nc-title">Week 20 Plan</div>
+          <div class="nc-desc">Sydney Build W7 · Phase 2: Build · Week 4 of 5 · executed plan</div>
+          <div class="nc-tags">
+            <div class="nc-tag done">✓ Completed</div>
+            <div class="nc-tag">2026·05·11–05·17</div>
+          </div>
+        </div>
+        <div class="nc-arrow">→</div>
+      </a>
+      <div class="nc muted" style="animation-delay:.90s;">
+        <div class="nc-wk-badge">W20</div>
+        <div class="nc-body">
+          <div class="nc-label">Week Report</div>
+          <div class="nc-title">Week 20 Report</div>
+          <div class="nc-desc">Pending Sunday close-out · 2026·05·11–05·17</div>
+          <div class="nc-tags">
+            <div class="nc-tag soon">⧖ Pending close-out</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: ATHLETE + FUTURE -->
+  <div class="divider" style="animation-delay:.38s;">
+    <div class="divider-line"></div>
+    <div class="divider-label">Athlete + Future</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="grid-bottom">
+    <a class="nc orange" href="https://YrslwGPTcodex.github.io/wolf-hyrox/analytics/yaro_athlete_dashboard_v2.html" target="_blank" style="animation-delay:.40s;">
+      <div class="nc-icon">👤</div>
+      <div class="nc-body">
+        <div class="nc-label">Athlete Profile</div>
+        <div class="nc-title">Athlete Report</div>
+        <div class="nc-desc">Yaro · 46y · 196cm · 84kg · VO2max 57 · engine status · strength · priority focus</div>
+        <div class="nc-tags">
+          <div class="nc-tag">Pro Men 45–49</div>
+          <div class="nc-tag">VO2max 57 ↑PR</div>
+          <div class="nc-tag">Iron Viking Gym</div>
+        </div>
+      </div>
+      <div class="nc-arrow">→</div>
+    </a>
+
+    <div class="nc muted" style="animation-delay:.88s;">
+      <div class="nc-icon" style="font-size:18px;">📋</div>
+      <div class="nc-body">
+        <div class="nc-label">Coming Soon</div>
+        <div class="nc-title">Sydney Build W7–W9 · W20–W21</div>
+        <div class="nc-desc">Phase 2 Build continues · added as block progresses</div>
+        <div class="nc-tags">
+          <div class="nc-tag soon">⧖ W20–W21 · Build · W7–W8</div>
+          <div class="nc-tag soon">⧖ P3 Peak W22–W24 · W9–W11</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-l">🐺 WOLF PORTAL · HYROX SYDNEY 2026 · YARO · PRO MEN 45–49</div>
+  <div class="footer-r">Open any file from the same folder · <span>28 documents</span></div>
+</div>
+
+<script>
+  // Live countdown — Sydney HYROX 3 July 2026 08:00 AEST (UTC+10)
+  function updateCountdown() {
+    const race = new Date('2026-07-03T08:00:00+10:00');
+    const now  = new Date();
+    const diff = race - now;
+
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '🏁';
+      });
+      const sb = document.getElementById('cd-days-sb');
+      if (sb) sb.textContent = '🏁';
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    set('cd-days',  days);
+    set('cd-hours', String(hours).padStart(2,'0'));
+    set('cd-mins',  String(mins).padStart(2,'0'));
+    set('cd-secs',  String(secs).padStart(2,'0'));
+    set('cd-days-sb', days);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Keyboard shortcut
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') window.history.back();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYDNEY BUILD W20 · PLAN // YARO 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10; --surface: #0E1419; --surface2: #141B22;
+    --border: #1E2D3D; --accent: #00E5FF; --red: #FF4757;
+    --gold: #FFD700; --green: #00FF87; --text: #E8EDF2;
+    --muted: #5A6A7A; --label: #8A9BAB; --orange: #FF8C42;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(0,229,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.022) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 36px 24px; position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  .hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); animation: fadeUp .5s ease both; }
+  .eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+  .title    { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 88px); line-height: .88; letter-spacing: 4px; }
+  .subtitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(16px, 2.2vw, 24px); letter-spacing: 5px; color: var(--muted); margin-top: 4px; }
+  .block-info { margin-top: 10px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); letter-spacing: 1px; }
+  .block-info span { color: var(--accent); }
+  .hdr-right { text-align: right; }
+  .week-badge { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--accent); letter-spacing: 3px; line-height: 1; }
+  .week-range { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); letter-spacing: 2px; margin-top: 2px; }
+  .week-year  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 10px; }
+  .live-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border: 1px solid rgba(0,229,255,.2); background: rgba(0,229,255,.04); }
+  .ld { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+
+  /* ── PHASE BAR ── */
+  .phase-banner { display: flex; align-items: center; margin-bottom: 20px; border: 1px solid var(--border); overflow: hidden; animation: fadeUp .5s .04s ease both; }
+  .ph-seg { flex: 1; padding: 11px 10px; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; text-align: center; position: relative; border-right: 1px solid var(--border); transition: background .2s; }
+  .ph-seg:last-child { border-right: none; }
+  .ph-seg::after { content: '→'; position: absolute; right: -7px; top: 50%; transform: translateY(-50%); color: var(--border); font-size: 11px; z-index: 1; }
+  .ph-seg:last-child::after { display: none; }
+  .ph-seg .ph-wk { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 2px; display: block; line-height: 1; margin-bottom: 3px; }
+  .ph-seg.done { background: rgba(0,255,135,.05); color: var(--green); }
+  .ph-seg.done .ph-wk { color: var(--green); }
+  .ph-seg.now  { background: rgba(0,229,255,.08); color: var(--accent); }
+  .ph-seg.now  .ph-wk { color: var(--accent); }
+  .ph-seg.next { color: var(--muted); }
+  .ph-seg.next .ph-wk { color: var(--muted); }
+  .ph-seg.far  { color: var(--border); }
+  .ph-seg.far  .ph-wk { color: var(--border); }
+
+  /* ── CORRECTION BANNER ── */
+  .correction-banner { background: var(--surface); border: 1px solid rgba(255,71,87,.2); border-left: 3px solid var(--red); padding: 14px 22px; margin-bottom: 14px; animation: fadeUp .5s .06s ease both; }
+  .cb-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; }
+  .cb-text  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.7; }
+  .cb-text span { color: var(--text); }
+
+  /* ── NEW RETURN BANNER ── */
+  .new-banner { background: var(--surface); border: 1px solid rgba(0,229,255,.15); border-left: 3px solid var(--accent); padding: 12px 22px; margin-bottom: 20px; animation: fadeUp .5s .08s ease both; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .nb-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 3px; }
+  .nb-text  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.5; }
+  .nb-text span { color: var(--text); }
+  .nb-tags  { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+  .nb-tag   { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--accent); padding: 3px 8px; border: 1px solid rgba(0,229,255,.2); background: rgba(0,229,255,.05); letter-spacing: 1px; }
+
+  /* ── HRV STRIP ── */
+  .hrv-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 20px; animation: fadeUp .5s .10s ease both; }
+  .hs { background: var(--surface); padding: 12px 16px; display: flex; align-items: flex-start; gap: 10px; transition: background .2s; }
+  .hs:hover { background: var(--surface2); }
+  .hs-pill { font-family: 'DM Mono', monospace; font-size: 8px; padding: 3px 8px; letter-spacing: 2px; flex-shrink: 0; }
+  .pill-green { background: rgba(0,255,135,.08); color: var(--green); border: 1px solid rgba(0,255,135,.2); }
+  .pill-gold  { background: rgba(255,215,0,.08); color: var(--gold);  border: 1px solid rgba(255,215,0,.2); }
+  .pill-red   { background: rgba(255,71,87,.08);  color: var(--red);   border: 1px solid rgba(255,71,87,.2); }
+  .hs-action { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text); margin-bottom: 3px; }
+  .hs-desc   { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); line-height: 1.5; }
+
+  /* ── OBJECTIVES ── */
+  .obj-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 20px; animation: fadeUp .5s .12s ease both; }
+  .obj { background: var(--surface); padding: 14px 16px; position: relative; overflow: hidden; transition: background .2s; }
+  .obj:hover { background: var(--surface2); }
+  .obj::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
+  .obj:nth-child(1)::before { background: var(--red); }
+  .obj:nth-child(2)::before { background: var(--accent); }
+  .obj:nth-child(3)::before { background: var(--gold); }
+  .obj:nth-child(4)::before { background: var(--green); }
+  .obj-num  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 4px; }
+  .obj-text { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--label); line-height: 1.5; }
+  .obj-text .hi { color: var(--text); }
+
+  /* ── MINDSET ── */
+  .mindset { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 13px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; animation: fadeUp .5s .14s ease both; position: relative; overflow: hidden; }
+  .mindset::after { content: '🐺'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 44px; opacity: .06; pointer-events: none; }
+  .mw { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 4px; color: var(--muted); transition: color .2s; }
+  .mw:hover { color: var(--text); }
+  .mw.hi { color: var(--accent); }
+  .msep { color: var(--border); font-size: 13px; }
+
+  /* ── SECTION LABEL ── */
+  .section-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── WEEK GRID ── */
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 24px; }
+  .dc { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid transparent; transition: transform .2s; animation: fadeUp .5s ease both; overflow: hidden; }
+  .dc:hover { transform: translateY(-3px); }
+  .dc.mon { border-top-color: var(--green); }
+  .dc.tue { border-top-color: var(--gold); }
+  .dc.wed { border-top-color: var(--accent); }
+  .dc.thu { border-top-color: var(--red); }
+  .dc.fri { border-top-color: var(--accent); }
+  .dc.sat { border-top-color: var(--red); }
+  .dc.sun { border-top-color: var(--muted); }
+  .dc:nth-child(1){animation-delay:.14s} .dc:nth-child(2){animation-delay:.19s}
+  .dc:nth-child(3){animation-delay:.24s} .dc:nth-child(4){animation-delay:.29s}
+  .dc:nth-child(5){animation-delay:.34s} .dc:nth-child(6){animation-delay:.39s}
+  .dc:nth-child(7){animation-delay:.44s}
+
+  .dc-head { padding: 12px 13px 10px; border-bottom: 1px solid var(--border); }
+  .dc-iso { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 1px; margin-bottom: 4px; }
+  .dc-iso .yr { color: var(--muted); } .dc-iso .dot { color: var(--border); margin: 0 2px; }
+  .dc-iso .mo { color: var(--label); } .dc-iso .dd { color: var(--text); font-weight: 500; }
+  .dc-abbr { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; line-height: 1; }
+  .mon .dc-abbr { color: var(--green); }
+  .tue .dc-abbr { color: var(--gold); }
+  .wed .dc-abbr { color: var(--accent); }
+  .thu .dc-abbr { color: var(--red); }
+  .fri .dc-abbr { color: var(--accent); }
+  .sat .dc-abbr { color: var(--red); }
+  .sun .dc-abbr { color: var(--muted); }
+
+  .dc-tag { display: inline-block; margin-top: 6px; font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 1.5px; padding: 2px 7px; text-transform: uppercase; }
+  .mon .dc-tag { background: rgba(0,255,135,.07); color: var(--green); }
+  .tue .dc-tag { background: rgba(255,215,0,.07); color: var(--gold); }
+  .wed .dc-tag { background: rgba(0,229,255,.07); color: var(--accent); }
+  .thu .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .fri .dc-tag { background: rgba(0,229,255,.07); color: var(--accent); }
+  .sat .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .sun .dc-tag { background: rgba(90,106,122,.08); color: var(--muted); }
+
+  .dc-body { padding: 10px 13px 13px; }
+  .di { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--label); padding: 4px 0; border-bottom: 1px solid rgba(30,45,61,.5); line-height: 1.4; display: flex; align-items: flex-start; gap: 5px; }
+  .di:last-child { border-bottom: none; }
+  .di .ic { flex-shrink: 0; color: var(--muted); }
+  .hi { color: var(--text); } .gr { color: var(--green); } .ac { color: var(--accent); }
+  .rd { color: var(--red); }  .gd { color: var(--gold); }  .mu { color: var(--muted); }
+  .or { color: var(--orange); }
+
+  .di-section { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding: 6px 0 2px; border-bottom: 1px solid rgba(30,45,61,.5); display: block; }
+
+  .new-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 7px; padding: 1px 5px; background: rgba(0,229,255,.1); color: var(--accent); border: 1px solid rgba(0,229,255,.2); letter-spacing: 1px; vertical-align: middle; margin-left: 3px; }
+  .fix-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 7px; padding: 1px 5px; background: rgba(255,71,87,.1); color: var(--red); border: 1px solid rgba(255,71,87,.2); letter-spacing: 1px; vertical-align: middle; margin-left: 3px; }
+
+  .opt-box { margin-top: 7px; padding: 6px 9px; font-family: 'DM Mono', monospace; font-size: 8px; line-height: 1.6; border: 1px solid; }
+  .opt-green { color: var(--green); border-color: rgba(0,255,135,.2); background: rgba(0,255,135,.03); }
+  .opt-gold  { color: var(--gold);  border-color: rgba(255,215,0,.2);  background: rgba(255,215,0,.03); }
+  .opt-red   { color: var(--red);   border-color: rgba(255,71,87,.15);  background: rgba(255,71,87,.03); }
+  .opt-label { letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; font-size: 7px; display: block; }
+
+  /* ── BOTTOM CARDS ── */
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); padding: 22px; animation: fadeUp .5s ease both; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: rgba(0,229,255,.1); transform: translateY(-2px); }
+  .card-ttl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .ct-dot { width: 6px; height: 6px; flex-shrink: 0; }
+
+  .ex-row { padding: 8px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
+  .ex-row:last-child { border-bottom: none; }
+  .er-name   { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.3; }
+  .er-weight { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--text); letter-spacing: 1px; text-align: right; }
+  .er-weight .wu { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--accent); }
+  .er-scheme { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-align: right; }
+
+  .wb-probe-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .wb-probe-row:last-child { border-bottom: none; }
+  .wpr-round { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); width: 22px; flex-shrink: 0; margin-top: 2px; }
+  .wpr-body  { flex: 1; }
+  .wpr-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--label); margin-bottom: 2px; }
+  .wpr-tgt   { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); }
+
+  .success-item { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.4; }
+  .success-item:last-child { border-bottom: none; }
+  .success-item::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* identity */
+  .identity { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 22px 28px; margin-bottom: 14px; animation: fadeUp .5s .5s ease both; position: relative; overflow: hidden; }
+  .identity::after { content: '🐺'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 72px; opacity: .05; pointer-events: none; }
+  .id-lbl { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .id-lines { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 5px; }
+  .id-line  { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 3px; color: var(--muted); transition: color .2s; }
+  .id-line:hover { color: var(--text); }
+  .id-line.hl { color: var(--accent); }
+
+  .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); padding: 3px 8px; border: 1px solid var(--border); letter-spacing: 1px; transition: all .2s; cursor: default; }
+  .tag:hover { color: var(--accent); border-color: rgba(0,229,255,.3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+  @media (max-width: 1100px) { .week-grid { grid-template-columns: repeat(4,1fr); } .bottom-grid { grid-template-columns: 1fr 1fr; } .obj-strip { grid-template-columns: 1fr 1fr; } .hrv-strip { grid-template-columns: 1fr; } }
+  @media (max-width: 750px)  { .week-grid { grid-template-columns: repeat(2,1fr); } .bottom-grid { grid-template-columns: 1fr; } .hdr { flex-direction: column; gap: 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div>
+      <div class="hdr-eyebrow"><span class="cd"></span>Plan · Sydney Build W7 · Phase 2: Build · Week 4 of 5</div>
+      <div class="hdr-title">WEEK<br>W20</div>
+      <div class="hdr-sub">Annual Week 20 · Sydney Build Week 7 · Phase 2 Build Week 4 of 5 · executed plan</div>
+      <div class="hdr-block">Source-backed page · <span>no invented session data</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="week-badge">W20</div>
+      <div class="week-range">2026·05·11 → 2026·05·17</div>
+      <div class="week-year">Annual Week 20 · Sydney Build Week 7 · Phase 2 Build Week 4 of 5 · executed plan</div>
+      <div class="done-badge"><span class="cd"></span>Generated</div>
+    </div>
+  </div>
+
+  <div class="summary-strip">
+    <div class="ss"><div class="sv" style="color:var(--green);">SRC</div><div class="sl">Source</div></div>
+    <div class="ss"><div class="sv">MD</div><div class="sl">Verbatim</div></div>
+    <div class="ss"><div class="sv" style="color:var(--accent);">HTML</div><div class="sl">Portal</div></div>
+    <div class="ss"><div class="sv" style="color:var(--gold);">QA</div><div class="sl">Escaped</div></div>
+    <div class="ss"><div class="sv" style="color:var(--green);">OK</div><div class="sl">Syntax</div></div>
+    <div class="ss"><div class="sv">2026</div><div class="sl">Season</div></div>
+    <div class="ss"><div class="sv" style="color:var(--red);">1:15</div><div class="sl">Target</div></div>
+  </div>
+
+  <div class="identity">
+    <div class="id-lbl">state/current_week_plan.md — post audit-fix source</div>
+    <pre style="white-space:pre-wrap; font-family:'DM Mono', monospace; font-size:10px; line-height:1.65; color:var(--label); overflow:auto; max-height:none;"># Current Week Plan — W20 (Sydney Build Week 7, Phase 2 Build Week 5 of 5)
+
+```
+TIME ANCHOR (verified 2026-05-15 21:53 Melbourne)
+- Date: 2026-05-15 (Friday)
+- Build Day 47 · Build Week 7 · Annual Week 20
+- Phase 2 — BUILD (Week 5 of 5; final consolidation week before Phase 3)
+- Days to race: 49
+- Phase 3 entry: 2026-05-25 (Monday, 10 days)
+```
+
+---
+
+## WEEK STRUCTURE (Mon → Sun)
+
+| Day | Date | Session Type | Status | Variant Used |
+|---|---|---|---|---|
+| MON | 2026-05-11 | Speed Economy | ✓ DONE | Yellow (4×1 km, HRV suppressed) |
+| TUE | 2026-05-12 | Lower + Sled | ✓ DONE | Yellow calf-protected (sleds clean) |
+| WED | 2026-05-13 | Recovery / Medical context | ✓ NO FORMAL SESSION | Correct decision |
+| THU | 2026-05-14 | HYROX Rhythm 2R | ✓ DONE | Green-modified (calf-monitored, no probe) |
+| FRI | 2026-05-15 | Aerobic Reset | ✓ DONE | Green (5.04 km @ 5:50/km HR 127) |
+| SAT | 2026-05-16 | WB Probe — ceiling re-touch | ✓ COMPLETED | WB probe 50 reps / 1:59 @ 9 kg, Grade A |
+| SUN | 2026-05-17 | Recovery + Weekly close-out | PLANNED | HRV-based default |
+
+---
+
+## SATURDAY 2026-05-16 — WALL BALL CEILING RE-TOUCH (PROBE)
+
+### Trajectory context
+- **W18 SAT (May 2):** 30 clean probe / 1:09 — lock established
+- **W19 SAT (May 9):** 40 clean probe — lock 30 → 40
+- **W20 SAT (target today):** **50 floor / 60+ stretch** — bridge to W12 demonstrated 60
+
+### Why this format
+- Clean trajectory step from 40 → 50+ is natural progression
+- 60 stretch re-touches Brisbane W12 demonstrated capacity (60 with 2 breaks under Baby Hyrox fatigue)
+- Single probe element: WB density under 1 km entry transition
+- Apply entry-management discipline from W12 diagnosis (5–8 sec pause + chalk)
+
+### Readiness gate (morning of)
+
+**GREEN:**
+- Sleep ≥ 7h00, restful ≥ 40%
+- HRV neutral or positive
+- Calves both ≤ 2/10
+- No overnight cramp signal
+
+**YELLOW:**
+- Sleep 6h30–6h59
+- HRV slightly suppressed
+- Calves 2.5–3.5/10
+
+**RED:**
+- Sleep &lt; 6h30
+- HRV &lt; 35 ms
+- Calves ≥ 4/10
+- Overnight cramp signal returned
+- Cardiac sensation
+
+---
+
+### GREEN version — full plan
+
+#### Warm-up (15 min)
+- Bike 8 min easy, HR &lt; 120
+- Mobility 5 min (squat patterns, hip + shoulder opener)
+- BBJ check: 3 controlled reps (calf signal verification)
+- 1 controlled set of 10 wall balls (shoulder feel + chalk practice)
+
+#### Main fragment — 4 rounds
+Each round:
+- 400 m run @ 2:00 (4:45–5:00 / km), controlled, not lazy, not sprinting
+- Walking Lunges 20 m @ 28 + 28 kg DB
+- BBJ 20 m @ **controlled rhythm (R1 1:20, NOT 1:00 — apply BBJ limiter fix)**
+- Wall Balls 25 reps @ 9 kg, target 58–65 sec
+- Rest: 90 sec / 90 sec / 2:00 (R1–R3 → 90 sec each; after R3 → 2:00; after R4 → transition)
+
+#### Final entry — 1 km run
+- Pace 4:50–5:00 / km
+- HR target before final WB: 145–160 bpm
+- If HR &gt; 162 and breathing chaotic: walk 20–30 sec, restart with breathing controlled
+- If HR &lt; 140: transition too long; start immediately
+
+#### Transition discipline (mandatory — W12 diagnosis applied)
+- 60–90 sec walk after 1 km
+- **5–8 sec pause before first WB rep**
+- Chalk hands
+- Two controlled breaths
+- Then start
+
+#### Ceiling test — WB AMRAP CLEAN
+- Floor: **50 reps** (re-touches W09–W11 SAT unbroken capacity)
+- Realistic: **50–60** (matches W12 demonstrated fragment capacity)
+- Stretch: **60+** (Brisbane peak re-touched)
+- Stop rule: **TECHNICAL FAILURE**, not arbitrary number
+  - Throw height drops
+  - Catch becomes messy
+  - Squat depth changes
+  - Breathing turns panic
+  - 1 ugly rep = stop
+- Log clean count; optional broken add-on after rest (separate logging)
+
+### YELLOW version
+- 4 rounds same structure
+- Final run shortened: 800 m @ 4:55–5:15 / km
+- Ceiling test target floor 40 (= W19 confirmed), ceiling 50
+
+### RED version
+- Bike 20–30 min easy
+- 5 × 15 WB technique only @ 9 kg
+- Rest 60 sec between sets
+- Mobility 10 min
+- No fragment, no probe, no max set
+
+### HARD RULES (all versions)
+- No second WB max set
+- No sleds
+- No heavy lower extras
+- No ugly WB reps
+- No final 1 km faster than 4:45 / km
+
+### CUT RULES mid-session
+- If round WB time exceeds 1:08 → reset breathing before next round
+- If BBJ R1 exceeds 1:35 (20 m) → cut R3+ BBJ to 15 m
+- If calf rises ≥ 3/10 → drop lunges or stop session
+- If chest tightness / palpitation → immediate abort
+
+### Tracking required (logged to current_week.md after session)
+- Round WB times (R1–R4)
+- Round 400 m times (R1–R4)
+- Lunges: load + any calf signal
+- BBJ R1 / hardest round (apply R1 pacing discipline)
+- Final 1 km: time, avg HR, peak HR, feeling
+- Final WB ceiling set: clean reps, time, stop reason, technique quality, calves after
+- Entry pause: yes/no, duration
+- Chalk: used/not
+
+### Success criteria
+- Session successful if: 4 rounds completed + calves controlled + WB sets 58–68 sec + final 1 km @ 4:45–5:00 + final WB ≥ 50 clean
+- Floor: 50 clean = W09–W11 capacity returned (10-rep step from W19 lock)
+- Target: 60 clean = W12 peak re-touched, ready for Phase 3 push
+- Stretch: 60+ = breakthrough, accelerate Phase 3 targets
+
+### Today&#x27;s principle
+March demonstrated 60. We don&#x27;t probe new ground. We reclaim known ground.
+
+---
+
+## SUNDAY 2026-05-17 — RECOVERY + WEEKLY CLOSE-OUT
+
+### Default (Green)
+- Brisk walk 40–60 min
+- Mobility 10–12 min
+- Light food + hydration
+
+### Green Excellent
+- Easy jog 25–35 min, HR 120–130, hard cap 135
+
+### Yellow / Red
+- Walk 30–45 min only
+- Food + hydration + early sleep
+
+### Weekly close-out (Claude task)
+1. Read full current_week.md
+2. Generate week_20_summary section
+3. Rename current_week.md → archive/2026/week_20_report.md
+4. Create blank new current_week.md (W21 header)
+5. Generate week_21_plan.md
+6. Update STATE.md with new locks
+7. Update probe_log.md and station trackers
+8. Annotate phase position (Phase 2 → Phase 3 boundary 8 days away)
+
+### Hard rules
+- No quality
+- No wall balls
+- No sleds
+- No lunges
+- No BBJ
+- Phase 3 starts Monday after — Sunday must protect it
+
+### Today&#x27;s principle
+Phase 2 ends here. Phase 3 entry depends on Sunday discipline.
+
+---
+
+## WEEKLY PRINCIPLE
+Phase 2 closes with control. Bridge the clean line probe from 40 → 50+, prepare BBJ pacing fix for Phase 3, enter Phase 3 fresh.
+
+## WEEKLY PROBE
+Saturday 2026-05-16 — WB ceiling re-touch. This is the ONE probe of the week. Skip if calves, HRV, or wall-ball pacing inside rounds say no.
+
+## PHASE TRANSITION NOTE
+Sunday 2026-05-17 closes Phase 2 Week 4. Final Phase 2 week W21 (Build Day 50–56) follows. Phase 3 entry Monday 2026-05-25.
+</pre>
+  </div>
+
+  <div class="footer">
+    <div class="footer-l">Generated from workspace Markdown · Documentation in English</div>
+    <div class="tags"><div class="tag">wolf-hyrox</div><div class="tag">Yaro 2026</div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYROX BRISBANE MASTER PLAN // YARO 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10;
+    --surface: #0E1419;
+    --surface2: #141B22;
+    --border: #1E2D3D;
+    --accent: #00E5FF;
+    --red: #FF4757;
+    --gold: #FFD700;
+    --green: #00FF87;
+    --text: #E8EDF2;
+    --muted: #5A6A7A;
+    --label: #8A9BAB;
+    --orange: #FF8C42;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.018) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 36px 24px;
+    position: relative; z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp .5s ease both;
+  }
+
+  .hdr-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ld { width: 5px; height: 5px; border-radius: 50%; background: var(--red); animation: pulse 2s ease-in-out infinite; }
+
+  .hdr-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 82px);
+    line-height: .88;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+
+  .hdr-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(16px, 2vw, 22px);
+    letter-spacing: 6px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .hdr-meta {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .hdr-meta-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .hdr-meta-item span { color: var(--text); }
+
+  .hdr-right { text-align: right; }
+
+  .target-time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--red);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+
+  .target-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    text-align: right;
+  }
+
+  .division-badge {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border: 1px solid rgba(255,215,0,.25);
+    background: rgba(255,215,0,.04);
+    text-transform: uppercase;
+  }
+
+  /* ── KPI STRIP ── */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    animation: fadeUp .5s .06s ease both;
+  }
+
+  .kpi {
+    background: var(--surface);
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: background .2s;
+  }
+
+  .kpi:hover { background: var(--surface2); }
+
+  .kpi::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+  }
+
+  .kpi:nth-child(1)::before { background: var(--red); }
+  .kpi:nth-child(2)::before { background: var(--green); }
+  .kpi:nth-child(3)::before { background: var(--gold); }
+  .kpi:nth-child(4)::before { background: var(--accent); }
+  .kpi:nth-child(5)::before { background: var(--muted); }
+
+  .kpi-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .kpi-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .kpi:nth-child(1) .kpi-val { color: var(--red); }
+  .kpi:nth-child(2) .kpi-val { color: var(--green); }
+  .kpi:nth-child(3) .kpi-val { color: var(--gold); }
+  .kpi:nth-child(4) .kpi-val { color: var(--accent); }
+  .kpi:nth-child(5) .kpi-val { color: var(--muted); }
+
+  .kpi-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    line-height: 1.5;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── TIMELINE BAR ── */
+  .timeline-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    animation: fadeUp .5s .1s ease both;
+  }
+
+  .tl-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .tl-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .tl-range {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--label);
+    letter-spacing: 1px;
+  }
+
+  .tl-bar {
+    display: flex;
+    height: 28px;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .tl-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: default;
+    transition: filter .2s;
+  }
+
+  .tl-seg:hover { filter: brightness(1.3); }
+
+  .tl-seg.w1 { background: rgba(0,229,255,.15); color: var(--accent); border: 1px solid rgba(0,229,255,.2); flex: 7; }
+  .tl-seg.w2 { background: rgba(0,229,255,.2); color: var(--accent); border: 1px solid rgba(0,229,255,.3); flex: 7; }
+  .tl-seg.w3 { background: rgba(255,71,87,.2); color: var(--red); border: 1px solid rgba(255,71,87,.3); flex: 7; }
+  .tl-seg.w4 { background: rgba(255,215,0,.15); color: var(--gold); border: 1px solid rgba(255,215,0,.2); flex: 7; }
+  .tl-seg.w5 { background: rgba(255,140,66,.2); color: var(--orange); border: 1px solid rgba(255,140,66,.3); flex: 7; }
+  .tl-seg.race { background: rgba(255,71,87,.35); color: var(--red); border: 1px solid rgba(255,71,87,.5); flex: 3; }
+
+  .tl-labels {
+    display: flex;
+    gap: 2px;
+  }
+
+  .tl-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .tl-lbl.w1, .tl-lbl.w2 { flex: 7; color: var(--accent); }
+  .tl-lbl.w3 { flex: 7; color: var(--red); }
+  .tl-lbl.w4 { flex: 7; color: var(--gold); }
+  .tl-lbl.w5 { flex: 7; color: var(--orange); }
+  .tl-lbl.race { flex: 3; color: var(--red); }
+
+  /* ── WEEK CARDS GRID ── */
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .wk {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid transparent;
+    animation: fadeUp .5s ease both;
+    transition: transform .2s, border-color .2s;
+    overflow: hidden;
+  }
+
+  .wk:hover { transform: translateY(-3px); }
+
+  .wk.w1 { border-top-color: var(--accent); }
+  .wk.w2 { border-top-color: var(--accent); }
+  .wk.w3 { border-top-color: var(--red); }
+  .wk.w4 { border-top-color: var(--gold); }
+  .wk.w5 { border-top-color: var(--orange); }
+  .wk.race { border-top-color: var(--red); }
+
+  .wk:nth-child(1) { animation-delay: .14s; }
+  .wk:nth-child(2) { animation-delay: .19s; }
+  .wk:nth-child(3) { animation-delay: .24s; }
+  .wk:nth-child(4) { animation-delay: .29s; }
+  .wk:nth-child(5) { animation-delay: .34s; }
+  .wk:nth-child(6) { animation-delay: .39s; }
+
+  .wk-head {
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .wk-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .wk.w1 .wk-num, .wk.w2 .wk-num { color: var(--accent); }
+  .wk.w3 .wk-num { color: var(--red); }
+  .wk.w4 .wk-num { color: var(--gold); }
+  .wk.w5 .wk-num { color: var(--orange); }
+  .wk.race .wk-num { color: var(--red); }
+
+  .wk-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    padding: 2px 7px;
+    display: inline-block;
+  }
+
+  .wk.w1 .wk-label, .wk.w2 .wk-label { background: rgba(0,229,255,.07); color: var(--accent); }
+  .wk.w3 .wk-label { background: rgba(255,71,87,.07); color: var(--red); }
+  .wk.w4 .wk-label { background: rgba(255,215,0,.07); color: var(--gold); }
+  .wk.w5 .wk-label { background: rgba(255,140,66,.07); color: var(--orange); }
+  .wk.race .wk-label { background: rgba(255,71,87,.12); color: var(--red); }
+
+  .wk-dates {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+
+  .wk-dates .dd { color: var(--label); }
+
+  .wk-body { padding: 10px 14px 14px; }
+
+  .wi {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--label);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(30,45,61,.5);
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .wi:last-child { border-bottom: none; }
+  .wi .ic { flex-shrink: 0; color: var(--muted); font-size: 9px; }
+
+  .hi { color: var(--text); }
+  .gr { color: var(--green); }
+  .ac { color: var(--accent); }
+  .rd { color: var(--red); }
+  .gd { color: var(--gold); }
+  .mu { color: var(--muted); }
+  .or { color: var(--orange); }
+
+  .wk-kpi {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border: 1px solid rgba(30,45,61,.8);
+    background: rgba(8,12,16,.4);
+  }
+
+  .wk-kpi-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .wk-kpi-vals {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .wk-kv {
+    text-align: center;
+  }
+
+  .wk-kv-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .wk-kv-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 6.5px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── WB PROGRESSION ── */
+  .wb-prog-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+    animation: fadeUp .5s .42s ease both;
+    margin-bottom: 12px;
+    transition: border-color .2s;
+  }
+
+  .wb-prog-card:hover { border-color: rgba(0,229,255,.1); }
+
+  .wb-prog-card .card-ttl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ct-dot { width: 6px; height: 6px; flex-shrink: 0; }
+
+  .wb-visual-track {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .wb-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .wb-bar-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .wb-bar {
+    width: 100%;
+    border-radius: 2px;
+    transition: height .8s ease;
+    position: relative;
+  }
+
+  .wb-bar-week {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .wb-bar-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 6.5px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* ── BOTTOM CARDS ── */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+    animation: fadeUp .5s ease both;
+    transition: border-color .2s, transform .2s;
+  }
+
+  .card:hover {
+    border-color: rgba(0,229,255,.1);
+    transform: translateY(-2px);
+  }
+
+  .card-ttl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .rule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--label);
+    line-height: 1.5;
+  }
+
+  .rule-item:last-child { border-bottom: none; }
+  .rule-item::before { content: '//'; color: var(--red); flex-shrink: 0; font-weight: 500; }
+
+  /* Race outcome */
+  .outcome-box {
+    padding: 16px 18px;
+    border: 1px solid rgba(255,71,87,.2);
+    background: rgba(255,71,87,.04);
+    margin-bottom: 10px;
+  }
+
+  .outcome-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--red);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .outcome-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    letter-spacing: 2px;
+    line-height: 1.5;
+  }
+
+  .outcome-box.alt {
+    border-color: rgba(255,215,0,.15);
+    background: rgba(255,215,0,.03);
+  }
+
+  .outcome-box.alt .outcome-label { color: var(--gold); }
+  .outcome-box.alt .outcome-text { color: var(--muted); }
+
+  /* ── IDENTITY ── */
+  .identity {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: 22px 28px;
+    margin-bottom: 14px;
+    animation: fadeUp .5s .55s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .identity::after {
+    content: '🐺';
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 72px;
+    opacity: .05;
+    pointer-events: none;
+  }
+
+  .id-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .id-lines {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 6px;
+  }
+
+  .id-line {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    transition: color .2s;
+  }
+
+  .id-line:hover { color: var(--text); }
+  .id-line.hl { color: var(--red); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; }
+
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    letter-spacing: 1px;
+    transition: all .2s;
+    cursor: default;
+  }
+
+  .tag:hover { color: var(--red); border-color: rgba(255,71,87,.3); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .3; }
+  }
+
+  @media (max-width: 1100px) {
+    .weeks-grid { grid-template-columns: repeat(3, 1fr); }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .bottom-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 700px) {
+    .weeks-grid { grid-template-columns: repeat(2, 1fr); }
+    .bottom-grid { grid-template-columns: 1fr; }
+    .hdr { flex-direction: column; gap: 16px; }
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div>
+      <div class="hdr-eyebrow"><span class="ld"></span>39-Day Performance Block</div>
+      <div class="hdr-title">HYROX<br>BRISBANE</div>
+      <div class="hdr-sub">Master Plan · 2026</div>
+      <div class="hdr-meta">
+        <div class="hdr-meta-item">Athlete <span>Yaro</span></div>
+        <div class="hdr-meta-item">Division <span>Pro Men 45–49</span></div>
+        <div class="hdr-meta-item">Block <span>5 Weeks + Race</span></div>
+        <div class="hdr-meta-item">Dates <span>2026·03·02 → 2026·04·09</span></div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <div class="target-label">Target Time</div>
+      <div class="target-time">1:15:00</div>
+      <div class="division-badge">🏆 Pro Men 45–49</div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="section-lbl" style="animation:fadeUp .5s .04s ease both;">🎯 Performance KPIs — Must Achieve Before Race</div>
+  <div class="kpi-strip">
+    <div class="kpi">
+      <div class="kpi-num">KPI 01</div>
+      <div class="kpi-val">70+ WB</div>
+      <div class="kpi-desc">Unbroken under fatigue<br>HR ≥ 165 bpm</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num">KPI 02</div>
+      <div class="kpi-val">4:20/km</div>
+      <div class="kpi-desc">5 × 1 km controlled<br>Aerobic feel</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num">KPI 03</div>
+      <div class="kpi-val">200+ kg</div>
+      <div class="kpi-desc">Sled Push — stable<br>& repeatable</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num">KPI 04</div>
+      <div class="kpi-val">≤ 15 sec</div>
+      <div class="kpi-desc">Station transitions<br>No wasted time</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num">KPI 05</div>
+      <div class="kpi-val">8h</div>
+      <div class="kpi-desc">Sleep average nightly<br>Performance multiplier</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE BAR -->
+  <div class="timeline-wrap">
+    <div class="tl-header">
+      <div class="tl-title">📅 39-Day Block Timeline</div>
+      <div class="tl-range">2026·03·02 → 2026·04·09</div>
+    </div>
+    <div class="tl-bar">
+      <div class="tl-seg w1">W1</div>
+      <div class="tl-seg w2">W2</div>
+      <div class="tl-seg w3">W3</div>
+      <div class="tl-seg w4">W4</div>
+      <div class="tl-seg w5">W5</div>
+      <div class="tl-seg race">RACE</div>
+    </div>
+    <div class="tl-labels">
+      <div class="tl-lbl w1">Controlled Build<br>03·02–03·08</div>
+      <div class="tl-lbl w2">Intensity Rise<br>03·09–03·15</div>
+      <div class="tl-lbl w3">Overload<br>03·16–03·22</div>
+      <div class="tl-lbl w4">Consolidation<br>03·23–03·29</div>
+      <div class="tl-lbl w5">Peak Week<br>03·30–04·05</div>
+      <div class="tl-lbl race">Brisbane<br>04·06–09</div>
+    </div>
+  </div>
+
+  <!-- WEEK CARDS -->
+  <div class="section-lbl" style="animation:fadeUp .5s .12s ease both;">📆 Week-by-Week Plan</div>
+
+  <div class="weeks-grid">
+
+    <!-- W1 -->
+    <div class="wk w1">
+      <div class="wk-head">
+        <div class="wk-num">W10</div>
+        <div class="wk-label">Controlled Build</div>
+        <div class="wk-dates"><span class="dd">2026·03·02</span> → <span class="dd">2026·03·08</span></div>
+      </div>
+      <div class="wk-body">
+        <div class="wi"><span class="ic">MON</span><span>5×1 km @ <span class="ac">4:25–4:30</span> · HR cap 170</span></div>
+        <div class="wi"><span class="ic">TUE</span><span>Heavy Lower + Core — <span class="gd">4×6 squat</span></span></div>
+        <div class="wi"><span class="ic">WED</span><span>Upper + Z2 run <span class="gr">20–25 min</span></span></div>
+        <div class="wi"><span class="ic">THU</span><span>3× [1km+Sled+Sled] · <span class="rd">20–25 WB</span> + EMOM 60</span></div>
+        <div class="wi"><span class="ic">FRI</span><span>Z2 <span class="gr">45–60 min</span> + Mobility</span></div>
+        <div class="wi"><span class="ic">SAT</span><span>Baby Hyrox · WB <span class="gd">45–50 unbroken</span></span></div>
+        <div class="wk-kpi">
+          <div class="wk-kpi-label">Week Targets</div>
+          <div class="wk-kpi-vals">
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--gold);">90–110</div>
+              <div class="wk-kv-lbl">Total WB</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--accent);">4:25</div>
+              <div class="wk-kv-lbl">Pace</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--red);">45</div>
+              <div class="wk-kv-lbl">Max WB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W2 -->
+    <div class="wk w2">
+      <div class="wk-head">
+        <div class="wk-num">W11</div>
+        <div class="wk-label">Intensity Rise</div>
+        <div class="wk-dates"><span class="dd">2026·03·09</span> → <span class="dd">2026·03·15</span></div>
+      </div>
+      <div class="wk-body">
+        <div class="wi"><span class="ic">MON</span><span>6×1 km @ <span class="ac">4:20–4:25</span> · Rest 90s</span></div>
+        <div class="wi"><span class="ic">TUE</span><span>Heavy Lower — <span class="gd">+5% load</span> same structure</span></div>
+        <div class="wi"><span class="ic">WED</span><span>Upper + Aerobic base</span></div>
+        <div class="wi"><span class="ic">THU</span><span>3× [1km @ 4:35+Sleds] · <span class="rd">25–30 WB</span></span></div>
+        <div class="wi"><span class="ic">FRI</span><span>Aerobic Reset</span></div>
+        <div class="wi"><span class="ic">SAT</span><span>Baby Hyrox · WB <span class="gd">50 unbroken</span> target</span></div>
+        <div class="wk-kpi">
+          <div class="wk-kpi-label">Week Targets</div>
+          <div class="wk-kpi-vals">
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--gold);">90–110</div>
+              <div class="wk-kv-lbl">Total WB</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--accent);">4:20</div>
+              <div class="wk-kv-lbl">Pace</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--red);">50</div>
+              <div class="wk-kv-lbl">Max WB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W3 -->
+    <div class="wk w3">
+      <div class="wk-head">
+        <div class="wk-num">W12</div>
+        <div class="wk-label">Overload Phase</div>
+        <div class="wk-dates"><span class="dd">2026·03·16</span> → <span class="dd">2026·03·22</span></div>
+      </div>
+      <div class="wk-body">
+        <div class="wi"><span class="ic">MON</span><span>4×1 km @ <span class="rd">4:15</span> · Rest 2 min</span></div>
+        <div class="wi"><span class="ic">TUE</span><span>Heavy Lower + <span class="rd">3×20m sled accelerations</span></span></div>
+        <div class="wi"><span class="ic">WED</span><span>Upper + Aerobic</span></div>
+        <div class="wi"><span class="ic">THU</span><span>3× [1km+Sleds] · <span class="rd">30 WB</span> + 20+20 finish</span></div>
+        <div class="wi"><span class="ic">FRI</span><span>Aerobic Reset</span></div>
+        <div class="wi"><span class="ic">SAT</span><span>Baby Hyrox · WB <span class="rd">55–60 unbroken</span></span></div>
+        <div class="wk-kpi">
+          <div class="wk-kpi-label">Week Targets</div>
+          <div class="wk-kpi-vals">
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--red);">120–150</div>
+              <div class="wk-kv-lbl">Total WB</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--red);">4:15</div>
+              <div class="wk-kv-lbl">Pace</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--red);">55–60</div>
+              <div class="wk-kv-lbl">Max WB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W4 -->
+    <div class="wk w4">
+      <div class="wk-head">
+        <div class="wk-num">W13</div>
+        <div class="wk-label">Consolidation</div>
+        <div class="wk-dates"><span class="dd">2026·03·23</span> → <span class="dd">2026·03·29</span></div>
+      </div>
+      <div class="wk-body">
+        <div class="wi"><span class="ic">—</span><span>Volume <span class="gd">↓ 15%</span> · Intensity maintained</span></div>
+        <div class="wi"><span class="ic">MON</span><span>5×1 km @ <span class="gd">4:20</span></span></div>
+        <div class="wi"><span class="ic">THU</span><span>2 Rounds Compromised + <span class="gd">25 WB</span></span></div>
+        <div class="wi"><span class="ic">SAT</span><span><span class="gd">Max unbroken test</span> after fatigue</span></div>
+        <div class="wk-kpi">
+          <div class="wk-kpi-label">Week Targets</div>
+          <div class="wk-kpi-vals">
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--gold);">↓ 15%</div>
+              <div class="wk-kv-lbl">Volume</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--gold);">4:20</div>
+              <div class="wk-kv-lbl">Pace</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--gold);">60–65</div>
+              <div class="wk-kv-lbl">WB Test</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- W5 -->
+    <div class="wk w5">
+      <div class="wk-head">
+        <div class="wk-num">W14</div>
+        <div class="wk-label">Peak Week</div>
+        <div class="wk-dates"><span class="dd">2026·03·30</span> → <span class="dd">2026·04·05</span></div>
+      </div>
+      <div class="wk-body">
+        <div class="wi"><span class="ic">MON</span><span>4×800 m @ <span class="or">4:10</span> pace</span></div>
+        <div class="wi"><span class="ic">TUE</span><span>Light Lower — <span class="or">60% volume</span></span></div>
+        <div class="wi"><span class="ic">THU</span><span>Sharp: 1km + Sled + <span class="or">20 WB</span> · Stop fresh</span></div>
+        <div class="wi"><span class="ic">SAT</span><span>Race Sim — <span class="or">60–70 WB</span> controlled</span></div>
+        <div class="wk-kpi">
+          <div class="wk-kpi-label">Week Targets</div>
+          <div class="wk-kpi-vals">
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--orange);">Sharp</div>
+              <div class="wk-kv-lbl">Intensity</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--orange);">4:10</div>
+              <div class="wk-kv-lbl">Pace</div>
+            </div>
+            <div class="wk-kv">
+              <div class="wk-kv-val" style="color:var(--orange);">60–70</div>
+              <div class="wk-kv-lbl">WB Sim</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RACE WEEK -->
+    <div class="wk race">
+      <div class="wk-head">
+        <div class="wk-num">🏁 RACE</div>
+        <div class="wk-label">Brisbane Week</div>
+        <div class="wk-dates"><span class="dd">2026·04·06</span> → <span class="dd">2026·04·09</span></div>
+      </div>
+      <div class="wk-body">
+        <div class="wi"><span class="ic">—</span><span>2 short <span class="rd">shakeout runs</span></span></div>
+        <div class="wi"><span class="ic">—</span><span>40 WB <span class="rd">touch early week</span></span></div>
+        <div class="wi"><span class="ic">—</span><span><span class="rd">No heavy legs</span></span></div>
+        <div class="wi"><span class="ic">—</span><span><span class="rd">Sleep priority</span></span></div>
+        <div class="wi"><span class="ic">—</span><span>Carb intake <span class="hi">steady</span></span></div>
+        <div class="wi"><span class="ic">🏁</span><span class="rd">RACE DAY</span></div>
+        <div class="wk-kpi">
+          <div class="wk-kpi-label">Race Target</div>
+          <div class="wk-kpi-vals">
+            <div class="wk-kv" style="flex:1;">
+              <div class="wk-kv-val" style="color:var(--red);font-size:22px;">1:15:00</div>
+              <div class="wk-kv-lbl">Target Time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WB PROGRESSION VISUAL -->
+  <div class="wb-prog-card">
+    <div class="card-ttl"><span class="ct-dot" style="background:var(--gold);"></span>🏀 Wall Ball Progression — 39-Day Arc</div>
+    <div class="wb-visual-track">
+
+      <div class="wb-bar-wrap">
+        <div class="wb-bar-val" style="color:var(--green);">40✓</div>
+        <div class="wb-bar" style="height:30px;background:rgba(0,255,135,.25);border:1px solid rgba(0,255,135,.3);"></div>
+        <div class="wb-bar-week">W09</div>
+        <div class="wb-bar-sub">Achieved<br>W09 SAT</div>
+      </div>
+
+      <div style="color:var(--border);font-family:'DM Mono',monospace;font-size:12px;padding-bottom:32px;">→</div>
+
+      <div class="wb-bar-wrap">
+        <div class="wb-bar-val" style="color:var(--accent);">45–50</div>
+        <div class="wb-bar" style="height:40px;background:rgba(0,229,255,.2);border:1px solid rgba(0,229,255,.3);"></div>
+        <div class="wb-bar-week">W10 W11</div>
+        <div class="wb-bar-sub">Build Phase<br>WK 1–2</div>
+      </div>
+
+      <div style="color:var(--border);font-family:'DM Mono',monospace;font-size:12px;padding-bottom:32px;">→</div>
+
+      <div class="wb-bar-wrap">
+        <div class="wb-bar-val" style="color:var(--red);">55–60</div>
+        <div class="wb-bar" style="height:56px;background:rgba(255,71,87,.2);border:1px solid rgba(255,71,87,.3);"></div>
+        <div class="wb-bar-week">W12</div>
+        <div class="wb-bar-sub">Overload<br>WK 3</div>
+      </div>
+
+      <div style="color:var(--border);font-family:'DM Mono',monospace;font-size:12px;padding-bottom:32px;">→</div>
+
+      <div class="wb-bar-wrap">
+        <div class="wb-bar-val" style="color:var(--gold);">60–65</div>
+        <div class="wb-bar" style="height:62px;background:rgba(255,215,0,.2);border:1px solid rgba(255,215,0,.3);"></div>
+        <div class="wb-bar-week">W13</div>
+        <div class="wb-bar-sub">Test Max<br>WK 4</div>
+      </div>
+
+      <div style="color:var(--border);font-family:'DM Mono',monospace;font-size:12px;padding-bottom:32px;">→</div>
+
+      <div class="wb-bar-wrap">
+        <div class="wb-bar-val" style="color:var(--orange);">60–70</div>
+        <div class="wb-bar" style="height:68px;background:rgba(255,140,66,.2);border:1px solid rgba(255,140,66,.3);"></div>
+        <div class="wb-bar-week">W14</div>
+        <div class="wb-bar-sub">Race Sim<br>WK 5</div>
+      </div>
+
+      <div style="color:var(--border);font-family:'DM Mono',monospace;font-size:12px;padding-bottom:32px;">→</div>
+
+      <div class="wb-bar-wrap">
+        <div class="wb-bar-val" style="color:var(--red);">70+</div>
+        <div class="wb-bar" style="height:78px;background:rgba(255,71,87,.3);border:1px solid rgba(255,71,87,.5);"></div>
+        <div class="wb-bar-week">KPI</div>
+        <div class="wb-bar-sub">Race Gate<br>HR ≥ 165</div>
+      </div>
+
+      <div style="color:var(--border);font-family:'DM Mono',monospace;font-size:12px;padding-bottom:32px;">→</div>
+
+      <div class="wb-bar-wrap">
+        <div class="wb-bar-val" style="color:var(--muted);">100</div>
+        <div class="wb-bar" style="height:100px;background:rgba(90,106,122,.15);border:1px dashed var(--muted);"></div>
+        <div class="wb-bar-week">GATE</div>
+        <div class="wb-bar-sub">Long-term<br>≤ 5:00</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM CARDS -->
+  <div class="bottom-grid">
+
+    <!-- Rules -->
+    <div class="card" style="animation-delay:.46s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>Block Rules — Non-Negotiable</div>
+      <div class="rule-item">Wall Balls <span style="color:var(--text);">only under fatigue</span> — never fresh max</div>
+      <div class="rule-item">No ego pacing — <span style="color:var(--text);">HR cap respected always</span></div>
+      <div class="rule-item">Missed session → <span style="color:var(--text);">adjust, not double volume</span></div>
+      <div class="rule-item">Sleep = <span style="color:var(--text);">performance multiplier</span> · 8h target</div>
+      <div class="rule-item">Health &gt; hero sessions — <span style="color:var(--text);">always</span></div>
+    </div>
+
+    <!-- WB Pace Chart -->
+    <div class="card" style="animation-delay:.5s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--accent);"></span>Run Pace Progression</div>
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);width:36px;flex-shrink:0;">W10</div>
+          <div style="flex:1;height:4px;background:var(--border);">
+            <div style="width:60%;height:100%;background:var(--accent);"></div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accent);letter-spacing:1px;width:56px;text-align:right;">4:25</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);width:36px;flex-shrink:0;">W11</div>
+          <div style="flex:1;height:4px;background:var(--border);">
+            <div style="width:70%;height:100%;background:var(--accent);"></div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accent);letter-spacing:1px;width:56px;text-align:right;">4:20</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);width:36px;flex-shrink:0;">W12</div>
+          <div style="flex:1;height:4px;background:var(--border);">
+            <div style="width:82%;height:100%;background:var(--red);"></div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);letter-spacing:1px;width:56px;text-align:right;">4:15</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);width:36px;flex-shrink:0;">W13</div>
+          <div style="flex:1;height:4px;background:var(--border);">
+            <div style="width:88%;height:100%;background:var(--gold);"></div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);letter-spacing:1px;width:56px;text-align:right;">4:20</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);width:36px;flex-shrink:0;">W14</div>
+          <div style="flex:1;height:4px;background:var(--border);">
+            <div style="width:95%;height:100%;background:var(--orange);"></div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--orange);letter-spacing:1px;width:56px;text-align:right;">4:10</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);width:36px;flex-shrink:0;">KPI</div>
+          <div style="flex:1;height:4px;background:var(--border);">
+            <div style="width:100%;height:100%;background:var(--green);box-shadow:0 0 6px var(--green);"></div>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green);letter-spacing:1px;width:56px;text-align:right;">4:20✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Outcome -->
+    <div class="card" style="animation-delay:.54s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>Target Outcome</div>
+      <div class="outcome-box">
+        <div class="outcome-label">🏁 If Consistent Execution</div>
+        <div class="outcome-text">1:15 becomes realistic.<br>Brisbane is the peak.</div>
+      </div>
+      <div class="outcome-box alt">
+        <div class="outcome-label">↻ Contingency Plan</div>
+        <div class="outcome-text">If not Brisbane →<br>Roll peak directly into Sydney.</div>
+      </div>
+      <div style="margin-top:14px;padding:12px 14px;border:1px solid rgba(0,229,255,.1);background:rgba(0,229,255,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:2px;margin-bottom:6px;">Block Progress</div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;">
+          <div style="flex:1;height:6px;background:rgba(0,255,135,.4);border-radius:2px;" title="W09 done"></div>
+          <div style="flex:1;height:6px;background:rgba(0,229,255,.3);border-radius:2px;" title="W10"></div>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:2px;" title="W11"></div>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:2px;" title="W12"></div>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:2px;" title="W13"></div>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:2px;" title="W14"></div>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:2px;" title="Race"></div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);">
+          W09 complete · <span style="color:var(--accent);">W10 active</span> · 5 weeks remaining
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- IDENTITY -->
+  <div class="identity">
+    <div class="id-lbl">🐺 Wolf Identity</div>
+    <div class="id-lines">
+      <div class="id-line">We do not chase races.</div>
+      <div class="id-line">We build capacity.</div>
+      <div class="id-line hl">We hunt numbers.</div>
+      <div class="id-line hl">We earn the flight.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-l">HYROX BRISBANE MASTER PLAN · 39-DAY BLOCK · 2026·03·02 → 2026·04·09 &nbsp;//&nbsp; YARO &nbsp;//&nbsp; PRO MEN 45–49</div>
+    <div class="tags">
+      <div class="tag">#Hyrox</div>
+      <div class="tag">#Brisbane</div>
+      <div class="tag">#WallBalls</div>
+      <div class="tag">#Engine</div>
+      <div class="tag">#ProMen</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

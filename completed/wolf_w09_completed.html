@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOLF BLOCK W09 · COMPLETED // YARO</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10;
+    --surface: #0E1419;
+    --surface2: #141B22;
+    --border: #1E2D3D;
+    --accent: #00E5FF;
+    --red: #FF4757;
+    --gold: #FFD700;
+    --green: #00FF87;
+    --text: #E8EDF2;
+    --muted: #5A6A7A;
+    --label: #8A9BAB;
+    --orange: #FF8C42;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 36px 24px;
+    position: relative; z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp .5s ease both;
+  }
+
+  .hdr-left .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hdr-left .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 88px);
+    line-height: .88;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+
+  .hdr-left .subtitle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    letter-spacing: 6px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .hdr-right { text-align: right; }
+
+  .week-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--green);
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .week-range {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    letter-spacing: 2px;
+    margin-top: 2px;
+  }
+
+  .week-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .completed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid rgba(0,255,135,.25);
+    background: rgba(0,255,135,.05);
+  }
+
+  .cd { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+
+  /* ── WEEK SUMMARY STRIP ── */
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    animation: fadeUp .5s .06s ease both;
+  }
+
+  .ss {
+    background: var(--surface);
+    padding: 16px 18px;
+    text-align: center;
+    transition: background .2s;
+  }
+
+  .ss:hover { background: var(--surface2); }
+
+  .ss .sv {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .ss .su {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    margin-left: 2px;
+  }
+
+  .ss .sl {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-lbl::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ── WEEK GRID ── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  /* ── DAY CARD ── */
+  .dc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid transparent;
+    transition: transform .2s, border-color .2s;
+    animation: fadeUp .5s ease both;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .dc.done:hover { transform: translateY(-3px); }
+
+  /* Status-based top borders */
+  .dc.done-green { border-top-color: var(--green); }
+  .dc.done-gold { border-top-color: var(--gold); }
+  .dc.done-red-day { border-top-color: var(--red); }
+  .dc.missed { border-top-color: var(--red); opacity: .65; }
+  .dc.off { border-top-color: var(--muted); }
+  .dc.no-data { border-top-color: var(--muted); opacity: .5; }
+
+  /* Missed overlay */
+  .missed-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8,12,16,.5);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .missed-x {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--red);
+    opacity: .6;
+    letter-spacing: 2px;
+  }
+
+  .missed-reason {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-top: 4px;
+  }
+
+  /* Diagonal stripes for missed */
+  .dc.missed::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,71,87,.04) 8px,
+      rgba(255,71,87,.04) 16px
+    );
+    pointer-events: none;
+  }
+
+  .dc:nth-child(1) { animation-delay: .12s; }
+  .dc:nth-child(2) { animation-delay: .17s; }
+  .dc:nth-child(3) { animation-delay: .22s; }
+  .dc:nth-child(4) { animation-delay: .27s; }
+  .dc:nth-child(5) { animation-delay: .32s; }
+  .dc:nth-child(6) { animation-delay: .37s; }
+  .dc:nth-child(7) { animation-delay: .42s; }
+
+  .dc-head {
+    padding: 12px 13px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dc-iso {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .dc-iso .yr { color: var(--muted); }
+  .dc-iso .dot { color: var(--border); margin: 0 2px; }
+  .dc-iso .mo { color: var(--label); }
+  .dc-iso .dd { color: var(--text); font-weight: 500; }
+
+  .dc-abbr {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+
+  .done-green .dc-abbr { color: var(--green); }
+  .done-gold .dc-abbr  { color: var(--gold); }
+  .done-red-day .dc-abbr { color: var(--red); }
+  .missed .dc-abbr     { color: var(--red); }
+  .off .dc-abbr        { color: var(--muted); }
+  .no-data .dc-abbr    { color: var(--muted); }
+
+  .dc-tag {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    padding: 2px 7px;
+    text-transform: uppercase;
+  }
+
+  .done-green .dc-tag  { background: rgba(0,255,135,.07); color: var(--green); }
+  .done-gold .dc-tag   { background: rgba(255,215,0,.07); color: var(--gold); }
+  .done-red-day .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .missed .dc-tag      { background: rgba(255,71,87,.07); color: var(--red); }
+  .off .dc-tag         { background: rgba(90,106,122,.08); color: var(--muted); }
+  .no-data .dc-tag     { background: rgba(90,106,122,.08); color: var(--muted); }
+
+  /* Status chip */
+  .status-chip {
+    display: inline-block;
+    margin-top: 7px;
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    padding: 2px 6px;
+    letter-spacing: 1px;
+    border: 1px solid;
+  }
+
+  .chip-done { color: var(--green); border-color: rgba(0,255,135,.25); background: rgba(0,255,135,.04); }
+  .chip-miss { color: var(--red); border-color: rgba(255,71,87,.25); background: rgba(255,71,87,.04); }
+  .chip-shift { color: var(--gold); border-color: rgba(255,215,0,.25); background: rgba(255,215,0,.04); }
+  .chip-off { color: var(--muted); border-color: rgba(90,106,122,.2); }
+
+  .dc-body { padding: 10px 13px 13px; }
+
+  .di {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    color: var(--label);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(30,45,61,.5);
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .di:last-child { border-bottom: none; }
+  .di .ic { flex-shrink: 0; color: var(--muted); margin-top: 1px; }
+
+  .hi { color: var(--text); }
+  .gr { color: var(--green); }
+  .ac { color: var(--accent); }
+  .rd { color: var(--red); }
+  .gd { color: var(--gold); }
+  .mu { color: var(--muted); }
+  .or { color: var(--orange); }
+
+  /* Score pill */
+  .score-pill {
+    margin-top: 10px;
+    padding: 6px 10px;
+    border: 1px solid rgba(0,229,255,.15);
+    background: rgba(0,229,255,.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .score-pill .sp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .score-pill .sp-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  /* HR mini-bar */
+  .hr-mini {
+    margin-top: 8px;
+  }
+
+  .hr-mini-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .hr-zone-row {
+    display: flex;
+    height: 5px;
+    gap: 1px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .hz { height: 100%; border-radius: 1px; transition: opacity .3s; }
+  .hz:hover { opacity: .8; }
+  .hz1 { background: #3A7BD5; }
+  .hz2 { background: #00E5FF; }
+  .hz3 { background: #FFD700; }
+  .hz4 { background: #FF8C42; }
+  .hz5 { background: #FF4757; }
+
+  .hr-zone-legend {
+    display: flex;
+    gap: 6px;
+    margin-top: 5px;
+  }
+
+  .hzl {
+    font-family: 'DM Mono', monospace;
+    font-size: 7px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .hzl-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+  }
+
+  /* ── DETAIL CARDS ROW ── */
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+    animation: fadeUp .5s ease both;
+    transition: border-color .2s, transform .2s;
+  }
+
+  .card:hover {
+    border-color: rgba(0,229,255,.15);
+    transform: translateY(-2px);
+  }
+
+  .card-ttl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ct-dot { width: 6px; height: 6px; flex-shrink: 0; }
+
+  /* Metric rows */
+  .mrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mrow:last-child { border-bottom: none; }
+
+  .mk {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--label);
+  }
+
+  .mv {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--text);
+  }
+
+  .mu2 {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+    margin-left: 2px;
+  }
+
+  /* Zone bars full */
+  .zone-full {
+    margin: 14px 0 8px;
+  }
+
+  .zf-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .zf-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .zf-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    width: 40px;
+    flex-shrink: 0;
+  }
+
+  .zf-bar-bg {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .zf-bar-fill {
+    height: 100%;
+    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  }
+
+  .zf-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--label);
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Strength item */
+  .sitem {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sitem:last-child { border-bottom: none; }
+
+  .sname {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--label);
+    line-height: 1.3;
+  }
+
+  .sweight {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-align: right;
+  }
+
+  .sweight .wu {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+  }
+
+  .sscheme {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* Score cards */
+  .scores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 14px;
+  }
+
+  .sc {
+    background: var(--surface);
+    padding: 12px;
+    text-align: center;
+    transition: background .2s;
+  }
+
+  .sc:hover { background: var(--surface2); }
+
+  .sc-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .sc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* ── WEEK ASSESSMENT ── */
+  .assessment {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    padding: 24px 28px;
+    margin-bottom: 14px;
+    animation: fadeUp .5s .45s ease both;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .assess-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .assess-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(30,45,61,.5);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--label);
+    line-height: 1.4;
+  }
+
+  .assess-item:last-child { border-bottom: none; }
+  .assess-item.good::before { content: '✔'; color: var(--green); flex-shrink: 0; }
+  .assess-item.warn::before { content: '△'; color: var(--gold); flex-shrink: 0; }
+  .assess-item.note::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* ── IDENTITY ── */
+  .identity {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 22px 28px;
+    margin-bottom: 14px;
+    animation: fadeUp .5s .5s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .identity::after {
+    content: '🐺';
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 72px;
+    opacity: .05;
+    pointer-events: none;
+  }
+
+  .id-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .id-lines {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 5px;
+  }
+
+  .id-line {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    transition: color .2s;
+  }
+
+  .id-line:hover { color: var(--text); }
+  .id-line.hl { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-l {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    letter-spacing: 1px;
+    transition: all .2s;
+    cursor: default;
+  }
+
+  .tag:hover { color: var(--accent); border-color: rgba(0,229,255,.25); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .3; }
+  }
+
+  @media (max-width: 1100px) {
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .detail-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 800px) {
+    .week-grid { grid-template-columns: repeat(2, 1fr); }
+    .detail-grid { grid-template-columns: 1fr; }
+    .summary-strip { grid-template-columns: repeat(3, 1fr); }
+    .assessment { grid-template-columns: 1fr; }
+    .hdr { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="eyebrow"><span class="cd"></span>Completed Week · Wolf Block</div>
+      <div class="title">WEEK<br>REPORT</div>
+      <div class="subtitle">W09 · Executed</div>
+    </div>
+    <div class="hdr-right">
+      <div class="week-badge">W09</div>
+      <div class="week-range">2026·02·23 → 2026·03·01</div>
+      <div class="week-year">Moorabbin · Year 2026</div>
+      <div class="completed-badge"><span class="cd"></span>Week Completed</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY STRIP -->
+  <div class="summary-strip">
+    <div class="ss">
+      <div class="sv" style="color:var(--green);">5<span class="su">/5</span></div>
+      <div class="sl">Sessions Done</div>
+    </div>
+    <div class="ss">
+      <div class="sv">18.43<span class="su">km</span></div>
+      <div class="sl">Total Run</div>
+    </div>
+    <div class="ss">
+      <div class="sv">137<span class="su">bpm</span></div>
+      <div class="sl">Avg HR (Aer)</div>
+    </div>
+    <div class="ss">
+      <div class="sv" style="color:var(--gold);">8.5<span class="su">/10</span></div>
+      <div class="sl">Avg Score</div>
+    </div>
+    <div class="ss">
+      <div class="sv">2:09<span class="su">h</span></div>
+      <div class="sl">Strength Time</div>
+    </div>
+    <div class="ss">
+      <div class="sv" style="color:var(--gold);">50<span class="su">WB</span></div>
+      <div class="sl">SAT Wall Balls</div>
+    </div>
+  </div>
+
+  <!-- WEEK GRID -->
+  <div class="section-lbl" style="animation: fadeUp .5s .1s ease both;">📆 Week Execution — W09 · 2026</div>
+
+  <div class="week-grid">
+
+    <!-- MON — DONE -->
+    <div class="dc done done-green">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">02</span><span class="dot">·</span><span class="dd">23</span></div>
+        <div class="dc-abbr">MON</div>
+        <div class="dc-tag">Speed Economy</div>
+        <div class="status-chip chip-done">✓ DONE</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span>5 × 800m intervals</span></div>
+        <div class="di"><span class="ic">—</span><span>Total <span class="hi">4.43 km</span> · 35:10</span></div>
+        <div class="di"><span class="ic">—</span><span>Pace intervals <span class="gr">5:25/km</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Avg HR <span class="ac">135</span> · Peak <span class="or">165</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Cals <span class="hi">424</span> kcal</span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones</div>
+          <div class="hr-zone-row">
+            <div class="hz hz1" style="width:36%;"></div>
+            <div class="hz hz2" style="width:10%;"></div>
+            <div class="hz hz3" style="width:14%;"></div>
+            <div class="hz hz4" style="width:31%;"></div>
+            <div class="hz hz5" style="width:4%;"></div>
+          </div>
+          <div class="hr-zone-legend">
+            <span class="hzl"><span class="hzl-dot" style="background:#3A7BD5;"></span>Z1</span>
+            <span class="hzl"><span class="hzl-dot" style="background:#00E5FF;"></span>Z2</span>
+            <span class="hzl"><span class="hzl-dot" style="background:#FFD700;"></span>Z3</span>
+            <span class="hzl"><span class="hzl-dot" style="background:#FF8C42;"></span>Z4</span>
+            <span class="hzl"><span class="hzl-dot" style="background:#FF4757;"></span>Z5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUE — MISSED -->
+    <div class="dc missed">
+      <div class="missed-overlay">
+        <div class="missed-x">MISS</div>
+        <div class="missed-reason">Not well</div>
+      </div>
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">02</span><span class="dot">·</span><span class="dd">24</span></div>
+        <div class="dc-abbr">TUE</div>
+        <div class="dc-tag">Heavy Legs</div>
+        <div class="status-chip chip-miss">✗ MISSED</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span class="mu">Back Squat 5×3–5</span></div>
+        <div class="di"><span class="ic">—</span><span class="mu">Walking Lunges 4×24</span></div>
+        <div class="di"><span class="ic">—</span><span class="mu">Bulgarian SS 3×8</span></div>
+        <div class="di"><span class="ic">—</span><span style="color:var(--red);font-size:9px;">Shifted → WED</span></div>
+      </div>
+    </div>
+
+    <!-- WED — DONE (shifted heavy legs) -->
+    <div class="dc done done-gold">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">02</span><span class="dot">·</span><span class="dd">25</span></div>
+        <div class="dc-abbr">WED</div>
+        <div class="dc-tag">Heavy Legs ↓shifted</div>
+        <div class="status-chip chip-shift">↓ SHIFTED</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span>Leg Ext <span class="gd">62kg · 3×20</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Hack Squat <span class="gd">40kg · 3×8</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Lunges KB <span class="gd">32+32kg · 4×24</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Bulgarian SS <span class="gd">20+20kg · 4×10</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Sandbag core <span class="hi">3×10</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Duration <span class="hi">1:27:05</span> · 541 kcal</span></div>
+        <div class="score-pill">
+          <span class="sp-label">CNS Stress</span>
+          <span class="sp-val" style="color:var(--green);">LOW</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- THU — DONE (Upper Body) -->
+    <div class="dc done done-green">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">02</span><span class="dot">·</span><span class="dd">26</span></div>
+        <div class="dc-abbr">THU</div>
+        <div class="dc-tag">Upper + Aerobic</div>
+        <div class="status-chip chip-done">✓ DONE</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span>Bench <span class="gr">80kg · 4×5–6</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Pull-ups <span class="gr">+20kg · 4×5–6</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Dips <span class="gr">+25kg · 3×7</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Farmer Carry <span class="hi">32+32kg · 300m</span></span></div>
+        <div class="di"><span class="ic">🏃</span><span>Z2 run <span class="gr">5.03km</span> · 32:11</span></div>
+        <div class="di"><span class="ic">—</span><span>Avg HR <span class="ac">138</span> bpm · 6:24/km</span></div>
+        <div class="score-pill">
+          <span class="sp-label">Session Score</span>
+          <span class="sp-val">8.5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRI — DONE (Aerobic + Arms) -->
+    <div class="dc done done-green">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">02</span><span class="dot">·</span><span class="dd">27</span></div>
+        <div class="dc-abbr">FRI</div>
+        <div class="dc-tag">Aerobic + Arms</div>
+        <div class="status-chip chip-done">✓ DONE</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span>Z2 run <span class="gr">10.03km</span> · 1:02:08</span></div>
+        <div class="di"><span class="ic">—</span><span>Pace <span class="hi">6:12/km</span> · neg. split</span></div>
+        <div class="di"><span class="ic">—</span><span>Avg HR <span class="ac">137</span> · <span class="hi">6:36→5:52</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Incline DB Curl <span class="gr">10kg · 4×10</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Cross-body Curl <span class="gr">17.5kg · 4×10</span></span></div>
+        <div class="di"><span class="ic">—</span><span>CG Push-ups + Triceps ext.</span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones</div>
+          <div class="hr-zone-row">
+            <div class="hz hz1" style="width:22%;"></div>
+            <div class="hz hz2" style="width:28%;"></div>
+            <div class="hz hz3" style="width:47%;"></div>
+            <div class="hz hz4" style="width:3%;"></div>
+            <div class="hz hz5" style="width:0%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAT — DONE Baby Hyrox -->
+    <div class="dc done done-red-day">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">02</span><span class="dot">·</span><span class="dd">28</span></div>
+        <div class="dc-abbr">SAT</div>
+        <div class="dc-tag">Baby Hyrox 🔥</div>
+        <div class="status-chip chip-done">✓ DONE</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span>Run <span class="hi">900m + 300m + 600m</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Sled Push <span class="rd">205kg × 40m</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Sled Pull <span class="rd">185kg × 40m</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Burpees <span class="hi">20 total</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Lunges <span class="hi">56kg × 24</span></span></div>
+        <div class="di"><span class="ic">🏀</span><span><span class="rd">40 unbroken</span> · 1:49</span></div>
+        <div class="di"><span class="ic">—</span><span>+10 reps = <span class="gd">50 total WB</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Avg HR <span class="ac">147</span> · Peak <span class="or">174</span></span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones</div>
+          <div class="hr-zone-row">
+            <div class="hz hz3" style="width:46%;"></div>
+            <div class="hz hz4" style="width:46%;"></div>
+            <div class="hz hz5" style="width:8%;"></div>
+          </div>
+          <div class="hr-zone-legend">
+            <span class="hzl"><span class="hzl-dot" style="background:#FFD700;"></span>Z3·11m</span>
+            <span class="hzl"><span class="hzl-dot" style="background:#FF8C42;"></span>Z4·11m</span>
+            <span class="hzl"><span class="hzl-dot" style="background:#FF4757;"></span>Z5·2m</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUN — OFF -->
+    <div class="dc off">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">03</span><span class="dot">·</span><span class="dd">01</span></div>
+        <div class="dc-abbr">SUN</div>
+        <div class="dc-tag">Off / Recovery</div>
+        <div class="status-chip chip-off">— OFF</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span>Walk · Mobility</span></div>
+        <div class="di"><span class="ic">—</span><span>Breathing · Sleep</span></div>
+        <div class="di" style="padding:14px 0 0;font-size:20px;justify-content:center;border:none;opacity:.3;">🌙</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DETAIL CARDS -->
+  <div class="section-lbl" style="animation: fadeUp .5s .28s ease both;">📊 Session Deep Dive</div>
+
+  <div class="detail-grid">
+
+    <!-- MON Detail -->
+    <div class="card" style="animation-delay:.3s; border-top: 2px solid var(--green);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--green);"></span>Mon 2026·02·23 — Speed Economy</div>
+
+      <div class="mrow"><span class="mk">Total Distance</span><span class="mv">4.43<span class="mu2">km</span></span></div>
+      <div class="mrow"><span class="mk">Total Time</span><span class="mv">35:10</span></div>
+      <div class="mrow"><span class="mk">Interval Pace</span><span class="mv" style="color:var(--green);">5:25<span class="mu2">/km</span></span></div>
+      <div class="mrow"><span class="mk">Average HR</span><span class="mv">135<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Peak HR</span><span class="mv" style="color:var(--orange);">165<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Recovery (1–2 min)</span><span class="mv" style="color:var(--green);">96<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Active Calories</span><span class="mv">424<span class="mu2">kcal</span></span></div>
+
+      <div class="zone-full">
+        <div class="zf-title">HR Zone Distribution</div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:#3A7BD5;">Z1</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:58%;background:#3A7BD5;"></div></div>
+          <div class="zf-time">13:30</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--accent);">Z2</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:15%;background:var(--accent);"></div></div>
+          <div class="zf-time">3:32</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--gold);">Z3</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:23%;background:var(--gold);"></div></div>
+          <div class="zf-time">5:25</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--orange);">Z4</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:50%;background:var(--orange);"></div></div>
+          <div class="zf-time">11:40</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--red);">Z5</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:4%;background:var(--red);"></div></div>
+          <div class="zf-time">1:03</div>
+        </div>
+      </div>
+
+      <div style="padding:10px 12px;border:1px solid rgba(0,255,135,.1);background:rgba(0,255,135,.03);margin-top:4px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--green);letter-spacing:2px;margin-bottom:4px;">NOTE</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Intervals were 800m, not 1km. <span style="color:var(--text);">Controlled threshold work.</span> Strong HR recovery.</div>
+      </div>
+    </div>
+
+    <!-- WED + THU combined strength -->
+    <div class="card" style="animation-delay:.35s; border-top: 2px solid var(--gold);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--gold);"></span>Wed 2026·02·25 — Heavy Legs</div>
+
+      <div class="sitem">
+        <div class="sname">Leg Extension</div>
+        <div class="sweight">62<span class="wu">kg</span></div>
+        <div class="sscheme">3×20</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Hack Squat</div>
+        <div class="sweight">40<span class="wu">kg</span></div>
+        <div class="sscheme">3×8</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Walking Lunges KB</div>
+        <div class="sweight">64<span class="wu">kg</span></div>
+        <div class="sscheme">4×24 steps</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Bulgarian Split Squat</div>
+        <div class="sweight">40<span class="wu">kg</span></div>
+        <div class="sscheme">4×10 ea</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Sandbag Core</div>
+        <div class="sweight">10<span class="wu">kg</span></div>
+        <div class="sscheme">3×10</div>
+      </div>
+
+      <div class="scores-grid" style="margin-top:14px;">
+        <div class="sc"><div class="sc-val">1:27</div><div class="sc-label">Duration</div></div>
+        <div class="sc"><div class="sc-val">541</div><div class="sc-label">kcal</div></div>
+        <div class="sc"><div class="sc-val">100</div><div class="sc-label">Avg HR</div></div>
+        <div class="sc"><div class="sc-val" style="color:var(--green);">Low</div><div class="sc-label">CNS Stress</div></div>
+      </div>
+    </div>
+
+    <!-- FRI Detail -->
+    <div class="card" style="animation-delay:.4s; border-top: 2px solid var(--accent);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--accent);"></span>Fri 2026·02·27 — Aerobic + Arms</div>
+
+      <div class="mrow"><span class="mk">Distance</span><span class="mv">10.03<span class="mu2">km</span></span></div>
+      <div class="mrow"><span class="mk">Time</span><span class="mv">1:02:08</span></div>
+      <div class="mrow"><span class="mk">Avg Pace</span><span class="mv" style="color:var(--accent);">6:12<span class="mu2">/km</span></span></div>
+      <div class="mrow"><span class="mk">Avg HR</span><span class="mv">137<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Split Pattern</span><span class="mv" style="color:var(--green);font-size:14px;">6:36 → 5:52</span></div>
+      <div class="mrow"><span class="mk">Cadence</span><span class="mv" style="color:var(--gold);">159<span class="mu2">spm</span></span></div>
+
+      <div class="zone-full">
+        <div class="zf-title">HR Zone Distribution</div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:#3A7BD5;">Z1</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:23%;background:#3A7BD5;"></div></div>
+          <div class="zf-time">14:07</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--accent);">Z2</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:28%;background:var(--accent);"></div></div>
+          <div class="zf-time">17:16</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--gold);">Z3</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:47%;background:var(--gold);"></div></div>
+          <div class="zf-time">28:59</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--orange);">Z4</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:3%;background:var(--orange);"></div></div>
+          <div class="zf-time">1:44</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--red);">Z5</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:0%;background:var(--red);"></div></div>
+          <div class="zf-time">0:00</div>
+        </div>
+      </div>
+
+      <div style="padding:10px 12px;border:1px solid rgba(255,215,0,.1);background:rgba(255,215,0,.03);margin-top:4px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:2px;margin-bottom:4px;">IMPROVEMENT POINT</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Cadence <span style="color:var(--gold);">159 spm</span> — target 165–170. Z3 high for Z2 intent.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Thu detail row -->
+  <div class="detail-grid" style="margin-bottom:24px;">
+    <div class="card" style="animation-delay:.42s; border-top: 2px solid var(--green);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--green);"></span>Thu 2026·02·26 — Upper Body Strength</div>
+      <div class="sitem">
+        <div class="sname">Barbell Bench Press</div>
+        <div class="sweight">80<span class="wu">kg</span></div>
+        <div class="sscheme">4×5 (+6)</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Weighted Pull-ups</div>
+        <div class="sweight">+20<span class="wu">kg</span></div>
+        <div class="sscheme">4×6 (neg.)</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Weighted Dips</div>
+        <div class="sweight">+25<span class="wu">kg</span></div>
+        <div class="sscheme">3×7</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">DB Row (Chest Supp.)</div>
+        <div class="sweight">17.5<span class="wu">kg</span></div>
+        <div class="sscheme">3×10</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Cable Row (Narrow)</div>
+        <div class="sweight">47<span class="wu">kg</span></div>
+        <div class="sscheme">3×8</div>
+      </div>
+      <div class="sitem">
+        <div class="sname">Farmer Carry</div>
+        <div class="sweight">64<span class="wu">kg</span></div>
+        <div class="sscheme">300m · 2:55</div>
+      </div>
+    </div>
+
+    <div class="card" style="animation-delay:.44s; border-top: 2px solid var(--accent);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--accent);"></span>Thu Aerobic Component</div>
+      <div class="mrow"><span class="mk">Distance</span><span class="mv">5.03<span class="mu2">km</span></span></div>
+      <div class="mrow"><span class="mk">Time</span><span class="mv">32:11</span></div>
+      <div class="mrow"><span class="mk">Avg Pace</span><span class="mv" style="color:var(--accent);">6:24<span class="mu2">/km</span></span></div>
+      <div class="mrow"><span class="mk">Avg HR</span><span class="mv">138<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Final Splits</span><span class="mv" style="color:var(--green);font-size:14px;">~6:00/km</span></div>
+      <div class="mrow"><span class="mk">Strength Duration</span><span class="mv">1:09:49</span></div>
+      <div class="mrow"><span class="mk">Total Cals</span><span class="mv" style="color:var(--green);">800+<span class="mu2">kcal</span></span></div>
+
+      <div class="scores-grid">
+        <div class="sc"><div class="sc-val">8.5</div><div class="sc-label">Score</div></div>
+        <div class="sc"><div class="sc-val" style="color:var(--green);">9</div><div class="sc-label">Discipline</div></div>
+        <div class="sc"><div class="sc-val">8</div><div class="sc-label">Load Mgmt</div></div>
+        <div class="sc"><div class="sc-val" style="color:var(--green);">9</div><div class="sc-label">Adaptability</div></div>
+      </div>
+    </div>
+
+    <!-- Week Assessment -->
+    <div class="card" style="animation-delay:.46s; border-top: 2px solid var(--green);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--green);"></span>Week Assessment</div>
+      <div class="assess-item good">Aerobic base built — 3 run sessions, 18.4 km total</div>
+      <div class="assess-item good">Negative split on 10k Friday — strong pacing control</div>
+      <div class="assess-item good">Strength density high — bench, pull-ups, dips all executed</div>
+      <div class="assess-item good">Smart adaptation — shifted Heavy Legs to Wed without drama</div>
+      <div class="assess-item good">HR recovery fast — 165 → 96 bpm post-intervals</div>
+      <div class="assess-item good">40 unbroken WB in 1:49 — progression target ACHIEVED</div>
+      <div class="assess-item good">Baby Hyrox Sim — 205kg sled push, no breakdown</div>
+      <div class="assess-item good">No CNS crash post-Saturday — capacity remaining</div>
+      <div class="assess-item warn">Cadence 159 spm (Fri) — target 165–170 spm</div>
+      <div class="assess-item warn">Z3 drift on Z2-intent sessions — needs monitoring</div>
+      <div class="assess-item note">Tuesday missed — correct decision. Health &gt; hero sessions.</div>
+    </div>
+
+  </div>
+
+  <!-- SAT DETAIL -->
+  <div class="section-lbl" style="animation: fadeUp .5s .48s ease both;">🔥 Saturday Deep Dive — Baby Hyrox 2026·02·28</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;">
+
+    <!-- SAT Sequence -->
+    <div class="card" style="animation-delay:.5s; border-top: 2px solid var(--red);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>Full Session Sequence</div>
+
+      <div style="display:flex;flex-direction:column;gap:0;">
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">1</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Run</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text);">900<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> m</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">2</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Sled Push</div>
+          <div style="text-align:right;"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--red);">205<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> kg</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);">40 m</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">3</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Burpees</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text);">10<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> reps</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">4</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Run</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text);">300<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> m</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">5</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Sled Pull</div>
+          <div style="text-align:right;"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--red);">185<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> kg</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);">40 m</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">6</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Burpees</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text);">10<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> reps</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">7</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Run</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text);">600<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> m</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">8</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">Walking Lunges</div>
+          <div style="text-align:right;"><div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text);">56<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);"> kg</span></div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);">24 steps</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);width:18px;flex-shrink:0;">9</div>
+          <div style="flex:1;font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">🏀 Wall Balls</div>
+          <div style="text-align:right;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);">50</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);">total reps</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAT Wall Ball Focus -->
+    <div class="card" style="animation-delay:.52s; border-top: 2px solid var(--gold);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--gold);"></span>🏀 Wall Ball — Key Set</div>
+
+      <div style="text-align:center;padding:8px 0 16px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--gold);letter-spacing:3px;line-height:1;">40</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;">Unbroken</div>
+      </div>
+
+      <div class="mrow"><span class="mk">Time for 40 reps</span><span class="mv" style="color:var(--gold);">1:49</span></div>
+      <div class="mrow"><span class="mk">Avg per rep</span><span class="mv">2.7<span class="mu2">sec</span></span></div>
+      <div class="mrow"><span class="mk">Est. Peak HR</span><span class="mv" style="color:var(--red);">172–174<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Recovery HR</span><span class="mv" style="color:var(--gold);">~160<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Additional set</span><span class="mv">+10<span class="mu2">reps</span></span></div>
+      <div class="mrow"><span class="mk">Total WB</span><span class="mv" style="color:var(--green);">50</span></div>
+
+      <div style="margin-top:14px;padding:12px 14px;border:1px solid rgba(255,215,0,.15);background:rgba(255,215,0,.04);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:2px;margin-bottom:6px;">PROGRESSION STATUS</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--green);letter-spacing:2px;">35 → 40</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--green);">✓ ACHIEVED</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--gold);letter-spacing:2px;">40 → 45</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);">→ NEXT TARGET</div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;padding:10px 14px;border:1px solid rgba(0,229,255,.1);background:rgba(0,229,255,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:2px;margin-bottom:4px;">SYSTEM STATUS POST</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">No CNS crash · No tunnel · <span style="color:var(--green);">Capacity remaining</span></div>
+      </div>
+    </div>
+
+    <!-- SAT HR + Totals -->
+    <div class="card" style="animation-delay:.54s; border-top: 2px solid var(--orange);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--orange);"></span>HR Profile + Volume</div>
+
+      <div class="mrow"><span class="mk">Average HR</span><span class="mv">147<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Peak HR</span><span class="mv" style="color:var(--red);">172–174<span class="mu2">bpm</span></span></div>
+
+      <div class="zone-full">
+        <div class="zf-title">HR Zone Distribution</div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--gold);">Z3</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:46%;background:var(--gold);"></div></div>
+          <div class="zf-time">11 min</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--orange);">Z4</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:46%;background:var(--orange);"></div></div>
+          <div class="zf-time">11 min</div>
+        </div>
+        <div class="zf-row">
+          <div class="zf-label" style="color:var(--red);">Z5</div>
+          <div class="zf-bar-bg"><div class="zf-bar-fill" style="width:8%;background:var(--red);"></div></div>
+          <div class="zf-time">2 min</div>
+        </div>
+      </div>
+
+      <div style="margin:14px 0 8px;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Total Volume</div>
+      <div class="mrow"><span class="mk">Run Total</span><span class="mv">1.8<span class="mu2">km</span></span></div>
+      <div class="mrow"><span class="mk">Sled Push</span><span class="mv" style="color:var(--red);">205<span class="mu2">kg</span></span></div>
+      <div class="mrow"><span class="mk">Sled Pull</span><span class="mv" style="color:var(--red);">185<span class="mu2">kg</span></span></div>
+      <div class="mrow"><span class="mk">Burpees Total</span><span class="mv">20</span></div>
+      <div class="mrow"><span class="mk">Lunges Load</span><span class="mv">56<span class="mu2">kg</span></span></div>
+      <div class="mrow"><span class="mk">Wall Balls</span><span class="mv" style="color:var(--gold);">50</span></div>
+
+      <div style="margin-top:14px;padding:10px 14px;border:1px solid rgba(0,255,135,.1);background:rgba(0,255,135,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--green);letter-spacing:2px;margin-bottom:4px;">ASSESSMENT</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Controlled stress. No prolonged Z5. <span style="color:var(--green);">Adaptation stimulus achieved.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- IDENTITY -->
+  <div class="identity">
+    <div class="id-lbl">🐺 Wolf Identity</div>
+    <div class="id-lines">
+      <div class="id-line">We do not chase races.</div>
+      <div class="id-line">We build capacity.</div>
+      <div class="id-line hl">We hunt numbers.</div>
+      <div class="id-line hl">We earn the flight.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-l">W09 COMPLETED · 2026·02·23 → 2026·03·01 &nbsp;//&nbsp; YARO &nbsp;//&nbsp; MOORABBIN</div>
+    <div class="tags">
+      <div class="tag">#Hyrox</div>
+      <div class="tag">#WallBalls</div>
+      <div class="tag">#Engine</div>
+      <div class="tag">#Fitness</div>
+      <div class="tag">#Raport</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Animate zone bars on load
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.zf-bar-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0';
+      setTimeout(() => { el.style.width = w; }, 300);
+    });
+  });
+</script>
+
+</body>
+</html>

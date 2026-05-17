@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYDNEY BUILD W15 · COMPLETED // YARO 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C10; --surface: #0E1419; --surface2: #141B22;
+    --border: #1E2D3D; --accent: #00E5FF; --red: #FF4757;
+    --gold: #FFD700; --green: #00FF87; --text: #E8EDF2;
+    --muted: #5A6A7A; --label: #8A9BAB; --orange: #FF8C42;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,229,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.022) 1px, transparent 1px);
+    background-size: 40px 40px; pointer-events: none; z-index: 0;
+  }
+
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 36px 24px; position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  .hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); animation: fadeUp .5s ease both; }
+
+  .hdr-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .cd { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+
+  .hdr-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 88px); line-height: .88; letter-spacing: 4px; }
+  .hdr-sub   { font-family: 'Bebas Neue', sans-serif; font-size: clamp(16px, 2.2vw, 24px); letter-spacing: 6px; color: var(--muted); margin-top: 4px; }
+  .hdr-block { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); letter-spacing: 1px; margin-top: 8px; }
+  .hdr-block span { color: var(--accent); }
+
+  .hdr-right { text-align: right; }
+  .week-badge { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: var(--accent); letter-spacing: 3px; line-height: 1; }
+  .week-range { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); letter-spacing: 2px; margin-top: 2px; }
+  .week-year  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 10px; }
+
+  .done-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--green); letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border: 1px solid rgba(0,255,135,.25); background: rgba(0,255,135,.05); }
+
+  /* ── SUMMARY STRIP ── */
+  .summary-strip { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 20px; animation: fadeUp .5s .06s ease both; }
+
+  .ss { background: var(--surface); padding: 14px 16px; text-align: center; transition: background .2s; }
+  .ss:hover { background: var(--surface2); }
+  .ss .sv { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; line-height: 1; }
+  .ss .su { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); margin-left: 2px; }
+  .ss .sl { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+  /* ── KEY WIN BANNER ── */
+  .win-banner { background: var(--surface); border: 1px solid rgba(0,255,135,.2); border-left: 3px solid var(--green); padding: 16px 24px; margin-bottom: 14px; animation: fadeUp .5s .07s ease both; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .wb-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--green); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; }
+  .wb-text  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.6; }
+  .wb-text span { color: var(--text); }
+
+  /* ── SLEEP BANNER ── */
+  .sleep-banner { background: var(--surface); border: 1px solid rgba(255,215,0,.12); border-left: 3px solid var(--gold); padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; animation: fadeUp .5s .09s ease both; flex-wrap: wrap; gap: 12px; }
+  .sb-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; }
+  .sleep-arc { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sleep-day .sd-score { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; line-height: 1; }
+  .sleep-day .sd-label { font-family: 'DM Mono', monospace; font-size: 7px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; text-align: center; }
+  .sleep-arrow { color: var(--border); font-family: 'DM Mono', monospace; font-size: 12px; }
+
+  /* ── SECTION LABEL ── */
+  .section-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── WEEK GRID ── */
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 24px; }
+
+  .dc { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid transparent; transition: transform .2s, border-color .2s; animation: fadeUp .5s ease both; overflow: hidden; }
+  .dc.done:hover { transform: translateY(-3px); }
+
+  .dc.done-green { border-top-color: var(--green); }
+  .dc.done-gold  { border-top-color: var(--gold); }
+  .dc.done-red   { border-top-color: var(--red); }
+  .dc.done-blue  { border-top-color: var(--accent); }
+  .dc.yellow-day { border-top-color: var(--gold); }
+
+  .dc:nth-child(1){animation-delay:.12s} .dc:nth-child(2){animation-delay:.17s}
+  .dc:nth-child(3){animation-delay:.22s} .dc:nth-child(4){animation-delay:.27s}
+  .dc:nth-child(5){animation-delay:.32s} .dc:nth-child(6){animation-delay:.37s}
+  .dc:nth-child(7){animation-delay:.42s}
+
+  .dc-head { padding: 12px 13px 10px; border-bottom: 1px solid var(--border); }
+  .dc-iso { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 1px; margin-bottom: 4px; }
+  .dc-iso .yr { color: var(--muted); } .dc-iso .dot { color: var(--border); margin: 0 2px; }
+  .dc-iso .mo { color: var(--label); } .dc-iso .dd { color: var(--text); font-weight: 500; }
+
+  .dc-abbr { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; line-height: 1; }
+  .done-green .dc-abbr { color: var(--green); }
+  .done-gold  .dc-abbr { color: var(--gold); }
+  .done-red   .dc-abbr { color: var(--red); }
+  .done-blue  .dc-abbr { color: var(--accent); }
+  .yellow-day .dc-abbr { color: var(--gold); }
+
+  .dc-tag { display: inline-block; margin-top: 6px; font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 1.5px; padding: 2px 7px; text-transform: uppercase; }
+  .done-green .dc-tag { background: rgba(0,255,135,.07); color: var(--green); }
+  .done-gold  .dc-tag { background: rgba(255,215,0,.07); color: var(--gold); }
+  .done-red   .dc-tag { background: rgba(255,71,87,.07); color: var(--red); }
+  .done-blue  .dc-tag { background: rgba(0,229,255,.07); color: var(--accent); }
+  .yellow-day .dc-tag { background: rgba(255,215,0,.07); color: var(--gold); }
+
+  .status-chip { display: inline-block; margin-top: 7px; font-family: 'DM Mono', monospace; font-size: 7px; padding: 2px 6px; letter-spacing: 1px; border: 1px solid; }
+  .chip-done   { color: var(--green); border-color: rgba(0,255,135,.25); background: rgba(0,255,135,.04); }
+  .chip-yellow { color: var(--gold); border-color: rgba(255,215,0,.25); background: rgba(255,215,0,.04); }
+  .chip-green  { color: var(--green); border-color: rgba(0,255,135,.25); background: rgba(0,255,135,.06); }
+
+  .sleep-chip { display: inline-block; margin-top: 5px; font-family: 'DM Mono', monospace; font-size: 7px; padding: 1px 6px; letter-spacing: 1px; border: 1px solid; }
+  .sleep-good { color: var(--green); border-color: rgba(0,255,135,.2); background: rgba(0,255,135,.04); }
+  .sleep-ok   { color: var(--gold);  border-color: rgba(255,215,0,.2);  background: rgba(255,215,0,.04); }
+  .sleep-low  { color: var(--red);   border-color: rgba(255,71,87,.2);   background: rgba(255,71,87,.04); }
+
+  .dc-body { padding: 10px 13px 13px; }
+
+  .di { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--label); padding: 4px 0; border-bottom: 1px solid rgba(30,45,61,.5); line-height: 1.4; display: flex; align-items: flex-start; gap: 5px; }
+  .di:last-child { border-bottom: none; }
+  .di .ic { flex-shrink: 0; color: var(--muted); }
+
+  .hi { color: var(--text); } .gr { color: var(--green); } .ac { color: var(--accent); }
+  .rd { color: var(--red); }  .gd { color: var(--gold); }  .mu { color: var(--muted); }
+  .or { color: var(--orange); }
+
+  .hr-mini { margin-top: 8px; }
+  .hr-mini-label { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
+  .hr-zone-row { display: flex; height: 5px; gap: 1px; border-radius: 2px; overflow: hidden; }
+  .hz { height: 100%; border-radius: 1px; }
+  .hz1 { background: #3A7BD5; } .hz2 { background: #00E5FF; } .hz3 { background: #FFD700; }
+  .hz4 { background: #FF8C42; } .hz5 { background: #FF4757; }
+
+  /* ── DETAIL CARDS ── */
+  .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); padding: 22px; animation: fadeUp .5s ease both; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: rgba(0,229,255,.12); transform: translateY(-2px); }
+
+  .card-ttl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .ct-dot { width: 6px; height: 6px; flex-shrink: 0; }
+
+  .mrow { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .mrow:last-child { border-bottom: none; }
+  .mk  { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); }
+  .mv  { font-family: 'Bebas Neue', sans-serif; font-size: 19px; letter-spacing: 1px; color: var(--text); }
+  .mu2 { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); margin-left: 2px; }
+
+  /* WB progression bars */
+  .wb-prog-row { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .wb-prog-row:last-child { border-bottom: none; }
+  .wp-set  { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); width: 26px; flex-shrink: 0; }
+  .wp-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 2px; }
+  .wp-bar-fill { height: 100%; border-radius: 2px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+  .wp-time { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; width: 44px; text-align: right; flex-shrink: 0; }
+  .wp-reps { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); width: 28px; text-align: right; flex-shrink: 0; }
+
+  /* Zone full */
+  .zone-full { margin: 10px 0 6px; }
+  .zf-title  { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 7px; }
+  .zf-row    { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .zf-label  { font-family: 'DM Mono', monospace; font-size: 8px; width: 36px; flex-shrink: 0; }
+  .zf-bar-bg { flex: 1; height: 4px; background: var(--border); }
+  .zf-bar-fill { height: 100%; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+  .zf-time   { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--label); width: 44px; text-align: right; flex-shrink: 0; }
+
+  /* Insight box */
+  .insight-box { padding: 10px 12px; border: 1px solid rgba(0,229,255,.12); background: rgba(0,229,255,.03); margin-top: 10px; }
+  .ib-label { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--accent); letter-spacing: 2px; margin-bottom: 4px; }
+  .ib-text  { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--label); line-height: 1.6; }
+  .ib-text span { color: var(--text); }
+
+  /* Assess */
+  .assess-item { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label); line-height: 1.4; }
+  .assess-item:last-child { border-bottom: none; }
+  .assess-item.good::before { content: '✔'; color: var(--green); flex-shrink: 0; }
+  .assess-item.warn::before { content: '△'; color: var(--gold); flex-shrink: 0; }
+  .assess-item.note::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* Split table */
+  .split-table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+  .split-table th { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; padding: 4px 6px; border-bottom: 1px solid var(--border); text-align: left; }
+  .split-table td { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--label); padding: 4px 6px; border-bottom: 1px solid rgba(30,45,61,.4); }
+  .split-table tr:last-child td { border-bottom: none; }
+  .split-table .hi { color: var(--text); }
+  .split-table .gr { color: var(--green); }
+
+  /* ── IDENTITY ── */
+  .identity { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 22px 28px; margin-bottom: 14px; animation: fadeUp .5s .5s ease both; position: relative; overflow: hidden; }
+  .identity::after { content: '🐺'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 72px; opacity: .05; pointer-events: none; }
+  .id-lbl   { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .id-lines { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 5px; }
+  .id-line  { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 3px; color: var(--muted); transition: color .2s; }
+  .id-line:hover { color: var(--text); }
+  .id-line.hl { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-l { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 2px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted); padding: 3px 8px; border: 1px solid var(--border); letter-spacing: 1px; transition: all .2s; cursor: default; }
+  .tag:hover { color: var(--accent); border-color: rgba(0,229,255,.25); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse  { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+  @media (max-width: 1100px) { .week-grid { grid-template-columns: repeat(4,1fr); } .detail-grid { grid-template-columns: 1fr 1fr; } .summary-strip { grid-template-columns: repeat(4,1fr); } }
+  @media (max-width: 720px)  { .week-grid { grid-template-columns: repeat(2,1fr); } .detail-grid { grid-template-columns: 1fr; } .hdr { flex-direction: column; gap: 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div>
+      <div class="hdr-eyebrow"><span class="cd"></span>Completed Week · Sydney Build W2 · Phase 1 Stabilize</div>
+      <div class="hdr-title">WEEK<br>REPORT</div>
+      <div class="hdr-sub">W15 · Executed</div>
+      <div class="hdr-block">Sydney Build <span>Week 2</span> · Phase <span>1 of 4</span> · Goal <span>1:15:00 · 03·07·2026</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="week-badge">W15</div>
+      <div class="week-range">2026·04·06 → 2026·04·12</div>
+      <div class="week-year">Moorabbin · Iron Viking Gym</div>
+      <div class="done-badge"><span class="cd"></span>7/7 Complete</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY STRIP -->
+  <div class="summary-strip">
+    <div class="ss">
+      <div class="sv" style="color:var(--green);">7<span class="su">/7</span></div>
+      <div class="sl">Sessions</div>
+    </div>
+    <div class="ss">
+      <div class="sv">~22<span class="su">km</span></div>
+      <div class="sl">Total Run</div>
+    </div>
+    <div class="ss">
+      <div class="sv" style="color:var(--red);">140</div>
+      <div class="sl">Total WB 🏀</div>
+    </div>
+    <div class="ss">
+      <div class="sv" style="color:var(--green);">0:53<span class="su">s</span></div>
+      <div class="sl">Best WB Set 25</div>
+    </div>
+    <div class="ss">
+      <div class="sv" style="color:var(--gold);">67<span class="su">ms</span></div>
+      <div class="sl">Best HRV (FRI)</div>
+    </div>
+    <div class="ss">
+      <div class="sv" style="color:var(--accent);">9h05</div>
+      <div class="sl">Best Sleep (SAT)</div>
+    </div>
+    <div class="ss">
+      <div class="sv" style="color:var(--gold);">4×</div>
+      <div class="sl">Yellow Days</div>
+    </div>
+  </div>
+
+  <!-- KEY WIN BANNER -->
+  <div class="win-banner">
+    <div style="font-size:22px;flex-shrink:0;">📈</div>
+    <div>
+      <div class="wb-label">WB Intra-Set Progression — Ключовий Сигнал</div>
+      <div class="wb-text">SAT: <span>0:58 → 0:55 → 0:53 → 0:53</span> — кожен сет швидший або рівний. Це прогрес, не деградація. WB repeatability <span>реально покращується</span>.</div>
+    </div>
+    <div style="margin-left:auto;text-align:right;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--green);letter-spacing:3px;line-height:1;">↑</div>
+      <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;">Progressive</div>
+    </div>
+  </div>
+
+  <!-- SLEEP BANNER -->
+  <div class="sleep-banner">
+    <div>
+      <div class="sb-label">Sleep — Змішаний Тиждень · HRV Переважно Жовтий</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--label);">4 з 7 днів — Yellow readiness. Але SAT зелений і <span style="color:var(--text);">9h05</span> → найкращий результат тижня. FRI HRV <span style="color:var(--text);">67ms</span> — найвищий за W15.</div>
+    </div>
+    <div class="sleep-arc">
+      <div class="sleep-day">
+        <div class="sd-score" style="color:var(--gold);">🟡</div>
+        <div class="sd-label">MON<br>Yellow</div>
+      </div>
+      <div class="sleep-arrow">→</div>
+      <div class="sleep-day">
+        <div class="sd-score" style="color:var(--gold);">6h53</div>
+        <div class="sd-label">TUE<br>ok</div>
+      </div>
+      <div class="sleep-arrow">→</div>
+      <div class="sleep-day">
+        <div class="sd-score" style="color:var(--gold);">ok</div>
+        <div class="sd-label">WED<br>ok</div>
+      </div>
+      <div class="sleep-arrow">→</div>
+      <div class="sleep-day">
+        <div class="sd-score" style="color:var(--gold);">ok</div>
+        <div class="sd-label">THU<br>ok</div>
+      </div>
+      <div class="sleep-arrow">→</div>
+      <div class="sleep-day">
+        <div class="sd-score" style="color:var(--green);">67ms</div>
+        <div class="sd-label">FRI<br>7h30</div>
+      </div>
+      <div class="sleep-arrow">→</div>
+      <div class="sleep-day">
+        <div class="sd-score" style="color:var(--green);">9h05</div>
+        <div class="sd-label">SAT<br>🟢</div>
+      </div>
+      <div class="sleep-arrow">→</div>
+      <div class="sleep-day">
+        <div class="sd-score" style="color:var(--gold);">7h20</div>
+        <div class="sd-label">SUN<br>ok</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK CARDS -->
+  <div class="section-lbl" style="animation:fadeUp .5s .12s ease both;">📆 Week Execution — W15 · 2026</div>
+  <div class="week-grid">
+
+    <!-- MON 06 — Yellow -->
+    <div class="dc done yellow-day">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">04</span><span class="dot">·</span><span class="dd">06</span></div>
+        <div class="dc-abbr">MON</div>
+        <div class="dc-tag">Speed Economy</div>
+        <div class="status-chip chip-yellow">🟡 Yellow</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span><span class="gd">4×1km</span> — Yellow version</span></div>
+        <div class="di"><span class="ic">—</span><span>R2 <span class="or">трохи гарячий</span> — HRV suppressed</span></div>
+        <div class="di"><span class="ic">—</span><span>R1 + R4 <span class="gr">добре контрольовані</span></span></div>
+        <div class="di"><span class="ic">✔</span><span>Зупинився на 4 рапах — <span class="gr">правильно</span></span></div>
+        <div class="di"><span class="ic">→</span><span class="mu">Block protected · no ego</span></div>
+      </div>
+    </div>
+
+    <!-- TUE 07 -->
+    <div class="dc done done-gold">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">04</span><span class="dot">·</span><span class="dd">07</span></div>
+        <div class="dc-abbr">TUE</div>
+        <div class="dc-tag">Lower + Sled</div>
+        <div class="status-chip chip-done">✓ DONE</div>
+        <div class="sleep-chip sleep-ok">😴 6h53 · HRV 45ms</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span>Lower session <span class="gr">повністю виконано</span></span></div>
+        <div class="di"><span class="ic">🛷</span><span>Sled push + pull <span class="hi">controlled</span></span></div>
+        <div class="di"><span class="ic">—</span><span>1:05:05 · avg HR <span class="gr">113</span> bpm</span></div>
+        <div class="di"><span class="ic">—</span><span>Z1 <span class="gr">dominant</span> · low CNS cost</span></div>
+        <div class="di"><span class="ic">—</span><span>Post HR: 81→<span class="gr">78</span>→79 — fast</span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones</div>
+          <div class="hr-zone-row">
+            <div class="hz hz1" style="width:78%;"></div>
+            <div class="hz hz2" style="width:13%;"></div>
+            <div class="hz hz3" style="width:6%;"></div>
+            <div class="hz hz4" style="width:3%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WED 08 -->
+    <div class="dc done done-green">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">04</span><span class="dot">·</span><span class="dd">08</span></div>
+        <div class="dc-abbr">WED</div>
+        <div class="dc-tag">Upper + Z2 Bridge</div>
+        <div class="status-chip chip-done">✓ DONE</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">—</span><span>Strength + shoulder block <span class="gr">done</span></span></div>
+        <div class="di"><span class="ic">🏃</span><span>Easy run <span class="gr">fully aerobic</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Z1 <span class="gr">dominant</span> · low CNS cost</span></div>
+        <div class="di"><span class="ic">→</span><span class="mu">THU protected · bridge day done right</span></div>
+        <div class="di" style="padding:10px 0 0;font-size:18px;justify-content:center;border:none;opacity:.4;">🌉</div>
+      </div>
+    </div>
+
+    <!-- THU 09 -->
+    <div class="dc done done-red">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">04</span><span class="dot">·</span><span class="dd">09</span></div>
+        <div class="dc-abbr">THU</div>
+        <div class="dc-tag">HYROX Rhythm 🔥</div>
+        <div class="status-chip chip-yellow">🟡 Yellow version</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🛷</span><span>2 rounds · sled push + pull</span></div>
+        <div class="di"><span class="ic">🏀</span><span>WB: <span class="rd">20 smooth</span> · +20 · +15 opt</span></div>
+        <div class="di"><span class="ic">—</span><span>First 20 <span class="gr">strong</span> · second 20 <span class="hi">solid</span></span></div>
+        <div class="di"><span class="ic">—</span><span>+15 showed <span class="or">exact limiter point</span></span></div>
+        <div class="di"><span class="ic">—</span><span>BBJ controlled — <span class="gr">rhythm improving</span></span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones</div>
+          <div class="hr-zone-row">
+            <div class="hz hz2" style="width:20%;"></div>
+            <div class="hz hz3" style="width:50%;"></div>
+            <div class="hz hz4" style="width:30%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRI 10 -->
+    <div class="dc done done-blue">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">04</span><span class="dot">·</span><span class="dd">10</span></div>
+        <div class="dc-abbr">FRI</div>
+        <div class="dc-tag">Aerobic Reset 🫁</div>
+        <div class="status-chip chip-done">✓ DONE</div>
+        <div class="sleep-chip sleep-good">😴 7h30 · HRV <span style="color:var(--green);">67ms</span></div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span>Z2 run <span class="ac">5.02km</span> · 31:24</span></div>
+        <div class="di"><span class="ic">—</span><span>Avg pace <span class="hi">6:15</span>/km · HR <span class="ac">122</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Z1 23:21 + Z2 8:02 · <span class="gr">Z3 = 0</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Natural <span class="gr">negative split</span> · 6:29→6:06</span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones — Perfect Reset</div>
+          <div class="hr-zone-row">
+            <div class="hz hz1" style="width:74%;"></div>
+            <div class="hz hz2" style="width:26%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAT 11 — Green + PR -->
+    <div class="dc done done-green">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">04</span><span class="dot">·</span><span class="dd">11</span></div>
+        <div class="dc-abbr">SAT</div>
+        <div class="dc-tag">WB Dev Day 🏀</div>
+        <div class="status-chip chip-green">🟢 GREEN</div>
+        <div class="sleep-chip sleep-good">😴 9h05 · HRV 54</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span>Primer: <span class="hi">3×400m</span> · 5:04→4:57→4:52</span></div>
+        <div class="di"><span class="ic">🏀</span><span>4×25: <span class="gr">0:58/0:55/0:53/0:53</span> ↑↑</span></div>
+        <div class="di"><span class="ic">🏀</span><span>Fatigue: <span class="rd">2×(lunges+20WB)</span></span></div>
+        <div class="di"><span class="ic">—</span><span>WB after lunges: <span class="gr">0:44/0:45 ↑stable</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Total <span class="gd">140 WB</span> · avg HR 118</span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones (functional)</div>
+          <div class="hr-zone-row">
+            <div class="hz hz1" style="width:60%;"></div>
+            <div class="hz hz2" style="width:8%;"></div>
+            <div class="hz hz3" style="width:11%;"></div>
+            <div class="hz hz4" style="width:20%;"></div>
+            <div class="hz hz5" style="width:1%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUN 12 -->
+    <div class="dc done done-blue">
+      <div class="dc-head">
+        <div class="dc-iso"><span class="yr">2026</span><span class="dot">·</span><span class="mo">04</span><span class="dot">·</span><span class="dd">12</span></div>
+        <div class="dc-abbr">SUN</div>
+        <div class="dc-tag">Recovery Run 🫁</div>
+        <div class="status-chip chip-yellow">🟡 Yellow</div>
+        <div class="sleep-chip sleep-ok">😴 7h20 · HRV 43</div>
+      </div>
+      <div class="dc-body">
+        <div class="di"><span class="ic">🏃</span><span>Run <span class="ac">5.03km</span> · 31:05</span></div>
+        <div class="di"><span class="ic">—</span><span>Avg pace <span class="hi">6:10</span>/km · HR <span class="ac">125</span></span></div>
+        <div class="di"><span class="ic">—</span><span>Z1+Z2 <span class="gr">100%</span> · Z3 = 0:00</span></div>
+        <div class="di"><span class="ic">—</span><span>Strong wind + cold — <span class="hi">adapted</span></span></div>
+        <div class="hr-mini">
+          <div class="hr-mini-label">HR Zones</div>
+          <div class="hr-zone-row">
+            <div class="hz hz1" style="width:49%;"></div>
+            <div class="hz hz2" style="width:51%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DEEP DIVE -->
+  <div class="section-lbl" style="animation:fadeUp .5s .28s ease both;">📊 Session Deep Dive</div>
+
+  <div class="detail-grid">
+
+    <!-- SAT WB Progression -->
+    <div class="card" style="animation-delay:.30s;border-top:2px solid var(--green);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--green);"></span>Sat 04·11 — WB Progression Analysis</div>
+
+      <div style="margin-bottom:12px;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Main Block 4×25 — Intra-set Arc</div>
+
+      <div class="wb-prog-row">
+        <div class="wp-set">S1</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:72%;background:var(--muted);"></div></div>
+        <div class="wp-time" style="color:var(--muted);">0:58</div>
+        <div class="wp-reps">25 WB</div>
+      </div>
+      <div class="wb-prog-row">
+        <div class="wp-set">S2</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:85%;background:var(--accent);"></div></div>
+        <div class="wp-time" style="color:var(--accent);">0:55</div>
+        <div class="wp-reps">25 WB</div>
+      </div>
+      <div class="wb-prog-row">
+        <div class="wp-set">S3</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="wp-time" style="color:var(--green);">0:53 🏆</div>
+        <div class="wp-reps">25 WB</div>
+      </div>
+      <div class="wb-prog-row">
+        <div class="wp-set">S4</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="wp-time" style="color:var(--green);">0:53</div>
+        <div class="wp-reps">25 WB</div>
+      </div>
+
+      <div style="margin:14px 0 8px;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Fatigue Block — після lunges</div>
+      <div class="wb-prog-row">
+        <div class="wp-set">F1</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:95%;background:var(--gold);"></div></div>
+        <div class="wp-time" style="color:var(--gold);">0:44</div>
+        <div class="wp-reps">20 WB</div>
+      </div>
+      <div class="wb-prog-row">
+        <div class="wp-set">F2</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:92%;background:var(--gold);"></div></div>
+        <div class="wp-time" style="color:var(--gold);">0:45</div>
+        <div class="wp-reps">20 WB</div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:12px;padding:10px 12px;border:1px solid rgba(0,255,135,.12);background:rgba(0,255,135,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Total WB</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--green);">140</div>
+      </div>
+
+      <div class="insight-box">
+        <div class="ib-label">Key Insight</div>
+        <div class="ib-text">S1→S4: кожен сет <span>швидший або рівний</span>. Це WB repeatability в дії — не деградація, а адаптація. Fatigue WB стабільні (0:44/0:45) = <span>transfer є</span>.</div>
+      </div>
+    </div>
+
+    <!-- THU HYROX -->
+    <div class="card" style="animation-delay:.34s;border-top:2px solid var(--red);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--red);"></span>Thu 04·09 — HYROX Rhythm · Yellow</div>
+
+      <div style="padding:10px 12px;border:1px solid rgba(255,215,0,.12);background:rgba(255,215,0,.03);margin-bottom:14px;">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:2px;margin-bottom:3px;">YELLOW DAY · ПРАВИЛЬНА ВЕРСІЯ</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">2 rounds · HRV ще подавлений · WB краще ніж очікувалось</div>
+      </div>
+
+      <div class="mrow"><span class="mk">WB Round 1</span><span class="mv" style="color:var(--green);">20 smooth</span></div>
+      <div class="mrow"><span class="mk">WB Round 2</span><span class="mv" style="color:var(--green);">20 solid</span></div>
+      <div class="mrow"><span class="mk">+Optional finish</span><span class="mv" style="color:var(--orange);">15 WB</span></div>
+      <div class="mrow"><span class="mk">Total WB Thursday</span><span class="mv" style="color:var(--gold);">55</span></div>
+      <div class="mrow"><span class="mk">BBJ</span><span class="mv" style="color:var(--accent);">rhythm ↑</span></div>
+
+      <div style="margin-top:12px;padding:9px 10px;border:1px solid rgba(255,71,87,.1);background:rgba(255,71,87,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--red);letter-spacing:2px;margin-bottom:3px;">LIMITER SIGNAL</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">+15 WB showed <span style="color:var(--text);">exactly where repeated WB density breaks</span>. This is useful diagnostic, not failure.</div>
+      </div>
+
+      <div class="zone-full" style="margin-top:12px;">
+        <div class="zf-title">HR Zones</div>
+        <div class="zf-row"><div class="zf-label" style="color:var(--accent);">Z2</div><div class="zf-bar-bg"><div class="zf-bar-fill" style="width:20%;background:var(--accent);"></div></div><div class="zf-time">~20%</div></div>
+        <div class="zf-row"><div class="zf-label" style="color:var(--gold);">Z3</div><div class="zf-bar-bg"><div class="zf-bar-fill" style="width:50%;background:var(--gold);"></div></div><div class="zf-time">~50%</div></div>
+        <div class="zf-row"><div class="zf-label" style="color:var(--orange);">Z4</div><div class="zf-bar-bg"><div class="zf-bar-fill" style="width:30%;background:var(--orange);"></div></div><div class="zf-time">~30%</div></div>
+      </div>
+    </div>
+
+    <!-- Assessment -->
+    <div class="card" style="animation-delay:.38s;border-top:2px solid var(--accent);">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--accent);"></span>W15 Assessment</div>
+      <div class="assess-item good">SAT WB <span style="color:var(--text);">0:58→0:53</span> — прогрес від сету до сету. Repeatability підтверджено.</div>
+      <div class="assess-item good">WB після lunges <span style="color:var(--text);">0:44/0:45</span> — fatigue transfer стабільний.</div>
+      <div class="assess-item good">FRI: HRV <span style="color:var(--text);">67ms</span> — найкращий показник тижня. Відновлення є.</div>
+      <div class="assess-item good">WED bridge day <span style="color:var(--text);">повністю захистив THU</span> — правильна пріоритизація.</div>
+      <div class="assess-item good">MON: зупинився на 4 рапах — <span style="color:var(--text);">ego не переміг</span>.</div>
+      <div class="assess-item good">SUN: Z1+Z2 при сильному вітрі — <span style="color:var(--text);">дисципліна збережена</span>.</div>
+      <div class="assess-item warn">4 Yellow дні з 7 — <span style="color:var(--text);">HRV ще нестабільний</span> · sleep onset проблема залишається.</div>
+      <div class="assess-item warn">MON R2 <span style="color:var(--text);">трохи гарячий</span> — потребує уваги при Yellow readiness.</div>
+      <div class="assess-item warn">THU +15 WB — <span style="color:var(--text);">показав точний лімітер density</span> · поки не вирішено.</div>
+      <div class="assess-item note">W16 = Phase 1 W3 (фінальна). <span style="color:var(--accent);">HRV stabilization — головна ціль.</span></div>
+    </div>
+
+  </div>
+
+  <!-- FRI + SUN splits -->
+  <div class="detail-grid">
+
+    <div class="card" style="animation-delay:.42s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--accent);"></span>Fri 04·10 — Aerobic Reset Splits</div>
+
+      <table class="split-table">
+        <tr><th>КМ</th><th>Pace</th><th>HR</th><th>Power</th></tr>
+        <tr><td>1</td><td>6:29</td><td>—</td><td>228W</td></tr>
+        <tr><td>2</td><td>6:17</td><td>—</td><td>—</td></tr>
+        <tr><td>3</td><td>6:08</td><td>—</td><td>—</td></tr>
+        <tr><td>4</td><td class="gr">6:07</td><td>—</td><td>—</td></tr>
+        <tr><td>5</td><td class="gr">6:06</td><td>—</td><td>242W</td></tr>
+      </table>
+
+      <div class="insight-box" style="margin-top:12px;">
+        <div class="ib-label">Natural Negative Split</div>
+        <div class="ib-text">6:29 → 6:06 без форсування. HRV 67ms — <span>найвищий за тиждень</span>. Cadence 157–160 стабільний. Відновлення реальне.</div>
+      </div>
+    </div>
+
+    <div class="card" style="animation-delay:.46s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--accent);"></span>Sun 04·12 — Recovery Run Splits</div>
+
+      <table class="split-table">
+        <tr><th>КМ</th><th>Pace</th><th>HR</th></tr>
+        <tr><td>1</td><td>6:24</td><td>113</td></tr>
+        <tr><td>2</td><td>6:02</td><td>124</td></tr>
+        <tr><td class="hi">3</td><td class="hi">5:50</td><td>131</td></tr>
+        <tr><td>4</td><td>6:17</td><td>128</td></tr>
+        <tr><td>5</td><td>6:12</td><td>132</td></tr>
+      </table>
+
+      <div style="margin-top:12px;padding:9px 10px;border:1px solid rgba(0,229,255,.1);background:rgba(0,229,255,.03);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--accent);letter-spacing:2px;margin-bottom:3px;">Умови</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--label);">Сильний вітер + холод. Km3 швидше — але HR стриманий. Cadence 158 spm. Система адаптувалась, не зламалась.</div>
+      </div>
+    </div>
+
+    <div class="card" style="animation-delay:.50s;">
+      <div class="card-ttl"><span class="ct-dot" style="background:var(--gold);"></span>SAT Run Primer — 3×400m</div>
+
+      <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;margin-bottom:12px;text-transform:uppercase;">Progressive Acceleration</div>
+
+      <div class="wb-prog-row">
+        <div class="wp-set">R1</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:72%;background:var(--muted);"></div></div>
+        <div class="wp-time" style="color:var(--muted);">5:04</div>
+        <div class="wp-reps">/km</div>
+      </div>
+      <div class="wb-prog-row">
+        <div class="wp-set">R2</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:86%;background:var(--accent);"></div></div>
+        <div class="wp-time" style="color:var(--accent);">4:57</div>
+        <div class="wp-reps">/km</div>
+      </div>
+      <div class="wb-prog-row">
+        <div class="wp-set">R3</div>
+        <div class="wp-bar-bg"><div class="wp-bar-fill" style="width:100%;background:var(--green);"></div></div>
+        <div class="wp-time" style="color:var(--green);">4:52</div>
+        <div class="wp-reps">/km</div>
+      </div>
+
+      <div class="mrow" style="margin-top:12px;"><span class="mk">Avg HR primer</span><span class="mv">125<span class="mu2">bpm</span></span></div>
+      <div class="mrow"><span class="mk">Duration</span><span class="mv">10:52</span></div>
+      <div class="mrow"><span class="mk">Distance</span><span class="mv">1.62<span class="mu2">km</span></span></div>
+
+      <div class="insight-box">
+        <div class="ib-label">Primer Function</div>
+        <div class="ib-text">Активував систему <span>без fatigue spillover</span> в WB block. Pacing discipline — жодного overpush на початку.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- IDENTITY -->
+  <div class="identity">
+    <div class="id-lbl">🐺 Wolf Identity</div>
+    <div class="id-lines">
+      <div class="id-line">We do not chase races.</div>
+      <div class="id-line">We build capacity.</div>
+      <div class="id-line hl">We hunt numbers.</div>
+      <div class="id-line hl">We earn the flight.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-l">W15 COMPLETED · 2026·04·06 → 2026·04·12 &nbsp;//&nbsp; YARO &nbsp;//&nbsp; SYDNEY BUILD W2 · PHASE 1: STABILIZE · 7/7</div>
+    <div class="tags">
+      <div class="tag">#Sydney</div>
+      <div class="tag">#Stabilize</div>
+      <div class="tag">#WallBalls</div>
+      <div class="tag">#Fitness</div>
+      <div class="tag">#Raport</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.wp-bar-fill, .zf-bar-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0';
+      setTimeout(() => { el.style.width = w; }, 200);
+    });
+  });
+</script>
+
+</body>
+</html>
