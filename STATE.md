@@ -5,21 +5,21 @@
 ---
 
 ## TIME ANCHOR
-- **Last verified:** 2026-05-17 15:53 Melbourne (AEST) — SUNDAY AFTERNOON (audit fix)
+- **Last verified:** 2026-05-18 Melbourne (AEST) — MONDAY POST-RUN
 - **Race day:** 2026-07-03 (Friday) — HYROX Sydney
-- **Days to race:** 48
-- **Sydney Build Day:** 49 of ~95
-- **Sydney Build Week:** 7
-- **Annual Week:** 20
-- **Phase:** Phase 2 — BUILD (Week 4 of 5; W21 closes Phase 2; ends Sunday 2026-05-24)
+- **Days to race:** 46
+- **Sydney Build Day:** 50 of ~95
+- **Sydney Build Week:** 8
+- **Annual Week:** 21
+- **Phase:** Phase 2 — BUILD (Week 5 of 5; W21 closes Phase 2; ends Sunday 2026-05-24)
 - **Next phase boundary:** Monday 2026-05-25 → Phase 3 Specific Peak
-- **Today's event:** WB Probe COMPLETED — 50 reps @ 9 kg under deeper fatigue (Grade A)
+- **Today's event:** Run Economy / Controlled Quality COMPLETED — 4×1 km Yellow-Green (Grade A-)
 
 ---
 
 ## ATHLETE SNAPSHOT
 - **Yaro · 46 · Pro Men 45–49 · 196 cm · 84 kg · BMI 21.9**
-- **VO₂max:** 57 ml/kg/min (W18 PR; progression 54 → 56 → 57 across Sydney build)
+- **VO₂max / Cardio Fitness:** 58 ml/kg/min (W21 PR; progression 54 → 56 → 57 → 58 across Sydney build)
 - **HR recovery:** 160→99 bpm in 2 min (excellent)
 - **Race target:** 1:15:00 HYROX Sydney 2026-07-03
 - **Gym:** Iron Viking, Moorabbin (Australia)
@@ -60,8 +60,10 @@
 - **Status:** efficiency rising fast; pull is becoming a weapon
 
 ### Running
+- **W21 MON 2026-05-18:** 4×1km Yellow-Green — 4:27 / 4:28 / 4:26 / 4:19; HR 145 / 141 / 145 / 147; final rep fastest; no Zone 5; lower-leg/ankle warmth 1→2/10, no cramp, no under-knee pulling; Cardio Fitness / VO2max = 58
 - **1 km fresh:** 4:14–4:19 / km @ HR 141–146 (W18 MON 5 reps)
 - **1 km Yellow:** 4:22–4:26 / km @ HR 142–144 (W20 MON 4 reps)
+- **1 km Yellow-Green:** 4:19–4:28 / km @ HR 141–147 (W21 MON 4 reps; final rep fastest)
 - **Best single rep:** 4:09 / km (Brisbane W11 R5)
 - **800 m intervals fresh:** 4:16–4:29 / km (W17 MON 6 reps; R4 best 4:16)
 - **10 km progressive:** 5:14/km avg, 4:44 best km (Brisbane W13 SUN)
@@ -111,7 +113,7 @@
 2. **Sleep volume** — last 7 days avg 6h54, 47% restful; below 7h30 target
 3. **HRV volatility** — W20 swung 32 → 51 ms across week
 
-**Latest victory:** WB round stability 1:00 / 1:00 under fragment fatigue (W20 THU 2026-05-14)
+**Latest victory:** W21 MON run economy — final 1 km fastest at 4:19/km @ HR 147 with no Zone 5, despite fragmented sleep and nervous-system stress
 
 **Reference:** `state/limiters_now.md`
 
@@ -127,9 +129,9 @@
 
 ## PHASE TRANSITION READINESS (Phase 2 → Phase 3)
 - ✓ Wall-ball repeatability EXCELLENT (61/61/62/61 stable; 50 clean under deep fatigue)
-- ✓ Compromised running on target (5:05/km @ HR 145 post-fragment; 4:14–4:19 fresh)
+- ✓ Compromised / controlled running on target (5:05/km @ HR 145 post-fragment; W21 4×1km with final 4:19 @ HR 147 and no Zone 5)
 - ✓ Lunge/sled durability above race needs (245 kg push, 204 kg pull)
-- ✓ VO₂max ↑PR (57; +6% across build)
+- ✓ VO₂max / Cardio Fitness ↑PR (58; progression 54 → 56 → 57 → 58)
 - ✓ Recovery validated on Green sleep (9h35 / HRV 67 = breakthrough conditions)
 - △ Sleep CONSISTENCY borderline (one Green night, six volatile)
 
@@ -160,5 +162,5 @@ Conditional:
 
 ---
 
-**This file last fully refreshed:** 2026-05-16 10:30 Melbourne (Saturday — probe day)
-**Next mandatory refresh:** Saturday post-probe + Sunday 2026-05-17 (weekly close-out)
+**This file last fully refreshed:** 2026-05-18 Melbourne (Monday — W21 run economy update)
+**Next mandatory refresh:** Saturday 2026-05-23 post-probe + Sunday 2026-05-24 weekly close-out

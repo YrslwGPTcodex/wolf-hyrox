@@ -2,7 +2,7 @@
 
 > **High-frequency file. Updated whenever active limiter or risk changes. Overwrite, do not append.**
 
-**Last updated:** 2026-05-16 (Saturday evening, Melbourne, post-probe)
+**Last updated:** 2026-05-18 (Monday, Melbourne, post-run)
 
 ---
 
@@ -53,6 +53,13 @@
 
 ## LATEST VICTORIES
 
+### W21 MON 2026-05-18 — RUN ECONOMY UNDER STRESS
+- **4×1 km Yellow-Green:** 4:27 / 4:28 / 4:26 / 4:19
+- **Final rep fastest:** 4:19/km @ HR 147
+- **No Zone 5:** correct controlled-quality execution
+- **Lower leg / ankle:** warmth rose 1→2/10 only; no cramp, no under-knee pulling
+- **Cardio Fitness / VO2max:** 58
+
 ### W20 SAT 2026-05-16 — BREAKTHROUGH
 - **WB clean line: 40 → 50 under HARDER fatigue** (added 1.09 km @ 5:05/km HR 145 entry vs W19's 3:00 passive rest)
 - **Round stability: 61/61/62/61** — almost zero drift over 4 rounds
@@ -78,7 +85,7 @@
 - WB repeatability: ✓ EXCELLENT (50 under deeper fatigue + 61/61/62/61 stability)
 - Compromised running: ✓ PASS (5:05/km HR 145 post-fragment)
 - Lunge/sled durability: ✓ PASS (245 kg push, 204 kg pull)
-- VO₂max trajectory: ✓ PASS (57 PR W18)
+- VO₂max trajectory: ✓ PASS (58 PR W21)
 - Recovery on probe day: ✓ VALIDATED (Green sleep produced breakthrough)
 - Recovery consistency week-wide: △ BORDERLINE
 

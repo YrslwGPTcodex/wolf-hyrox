@@ -1,6 +1,6 @@
-# Current Week — W20 (2026-05-11 to 2026-05-17)
+# Current Week — W20 archive pending + W21 live
 
-> **This file accumulates daily entries (readiness + plan + data + report) across the week. At Sunday close-out, it is renamed to `archive/2026/week_20_report.md` and a fresh `current_week.md` is created for W21.**
+> **This file accumulates daily entries (readiness + plan + data + report) across the week. W20 remains below until archive migration; W21 live entries begin at `# W21 LIVE WEEK — 2026-05-18 to 2026-05-24`.**
 
 ```
 Phase 2 — BUILD (Week 5 of 5; final consolidation before Phase 3)
@@ -271,3 +271,55 @@ Weekly close-out tasks (Claude, Sunday):
 5. Refresh STATE.md
 6. Update readiness_trend with Sunday data
 7. (Optional) regenerate dashboard HTML for Wolf Portal
+
+---
+
+# W21 LIVE WEEK — 2026-05-18 to 2026-05-24
+
+```
+Phase 2 — BUILD (Week 5 of 5; final consolidation before Phase 3)
+Sydney Build Week 8 · Annual Week 21
+Sydney Build Day 50 begins Monday 2026-05-18
+```
+
+---
+
+# MONDAY MORNING — 2026-05-18 / READINESS
+- Sleep: 7h00
+- Restful %: data not clearly provided
+- HRV: 60.8 daily / 53.6 24h / 42 morning
+- HRV vs baseline: +36%
+- Calves / lower leg: lower-leg / ankle warmth rose 1→2/10 during run; no cramp; no under-knee pulling
+- Body feel: low energy, poor mood, stressed
+- Context: fragmented sleep with 1h05 disruption; pelvic/anal spasm overnight
+
+## TODAY'S CALIBRATED PLAN — Yellow-Green
+- Session: Run Economy / Controlled Quality
+- Planned: 5–6 × 1 km depending on readiness
+- Readiness adjustment: cap at 4 reps if sleep / nervous-system stress showed up during session
+- Target: controlled Yellow-Green economy, no Zone 5
+- Preserve Tuesday lower + sled option
+
+# MONDAY SESSION DATA — 2026-05-18
+- Actual: 4 × 1 km
+- Splits: 4:27 / 4:28 / 4:26 / 4:19
+- HR avg by rep: 145 / 141 / 145 / 147 bpm
+- Best rep: R4, 4:19/km @ 147 bpm average HR
+- Average pace: ~4:25/km
+- Cadence: 166→178 spm
+- Zone 5: none
+- Calves / lower leg: warmth rose 1→2/10 during run; no cramp; no under-knee pulling
+- Cardio Fitness / VO2max: 58
+
+# MONDAY SESSION REPORT — 2026-05-18
+- **Session:** Run Economy / Controlled Quality
+- **Grade:** A-
+- **Planned vs actual:** Planned 5–6 × 1 km depending on readiness; completed 4 × 1 km. Reduction was correct under Yellow-Green readiness.
+- **Execution:** Controlled economy stayed intact despite fragmented sleep, nervous-system stress, low mood, and low energy.
+- **Main win:** Final rep was fastest — 4:19/km at 147 bpm average HR.
+- **Main constraint:** Fragmented sleep, nervous-system stress, low mood, and low energy limited total repeat count.
+- **Running economy:** 4:27 / 4:28 / 4:26 / 4:19 with HR 145 / 141 / 145 / 147 shows pace improved without HR drift into Zone 5.
+- **Lower-leg status:** Warmth rose only 1→2/10; no cramp and no under-knee pulling.
+- **Key outcome:** Running economy stayed strong, and Cardio Fitness / VO2max rose to 58.
+- **Decision quality:** Correct stop at 4 reps preserved Tuesday lower + sled option and protected the block.
+- **Today's principle:** Finish faster without burning the system.

@@ -49,7 +49,7 @@
 
 ---
 
-## Phase 2 — Build (CURRENT — Week 4 of 5)
+## Phase 2 — Build (CURRENT — Week 5 of 5)
 
 **Goal:** Build station-specific capacity; race-fragment durability; running economy at race pace.
 
@@ -66,8 +66,8 @@
 - W17: 7/7; sled push 245 kg PR; WB 4×25 = 58/59/61/59 fresh
 - W18: 7/7; VO₂max 57 PR; sled push 240/49/42 best; WB clean lock 30
 - W19: completed; calf-controlled; WB clean lock 30 → 40
-- W20: in progress (THU done, FRI done); SAT probe target 50+
-- W21: final Phase 2 week, consolidation; planned post W20 close-out
+- W20: completed key probe; WB clean lock 50 under deeper fatigue; 150 WB session PR
+- W21: final Phase 2 week in progress; MON 4×1km Yellow-Green, final 4:19 @ HR 147; VO₂max / Cardio Fitness 58
 
 **Phase 2 → Phase 3 transition gates:**
 - WB repeatability ✓
@@ -155,7 +155,7 @@
 | KPI | Target | Current Status |
 |---|---|---|
 | WB 100 UB under fatigue | 100 unbroken | 50 clean (W20 SAT 2026-05-16; progressed from 40 clean on May 9); 60 demonstrated W12 |
-| 1 km running compromised | 4:15–4:25 / km | 4:22 Yellow; 4:17 fresh ✓ |
+| 1 km running compromised | 4:15–4:25 / km | 4:19–4:28 Yellow-Green W21; 4:17 fresh ✓ |
 | Sled Push 50 m race load | ≤1:20 | 245 kg gym working; race load below ✓ |
 | Sled Pull 50 m race load | ≤3:00 | 204 kg gym working; race load below ✓ |
 | Station transitions | ≤15 sec | Needs Phase 3 work |
@@ -173,4 +173,4 @@ This file updates only when:
 
 Day-to-day execution does not modify this file.
 
-Last updated: 2026-05-15
+Last updated: 2026-05-18

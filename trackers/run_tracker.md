@@ -28,6 +28,7 @@
 | 2026-04-20 | W17 MON | Sydney W4 Phase 2 W1 | 6×800m | **R4 4:16** | 4:16–4:29 | 141–143 | 167→178 | Phase 2 opener; race-pace corridor |
 | 2026-04-27 | W18 MON | Sydney W5 Phase 2 W2 | 5×1km | **R2 4:14** | 4:17 | 145–146 | 171→181 | Grade A; plan was 4:25–4:35 |
 | 2026-05-11 | W20 MON | Sydney W7 Phase 2 W4 | 4×1km Yellow | 4:22 | 4:22–4:26 | 142–144 | — | Yellow; HRV suppressed |
+| 2026-05-18 | W21 MON | Sydney W8 Phase 2 W5 | 4×1km Yellow-Green | 4:19 R4 | ~4:25 | 141–147 | 166→178 | Fragmented sleep / nervous-system stress; correct stop at 4; no Zone 5; Cardio Fitness 58 |
 
 ---
 
@@ -65,6 +66,7 @@
 - **Best 1 km single rep:** 4:09 / km (Brisbane W11 R5)
 - **Best 800 m single rep:** 4:16 / km (W17 MON R4)
 - **5×1 km fresh average:** 4:17 / km (W18 MON)
+- **4×1 km Yellow-Green average:** ~4:25 / km (W21 MON; final 4:19 @ HR 147)
 - **5×1 km Yellow average:** 4:22 / km (W20 MON)
 - **10 km progressive best km:** 4:44 / km (W13 SUN)
 - **Cadence fresh:** 171–181 spm (W17, W18 MON peak)
@@ -78,7 +80,7 @@
 - 8 × 1 km running spread across HYROX format
 - Target pace: 4:00–4:15 / km for 1:15 total
 - Compromised pace (after stations): must hold 4:15–4:25 / km in middle race
-- Current Yellow 4:22–4:26 closely matches compromised target
+- Current Yellow-Green 4:19–4:28 closely matches compromised target
 
 ---
 

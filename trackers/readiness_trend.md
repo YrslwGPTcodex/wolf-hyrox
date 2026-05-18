@@ -35,7 +35,7 @@
 
 ---
 
-## W20 (2026-05-11 to 2026-05-17 in progress)
+## W20 (2026-05-11 to 2026-05-17)
 
 | Date | Day | Sleep h | Restful % | HRV ms | HRV %vs baseline | Calves L | Calves R | Body feel | Notes |
 |---|---|---|---|---|---|---|---|---|---|
@@ -45,6 +45,14 @@
 | 2026-05-14 | THU | 7h59 | — | 51 sleeping / 43.6 daily | +1% recovered | improved post-B12 | improved post-B12 | Yellow-Green | B12 injection; B12 corrected calves |
 | 2026-05-15 | FRI | — | — | — | — | held | held | — | Aerobic reset 5.04 km clean |
 | 2026-05-16 | SAT | 9h35 (effective ~8h30) | 53% (5h05 restful) | 67 (avg sleeping) / 53.2 (24h) / 62 (morning) | **+54%** vs 30-day | OK (mild during BBJ) | OK (mild during BBJ) | strong | **Green; 3-day target 105%; sleep dip 19%; sleeping HR 54; resp 17.2 brpm; SpO2 95% — probe day breakthrough conditions** |
+
+---
+
+## W21 (2026-05-18 to 2026-05-24 in progress)
+
+| Date | Day | Sleep h | Restful % | HRV ms | HRV %vs baseline | Calves L | Calves R | Body feel | Notes |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-05-18 | MON | 7h00 | data not clearly provided | 60.8 daily / 53.6 24h / 42 morning | +36% | 1→2/10 warmth (not side-split) | 1→2/10 warmth (not side-split) | low energy, poor mood, stressed | Fragmented sleep, 1h05 disruption, pelvic/anal spasm overnight, 4×1km completed, final rep 4:19 @ HR 147, VO2max/Cardio Fitness 58 |
 
 ---
 

@@ -12,8 +12,8 @@
 - **Height:** 196 cm
 - **Weight:** 84 kg
 - **BMI:** 21.9 (optimal for functional sport)
-- **VO₂max:** 57 ml/kg/min (PR W18; +6% across Sydney build)
-  - Progression: 53 (W12) → 54 (W13) → 56 (W17) → **57 (W18)**
+- **VO₂max / Cardio Fitness:** 58 ml/kg/min (PR W21)
+  - Progression: 53 (W12) → 54 (W13) → 56 (W17) → 57 (W18) → **58 (W21)**
   - Reference: 90th percentile masculine 45–49 (Cooper Clinic data)
 - **HR recovery:** 160→99 bpm in 2 min (≈30 bpm/min — excellent)
 
@@ -88,8 +88,8 @@
 ## Strategic Context
 - **Pivot benefit:** added 12 weeks vs Brisbane; allowed Phase 1 Stabilize as rebuilding bridge
 - **Key adaptation Brisbane → Sydney:** sled push 220 kg → 245 kg (Brisbane peak → Sydney Build Week 4 PR)
-- **Running economy still improving:** 4:22–4:26 Yellow at HR 142–144 now matches Brisbane fresh efforts at HR 145+
-- **VO₂max trajectory positive:** +6% across build, with W18 PR confirming aerobic engine is still rising in Phase 2
+- **Running economy still improving:** 4:19–4:28 Yellow-Green at HR 141–147 now matches Brisbane fresh efforts at HR 145+
+- **VO₂max trajectory positive:** 58 PR in W21 confirms aerobic engine is still rising in Phase 2
 
 ## Recovery Profile
 - **Sleep target:** 7h30+ for Green readiness

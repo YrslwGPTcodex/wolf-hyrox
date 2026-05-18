@@ -1,4 +1,4 @@
-# Current Week Plan — W20 (Sydney Build Week 7, Phase 2 Build Week 5 of 5)
+# Current Week Plan — W20 archive pending + W21 live overlay
 
 ```
 TIME ANCHOR (verified 2026-05-15 21:53 Melbourne)
@@ -8,6 +8,22 @@ TIME ANCHOR (verified 2026-05-15 21:53 Melbourne)
 - Days to race: 49
 - Phase 3 entry: 2026-05-25 (Monday, 10 days)
 ```
+
+---
+
+## W21 LIVE STATUS OVERLAY (added 2026-05-18)
+
+W20 close-out material remains below until archive migration. Current W21 Monday status:
+
+| Day | Date | Session Type | Status | Variant Used |
+|---|---|---|---|---|
+| MON | 2026-05-18 | Run Economy / Controlled Quality | ✓ COMPLETED | 4×1km controlled — 4:27 / 4:28 / 4:26 / 4:19, Grade A- |
+
+**Monday result notes:**
+- Correct reduction from planned 5–6 reps to 4 reps due to Yellow-Green readiness
+- Final rep fastest: 4:19/km @ HR 147
+- No Zone 5
+- Preserved Tuesday lower + sled option
 
 ---
 
